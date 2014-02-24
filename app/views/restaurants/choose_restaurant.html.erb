@@ -1,0 +1,11 @@
+<%= form_tag survey_of_today_path do %>
+
+	<div class="field">
+		<%= label_tag "restaurant_to_search", "Restaurant: " %>
+		<%= select_tag "restaurant_to_search", options_from_collection_for_select(Restaurant.all, :id, :name) %>
+	</div>
+
+	<div>
+		<%= submit_tag "Enviar" %>
+	</div>
+<% end %>

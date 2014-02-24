@@ -1,0 +1,14 @@
+<h1><%= @restaurant.name %></h1>
+
+<ul>
+<% @survey.availabilities.each do |av| %>
+	<li>
+		<%= av.question.title %>
+		<ul>
+			<% av.question.alternatives.each do |alt| %>
+				<li><%= alt.name %></li>
+			<% end -%>
+		</ul>
+	</li>
+<% end %>
+</ul>

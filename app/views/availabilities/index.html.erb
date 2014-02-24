@@ -1,0 +1,33 @@
+<h1>Listing availabilities</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Question</th>
+      <th>Restaurant</th>
+      <th>Sub Category</th>
+      <th>Category</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @availabilities.each do |availability| %>
+      <tr>
+        <td><%= availability.question.title %></td>
+        <td><%= availability.restaurant.name %></td>
+        <td><%= availability.question.sub_category.name %></td>
+        <td><%= availability.question.sub_category.category.name %></td>
+        <td><%= link_to 'Show', availability %></td>
+        <td><%= link_to 'Edit', edit_availability_path(availability) %></td>
+        <td><%= link_to 'Destroy', availability, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Availability', new_availability_path %>

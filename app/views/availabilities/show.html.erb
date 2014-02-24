@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Question:</strong>
+  <%= @availability.question.title %>
+</p>
+
+<p>
+  <strong>Restaurant:</strong>
+  <%= @availability.restaurant.name %>
+</p>
+
+<%= link_to 'Edit', edit_availability_path(@availability) %> |
+<%= link_to 'Back', availabilities_path %>

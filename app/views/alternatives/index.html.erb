@@ -1,0 +1,29 @@
+<h1>Listing alternatives</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Question</th>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @alternatives.each do |alternative| %>
+      <tr>
+        <td><%= alternative.question.title %></td>
+        <td><%= alternative.name %></td>
+        <td><%= link_to 'Show', alternative %></td>
+        <td><%= link_to 'Edit', edit_alternative_path(alternative) %></td>
+        <td><%= link_to 'Destroy', alternative, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Alternative', new_alternative_path %>

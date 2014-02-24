@@ -1,0 +1,29 @@
+<h1>Listing choosen_questions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Availability</th>
+      <th>Survey</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @choosen_questions.each do |choosen_question| %>
+      <tr>
+        <td><%= choosen_question.availability_id %></td>
+        <td><%= choosen_question.survey_id %></td>
+        <td><%= link_to 'Show', choosen_question %></td>
+        <td><%= link_to 'Edit', edit_choosen_question_path(choosen_question) %></td>
+        <td><%= link_to 'Destroy', choosen_question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Choosen question', new_choosen_question_path %>
