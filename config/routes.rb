@@ -13,6 +13,7 @@ Sodexo::Application.routes.draw do
 
   get "restaurants/choose_restaurant" => "restaurants#choose_restaurant", as: :choose_restaurant
   post "restaurants/survey_of_today" => "restaurants#survey_of_today", as: :survey_of_today
+  post "restaurants/survey_result" => "restaurants#survey_result", as: :survey_result
   resources :restaurants
   resources :alternatives
   resources :availabilities
