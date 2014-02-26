@@ -76,7 +76,7 @@ class RestaurantsController < ApplicationController
 
   def survey_result
     @restaurant = Restaurant.find(params[:restaurant_id])
-    @survey = Survey.where("restaurant_id = ? AND created_at >= ?", id, Time.zone.today.beginning_of_day).first
+    @survey = Survey.where("restaurant_id = ? AND created_at >= ?", @restaurant.id, Time.zone.today.beginning_of_day).first
     @sub_categories = SubCategory.all
     respond_to do |format|
       format.html
