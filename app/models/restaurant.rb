@@ -26,4 +26,23 @@ class Restaurant < ActiveRecord::Base
 		new_survey
 	end
 
+	def survey_result_of_today
+		survey = Survey.where("restaurant_id = ? AND created_at >= ?", id, Time.zone.today.beginning_of_day)
+		if survey.empty?
+			return nil
+		else
+			survey = survey.first
+			hash = {}
+			SubCategory.all.each do |sub_cat|
+				hash[sub_cat.name] = []
+			end
+			tmp_array = []
+			survey.choosen_questions.each do |cq|
+				hash[cq.availability.question.sub_category.name] << cq
+			end
+			hash
+		end
+
+	end
+
 end

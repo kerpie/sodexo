@@ -74,6 +74,16 @@ class RestaurantsController < ApplicationController
     end
   end
 
+  def survey_result
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    @survey = Survey.where("restaurant_id = ? AND created_at >= ?", id, Time.zone.today.beginning_of_day).first
+    @sub_categories = SubCategory.all
+    respond_to do |format|
+      format.html
+      format.json
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_restaurant
