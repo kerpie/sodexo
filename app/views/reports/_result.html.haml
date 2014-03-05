@@ -11,11 +11,11 @@
 						- no = cq.answers.where("alternative_id = ? AND created_at >= ? AND created_at <= ?", cq.availability.question.alternatives.last.id, sub.start_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day), sub.end_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day)).count
 						.result_view
 							- if total > 0
+								%p
+									No
+									%br
+									= (no*100/total).to_s + "%"
 								.bar.negative{style: "height: #{no*200/total}px;"}
-									%p
-										No
-										%br
-										= (no*100/total).to_s + "%"
 								.bar.positive{style: "height: #{yes*200/total}px;"}
 									%p
 										Si
