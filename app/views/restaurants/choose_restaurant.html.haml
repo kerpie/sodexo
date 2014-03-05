@@ -1,0 +1,15 @@
+.row
+	.col-md-5.col-sm-6.col-xs-12
+		%h1.model-title
+			Generar encuesta
+
+.row
+	.col-xs-12.col-sm-12.col-md-12
+		= form_tag survey_of_today_path, class: "form-horizontal", role: :form do |f|
+			.form-group
+				= label_tag "restaurant_to_search", "Restaurant: ", class: "col-md-2 control-label"
+				.col-md-8
+					= select_tag "restaurant_to_search", options_from_collection_for_select(Restaurant.all, :id, :name), class: "form-control"
+			.form-group
+				.col-md-6.col-md-offset-3
+					= submit_tag "Enviar", class: "btn btn-primary btn-block"

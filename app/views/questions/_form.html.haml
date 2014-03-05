@@ -1,0 +1,26 @@
+.row
+  .col-xs-12.col-sm-12.col-md-12
+    = form_for(@question, html: {class: "form-horizontal", role: :form}) do |f|
+      - if @question.errors.any?
+        .error_explanation
+          %h2
+            Corrige los siguientes errores para continuar:
+          %ul
+            - @question.errors.full_messages.each do |msg|
+              %li
+                = msg
+      .form-group
+        = f.label :title, "Pregunta: ", class: "col-md-2 control-label"
+        .col-md-8
+          = f.text_field :title, class: "form-control", placeholder: "Título de la pregunta"
+      .form-group
+        = f.label :item, "Artículo de referencia: ", class: "col-md-2 control-label"
+        .col-md-8
+          = f.text_field :item, class: "form-control", placeholder: "Artículo de referencia"
+      .form-group
+        = f.label :sub_category_id, "Sub categoría",  class: "col-md-2 control-label"
+        .col-md-8
+          = f.collection_select :sub_category_id, SubCategory.all, :id, :name, {}, class: "form-control"
+      .form-group
+        .col-md-6.col-md-offset-3
+          = f.submit class: "btn btn-primary btn-block"

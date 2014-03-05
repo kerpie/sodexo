@@ -8,4 +8,15 @@ class Question < ActiveRecord::Base
 	def long_name
 		title + " - " + sub_category.name
 	end
+
+	def add_alternatives
+		my_alternatives = []
+		values = %w(Si No)
+		values.each do |value|
+			my_alternative = Alternative.new
+			my_alternative.name = value
+			my_alternatives << my_alternative
+		end
+		my_alternatives
+	end
 end

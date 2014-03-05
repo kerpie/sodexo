@@ -1,0 +1,11 @@
+= form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: {role: "form", class: "form-signup"}) do |f|
+	= image_tag "logo.png", class: "image_logo"
+	%h2.form-signin-heading
+		Registro de nuevo usuario
+	
+	= devise_error_messages!
+
+	= f.email_field :email, :autofocus => true, class: "form-control", placeholder: "Ingresa un correo para registrarte"
+	= f.password_field :password, class: "form-control", placeholder: "Contraseña"
+	= f.password_field :password_confirmation, class: "form-control", placeholder: "Confirmación de contraseña"
+	= f.submit "Registrarse", class: "btn btn-lg btn-primary btn-block"

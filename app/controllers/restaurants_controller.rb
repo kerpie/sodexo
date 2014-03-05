@@ -69,7 +69,7 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.find(params[:restaurant_to_search])
     @survey  = @restaurant.create_or_return_survey_for_today
     respond_to do |format|
-      format.html
+      format.html { redirect_to @survey, notice: "Encuesta creada correctamente" }
       format.json
     end
   end

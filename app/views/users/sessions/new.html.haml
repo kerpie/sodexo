@@ -1,0 +1,12 @@
+= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {role: "form", class: "form-signin"}) do |f|
+	= image_tag "logo.png", class: "image_logo"
+	%h2.form-signin-heading
+		Iniciar sesión
+	= f.email_field :email, :autofocus => true, class: "form-control", placeholder: "Correo"
+	= f.password_field :password, class: "form-control", placeholder: "Contraseña"
+
+	- if devise_mapping.rememberable?
+		= f.check_box :remember_me 
+		= f.label :remember_me, "Recuerdame", class: "checkbox"
+
+	= f.submit "Iniciar sesión", class: "btn btn-lg btn-primary btn-block"

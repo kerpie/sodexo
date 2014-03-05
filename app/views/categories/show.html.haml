@@ -1,0 +1,27 @@
+.row
+	.col-md-5.col-sm-6.col-xs-12
+		%h1.model-title
+			Categoría registrada
+
+- unless notice.nil?
+	.row
+		.col-xs-12.col-sm-6.col-sm-3.col-md-6.col-md-offset-3.alert.alert-success
+			%p#notice
+				= content_tag :strong, notice
+
+.row
+	.col-xs-12.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1
+		.page-header
+			%h1
+				Datos de la categoría registrada
+		.panel.panel-info
+			.panel-heading
+				Nombre
+			.panel-body
+				= @category.name
+
+.row
+	.col-md-3.col-md-offset-2.col-sm-5.col-sm-offset-1.col-xs-12
+		= link_to 'Editar', edit_category_path(@category), class: "btn btn-default btn-block"
+	.col-md-3.col-md-offset-2.col-sm-5.col-sm-offset-1.col-xs-12
+		= link_to 'Volver', categories_path, class: "btn btn-primary btn-block"

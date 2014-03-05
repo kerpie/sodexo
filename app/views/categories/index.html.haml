@@ -1,0 +1,27 @@
+.row
+  .col-md-5.col-sm-6.col-xs-12
+    %h1.model-title
+      Listado de categorías
+
+.row
+  .table-responsive.col-md-12.col-sm-12.col-xs-12
+    %table.table.table-hover.table-condensed
+      %thead
+        %tr
+          %th
+            Nombre de la categoría
+          %th{ colspan: "2" }
+            Opciones
+      %tbody
+        - @categories.each do |category|
+          %tr
+            %td
+              = link_to category.name, category
+            %td
+              = link_to 'Editar', edit_category_path(category), class: "btn btn-warning btn-xs"
+            %td
+              = link_to 'Eliminar', category, method: :delete, data: { confirm: 'Esta operación es irreversible ¿Está seguro de querer continuar?' }, class: "btn btn-danger btn-xs"
+
+.row
+  .col-md-6.col-md-offset-3.col-sm-12.col-xs-12
+    = link_to 'Registrar nueva categoría', new_category_path, class: "btn btn-primary btn-block"

@@ -19,8 +19,9 @@ class Restaurant < ActiveRecord::Base
 		SubCategory.all.each do |sc|
 			available_questions = questions.where(sub_category_id: sc.id).shuffle
 			unless available_questions.empty?
-				new_survey.availabilities << Availability.where(restaurant_id: id, question_id: available_questions[0].id).first
-				new_survey.availabilities << Availability.where(restaurant_id: id, question_id: available_questions[1].id).first
+				available_questions.each do |aq|
+					new_survey.availabilities << Availability.where(restaurant_id: id, question_id: aq.id).first
+				end
 			end
 		end
 		new_survey

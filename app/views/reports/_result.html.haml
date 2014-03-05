@@ -1,0 +1,31 @@
+- if result[0]
+	- result[2].each do |sub|
+		.station{style: "clear: both;"}
+			%h1
+				=sub.name
+			%ul.sub_category_result{style: "width: #{(result[1][sub].count)*165}px"}
+				- result[1][sub].each do |cq|
+					%li
+						- total = cq.answers.where("created_at >= ? AND created_at <= ?", sub.start_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day), sub.end_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day)).count
+						- yes = cq.answers.where("alternative_id = ? AND created_at >= ? AND created_at <= ?", cq.availability.question.alternatives.first.id, sub.start_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day), sub.end_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day)).count
+						- no = cq.answers.where("alternative_id = ? AND created_at >= ? AND created_at <= ?", cq.availability.question.alternatives.last.id, sub.start_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day), sub.end_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day)).count
+						.result_view
+							- if total > 0
+								.bar.negative{style: "height: #{no*200/total}px;"}
+									%p
+										No
+										%br
+										= (no*100/total).to_s + "%"
+								.bar.positive{style: "height: #{yes*200/total}px;"}
+									%p
+										Si
+										%br
+										= (yes*100/total).to_s + "%"
+						%h3
+							= cq.availability.question.title
+						%p
+							Votos totales:
+							= total
+- else
+	%h1
+		No existe una encuesta con los datos indicados

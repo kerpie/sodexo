@@ -1,0 +1,30 @@
+.row
+  .col-xs-12.col-sm-12.col-md-12
+    = form_for(@sub_category, html: {class: "form-horizontal", role: :form}) do |f|
+      - if @sub_category.errors.any?
+        .error_explanation
+          %h2
+            Corrige los siguientes errores para continuar:
+          %ul
+            - @sub_category.errors.full_messages.each do |msg|
+              %li
+                = msg
+      .form-group
+        = f.label :name, "Nombre:", class: "col-md-2 control-label"
+        .col-md-8
+          = f.text_field :name, class: "form-control", placeholder: "Nombre de la subcategoría"
+      .form-group
+        = f.label :start_time, "Hora de inicio: ", class: "col-md-2 control-label"
+        .col-md-8
+          = f.time_select :start_time
+      .form-group
+        = f.label :end_time, "Hora de fin: ", class: "col-md-2 control-label"
+        .col-md-8
+          = f.time_select :end_time
+      .form-group
+        = f.label :category_id, "Categoria: ", class: "col-md-2 control-label"
+        .col-md-8
+          = f.collection_select :category_id, Category.all, :id, :name, {}, class: "form-control"
+      .form-group
+        .col-md-6.col-md-offset-3
+          = f.submit class: "btn btn-primary btn-block"

@@ -1,0 +1,42 @@
+.row
+	.col-md-5.col-sm-6.col-xs-12
+		%h1.model-title
+			Subcategoría registrada
+
+- unless notice.nil?
+	.row
+		.col-xs-12.col-sm-6.col-sm-3.col-md-6.col-md-offset-3.alert.alert-success
+			%p#notice
+				= content_tag :strong, notice
+
+.row
+	.col-xs-12.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1
+		.page-header
+			%h1
+				Datos de la categoría registrada
+		.panel.panel-info
+			.panel-heading
+				Nombre de la subcategoría
+			.panel-body
+				= @sub_category.name
+		.panel.panel-info
+			.panel-heading
+				Nombre de la categoría
+			.panel-body
+				= @sub_category.category.name
+		.panel.panel-info
+			.panel-heading
+				Hora de inicio de la jornada
+			.panel-body
+				= @sub_category.start_time.in_time_zone.strftime("%H:%M %p")
+		.panel.panel-info
+			.panel-heading
+				Hora de fin de jornada
+			.panel-body
+				= @sub_category.end_time.in_time_zone.strftime("%H:%M %p")
+
+.row
+	.col-md-3.col-md-offset-2.col-sm-5.col-sm-offset-1.col-xs-12
+		= link_to 'Editar', edit_sub_category_path(@sub_category), class: "btn btn-default btn-block"
+	.col-md-3.col-md-offset-2.col-sm-5.col-sm-offset-1.col-xs-12
+		= link_to 'Volver', sub_categories_path, class: "btn btn-primary btn-block"

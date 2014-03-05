@@ -1,0 +1,42 @@
+.row
+	.col-md-5.col-sm-6.col-xs-12
+		%h1.model-title
+			Encuesta generada
+
+- unless notice.nil?
+	.row
+		.col-xs-12.col-sm-6.col-sm-3.col-md-6.col-md-offset-3.alert.alert-success
+			%p#notice
+				= content_tag :strong, notice
+
+.row
+	.col-xs-12.col-sm-10.col-sm-offset-1.col-md-10.col-md-offset-1
+		.page-header
+			%h1
+				Datos de la encuesta generada
+		.panel.panel-info
+			.panel-heading
+				Encuesta
+			.panel-body
+				= @survey.name
+		.panel.panel-info
+			.panel-heading
+				Restaurante asociado
+			.panel-body
+				= @survey.restaurant.name
+		.panel.panel-info
+			.panel-heading
+				Preguntas escogidas
+			.panel-body
+				%ul
+					- @survey.choosen_questions.each do |cq|
+						%li
+							= cq.availability.question.title
+							%ul
+								- cq.availability.question.alternatives.each do |alternative|
+									%li
+										= alternative.name
+
+.row
+	.col-md-4.col-md-offset-4.col-sm-12.col-xs-12
+		= link_to 'Volver', surveys_path, class: "btn btn-primary btn-block"

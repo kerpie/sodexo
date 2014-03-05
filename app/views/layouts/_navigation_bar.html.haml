@@ -1,0 +1,64 @@
+%nav.navbar.navbar-default.navbar-fixed-top{role: :navigation}
+	.container-fluid
+		.navbar-header
+			= button_tag class: "navbar-toggle", type: "button", data: {toggle: "collapse", target: "#navigation-bar"} do
+				=content_tag :span, "Toggle Navigation", class: "sr-only"
+				=content_tag :span, "", class: "icon-bar"
+				=content_tag :span, "", class: "icon-bar"
+				=content_tag :span, "", class: "icon-bar"
+			= link_to root_path, class: "navbar-brand" do
+				= image_tag "logo.png", class: "logo-image"
+		#navigation-bar.collapse.navbar-collapse
+			%ul.nav.navbar-nav
+				%li.dropdown
+					= link_to "#", class: "dropdown-toggle", data: {toggle: "dropdown"} do
+						Locales
+						= content_tag :b, "", class: :caret  
+					%ul.dropdown-menu
+						%li
+							= link_to "Listar locales", restaurants_path
+						%li
+							= link_to "Nuevo Local", new_restaurant_path
+						%li
+							= link_to "Preguntas por restaurante", availabilities_path
+				%li.dropdown
+					= link_to "#", class: "dropdown-toggle", data: {toggle: "dropdown"} do
+						Preguntas
+						= content_tag :b, "", class: :caret  
+					%ul.dropdown-menu
+						%li
+							= link_to "Listar preguntas", questions_path
+						%li
+							= link_to "Nueva pregunta", new_question_path
+						%li
+							= link_to "Alternativas", alternatives_path
+				%li.dropdown
+					= link_to "#", class: "dropdown-toggle", data: {toggle: "dropdown"} do
+						Categorías
+						= content_tag :b, "", class: :caret  
+					%ul.dropdown-menu
+						%li
+							= link_to "Listar categorías", categories_path
+						%li
+							=link_to "Sub categorías", sub_categories_path
+				%li.dropdown
+					= link_to "#", class: "dropdown-toggle", data: {toggle: "dropdown"} do
+						Encuestas
+						= content_tag :b, "", class: :caret  
+					%ul.dropdown-menu
+						%li
+							= link_to "Listar encuestas", surveys_path
+						%li
+							= link_to "Generar encuesta", choose_restaurant_path
+				%li
+					=link_to report_index_path do
+						Reportes
+				%li.dropdown
+					= link_to "#", class: "dropdown-toggle", data: {toggle: "dropdown"} do
+						= current_user.email
+						= content_tag :b, "", class: :caret  
+					%ul.dropdown-menu
+						%li
+							= link_to "Cerrar sesion", destroy_user_session_path, method: :delete
+						%li
+							= link_to "Editar perfil", edit_user_registration_path

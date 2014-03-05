@@ -1,2 +1,15 @@
 es:
   hello: "Hola Mundo"
+  errors:
+    messages:
+      not_saved: "El usuario no puede ser guardado"
+  activerecord:
+    models:
+      user: "Usuario"
+    attributes:
+      user:
+        email: "Correo"
+        password: "Contraseña"
+    errors:
+      messages:
+        blank: " no puede estar en blanco"

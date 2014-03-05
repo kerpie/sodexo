@@ -1,23 +1,22 @@
 Sodexo::Application.routes.draw do
 
-  resources :answers
+  root "restaurants#index"  
 
-  resources :choosen_questions
-
-  resources :surveys
-
-  root "restaurants#index"
-
-  resources :sub_categories
-  resources :categories
-
+  get "reports/index" => "reports#index", as: :report_index
+  post "reports/result" => "reports#result", as: :report_result
   get "restaurants/choose_restaurant" => "restaurants#choose_restaurant", as: :choose_restaurant
   post "restaurants/survey_of_today" => "restaurants#survey_of_today", as: :survey_of_today
   post "restaurants/survey_result" => "restaurants#survey_result", as: :survey_result
   resources :restaurants
+  resources :questions
+  resources :categories
+  resources :sub_categories
+  resources :surveys
+  resources :choosen_questions
+  resources :answers
   resources :alternatives
   resources :availabilities
-  resources :questions
+  devise_for :users
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

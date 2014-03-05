@@ -1,0 +1,26 @@
+.row
+  .col-md-5.col-sm-6.col-xs-12
+    %h1.model-title
+      Listado de locales
+      
+.row
+  .table-responsive.col-md-12.col-sm-12.col-xs-12
+    %table.table.table-hover.table-condensed
+      %thead
+        %tr
+          %th
+            Nombre
+          %th{ colspan: "2" }
+            Opciones
+      %tbody
+        - @restaurants.each do |restaurant|
+          %tr
+            %td 
+              = link_to restaurant.name, restaurant
+            %td 
+              = link_to 'Editar', edit_restaurant_path(restaurant), class: "btn btn-warning btn-xs"
+            %td 
+              = link_to 'Eliminar', restaurant, method: :delete, data: { confirm: 'Esta operación es irreversible ¿Está seguro de querer continuar?' }, class: "btn btn-danger btn-xs"
+.row
+  .col-md-6.col-md-offset-3.col-sm-12.col-xs-12
+    = link_to 'Registrar nuevo local', new_restaurant_path, class: "btn btn-primary btn-block"
