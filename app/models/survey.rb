@@ -8,7 +8,7 @@ class Survey < ActiveRecord::Base
 		hash = {}
 		subs = SubCategory.first(3)
 		more_subs = SubCategory.last(2)
-		time = Time.strptime(date, '%m/%d/%Y').in_time_zone
+		time = Time.strptime(date, '%m/%d/%Y')
 		survey = where("restaurant_id = ? AND created_at >= ? AND created_at <= ?", restaurant_id, time.beginning_of_day, time.end_of_day).first
 		status = false
 		subs_to_return = []
