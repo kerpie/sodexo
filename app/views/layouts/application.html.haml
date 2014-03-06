@@ -11,6 +11,8 @@
 			= render 'layouts/navigation_bar'
 			.container-fluid
 				= yield 
+			#loading_part
+				=image_tag "loader_2.gif"
 		-else
 			.container
 				= yield

@@ -11,7 +11,6 @@
 						= text_field_tag "date_for_survey", "", class: "form-control", placeholder: "Elija la fecha a consultar"
 .row
 	#survey-result.col-md-12
-	#loading{style: "width: 100%; height: 100%; background: blue;"}
 
 - content_for :scripts do 
 	:javascript
@@ -19,5 +18,6 @@
 			$(this).datepicker()
 				.on('changeDate', function(ev){
 					$("#search_result").submit();
+					$("#loading_part").show();
 				});;
 		});
