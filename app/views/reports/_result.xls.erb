@@ -1,0 +1,34 @@
+<% @result[2].each do |sub| %>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>Pregunta</th>
+				<th>Respuestas totales</th>
+				<th>Respuestas afirmativas</th>
+				<th>Respuestas negativas</th>
+				<th>Porcentaje de respuestas positivas</th>
+				<th>Respuestas de respuestas negativas</th>
+			</tr>
+		<thead>
+		<tbody>
+			<% @result[1][sub].each do |cq| %>
+				<tr>
+					<td><%= cq.availability.question.title %></td>
+					<% total = cq.answers.where("created_at >= ? AND created_at <= ?", sub.start_time.in_time_zone.change(year: @result[3].year, month: @result[3].month, day: @result[3].day), sub.end_time.in_time_zone.change(year: @result[3].year, month: @result[3].month, day: @result[3].day)).count %>
+					<td><%= total %></td>
+					<% yes = cq.answers.where("alternative_id = ? AND created_at >= ? AND created_at <= ?", cq.availability.question.alternatives.first.id, sub.start_time.in_time_zone.change(year: @result[3].year, month: @result[3].month, day: @result[3].day), sub.end_time.in_time_zone.change(year: @result[3].year, month: @result[3].month, day: @result[3].day)).count %>
+					<td><%= yes %></td>
+					<% no = cq.answers.where("alternative_id = ? AND created_at >= ? AND created_at <= ?", cq.availability.question.alternatives.last.id, sub.start_time.in_time_zone.change(year: @result[3].year, month: @result[3].month, day: @result[3].day), sub.end_time.in_time_zone.change(year: @result[3].year, month: @result[3].month, day: @result[3].day)).count %>
+					<td><%= no %></td>
+					<% unless total == 0 %>
+						<td><%= (yes*100/total).to_s + "%" %></td>
+						<td><%= (no*100/total).to_s + "%" %></td>
+					<% else %>
+						<td>0</td>
+						<td>0</td>
+					<% end %>
+				<tr>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>

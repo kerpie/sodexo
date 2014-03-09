@@ -13,3 +13,8 @@ es:
     errors:
       messages:
         blank: " no puede estar en blanco"
+  devise:
+    failure:
+      unauthenticated: "No se pudo autenticar el usuario"      
+      invalid: "El correo o contraseña son inválidos"
+      not_found_in_database: "El correo o contraseña son inválidos"

@@ -16,7 +16,7 @@ Sodexo::Application.routes.draw do
   resources :answers
   resources :alternatives
   resources :availabilities
-  devise_for :users
+  devise_for :users, controllers: {registrations: "users/registrations", sessions: "users/sessions"}
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

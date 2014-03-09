@@ -34,6 +34,6 @@ class Survey < ActiveRecord::Base
 				end
 			end
 		end
-		result = [status, hash, subs_to_return, time]
+		result = [status, hash, subs_to_return, time, survey]
 	end
 end

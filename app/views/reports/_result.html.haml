@@ -1,4 +1,8 @@
 - if result[0]
+	= form_tag report_result_path(format: "xls") do
+		= hidden_field_tag "restaurant_id_for_survey", @id
+		= hidden_field_tag "date_for_survey", @date
+		= submit_tag "Descargar datos en excel", class: "btn btn-primary btn-block"
 	- result[2].each do |sub|
 		.station{style: "clear: both;"}
 			%h1
