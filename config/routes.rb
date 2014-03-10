@@ -16,6 +16,7 @@ Sodexo::Application.routes.draw do
   resources :answers
   resources :alternatives
   resources :availabilities
+  post "user/session_for_mobile" => "user#session_for_mobile", as: :session_for_mobile
   devise_for :users, controllers: {registrations: "users/registrations", sessions: "users/sessions"}
 
   # The priority is based upon order of creation: first created -> highest priority.
