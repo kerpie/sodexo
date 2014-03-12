@@ -17,6 +17,17 @@ class ReportsController < ApplicationController
                 headers["Content-Type"] = "application/vnd.ms-excel"
             }
         end
-  end
+    end
+
+    def check_survey_availability
+        restaurant_id = params[:restaurant_id_for_survey]
+        time = Time.strptime(params[:date_for_survey], '%m/%d/%Y')
+        survey = Survey.where("restaurant_id = ? AND created_at >= ? AND created_at <= ?", restaurant_id, time.beginning_of_day, time.end_of_day).first
+        if survey.nil?
+            return render json: {status: false}
+        else
+            return render json: {status: true}
+        end
+    end
 
 end

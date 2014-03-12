@@ -4,6 +4,7 @@ Sodexo::Application.routes.draw do
 
   get "reports/index" => "reports#index", as: :report_index
   post "reports/result" => "reports#result", as: :report_result
+  post "reports/check_survey_availability" => "reports#check_survey_availability", as: :report_check_survey_availability
   get "restaurants/choose_restaurant" => "restaurants#choose_restaurant", as: :choose_restaurant
   post "restaurants/survey_of_today" => "restaurants#survey_of_today", as: :survey_of_today
   post "restaurants/survey_result" => "restaurants#survey_result", as: :survey_result
