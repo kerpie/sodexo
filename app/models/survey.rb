@@ -65,7 +65,7 @@ class Survey < ActiveRecord::Base
 				yes += cq.answers.where(alternative_id: cq.availability.question.alternatives.first).count
 				no += cq.answers.count - cq.answers.where(alternative_id: cq.availability.question.alternatives.first).count
 			end
-			hash_data[survey.created_at.day] = {yes: yes, no: no}
+			hash_data[survey.created_at.day.to_s] = {yes: yes, no: no}
 		end
 		# status: if there are surveys in the indicated month
 		# total: total of surveys
