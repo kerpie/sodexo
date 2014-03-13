@@ -34,6 +34,43 @@ class Survey < ActiveRecord::Base
 				end
 			end
 		end
+
+		# status: if there is a survey is found
+		# hash: hash[sub_category]: choosen_questions
+		# subs_to_return: First 3 sub_categories
+		# time: date to look for a survey
+		# survey: survey per se
 		result = [status, hash, subs_to_return, time, survey]
+	end
+
+	def self.result_per_month(restaurant_id, month)
+		restaurant = Restaurant.find(restaurant_id)
+		time = Time.new(Time.zone.now.year, month, 1)
+
+		surveys = restaurant.surveys.where("created_at >= ? AND created_at <= ?", time.beginning_of_month, time.end_of_month)
+		hash_days = {}
+		hash_data = {}
+		total = surveys.count
+		status = false
+		
+		if surveys.count > 0
+			status = true 
+		end
+
+		surveys.each.with_index(0) do |survey, index|
+			hash_days[index] = survey.created_at.day
+			yes = 0
+			no = 0
+			survey.choosen_questions.each do |cq|
+				yes += cq.answers.where(alternative_id: cq.availability.question.alternatives.first).count
+				no += cq.answers.count - cq.answers.where(alternative_id: cq.availability.question.alternatives.first).count
+			end
+			hash_data[survey.created_at.day] = {yes: yes, no: no}
+		end
+		# status: if there are surveys in the indicated month
+		# total: total of surveys
+		# hash_days: days index
+		# hash_data: survey result per day
+		result = [status, total, hash_days, hash_data]
 	end
 end

@@ -30,4 +30,10 @@ class ReportsController < ApplicationController
         end
     end
 
+    def result_per_month
+        @result = Survey.result_per_month(params[:restaurant_id], params[:month])
+        respond_to do |format|
+            format.json
+        end
+    end
 end
