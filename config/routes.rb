@@ -1,6 +1,6 @@
 Sodexo::Application.routes.draw do
 
-  root "restaurants#index"  
+  root "reports#index"  
 
   get "reports/index" => "reports#index", as: :report_index
   post "reports/result" => "reports#result", as: :report_result

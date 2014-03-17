@@ -16,4 +16,11 @@ class UserController < ApplicationController
 		end
 	end
 
+	def restaurants_for_user
+		user = User.find_by(authorization_token: params[:user_token])
+		@restaurants = user.restaurants 
+		respond_to do |format|
+			format.js
+		end
+	end
 end
