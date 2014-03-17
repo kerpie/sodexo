@@ -1,35 +1,45 @@
 - if result[0]
-	= form_tag report_result_path(format: "xls") do
+	= form_tag report_result_path(format: "xls"), class: "download_excel" do
 		= hidden_field_tag "restaurant_id_for_survey", @id
 		= hidden_field_tag "date_for_survey", @date
 		= submit_tag "Descargar datos en excel", class: "btn btn-primary btn-block"
 	- result[2].each do |sub|
-		.station{style: "clear: both;"}
-			%h1
-				=sub.name
-			%ul.sub_category_result{style: "width: #{(result[1][sub].count)*165}px"}
+		.station.row.result_to_care
+			.col-md-12.col-xs-12
+				%h1
+					- sub_total = 0
+					- result[1][sub].each do |cq|
+						- sub_total += cq.answers.where("created_at >= ? AND created_at <= ?", sub.start_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day), sub.end_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day)).count
+					= sub.name + "(#{sub_total} votos registrados)"
 				- result[1][sub].each do |cq|
-					%li
-						- total = cq.answers.where("created_at >= ? AND created_at <= ?", sub.start_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day), sub.end_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day)).count
-						- yes = cq.answers.where("alternative_id = ? AND created_at >= ? AND created_at <= ?", cq.availability.question.alternatives.first.id, sub.start_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day), sub.end_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day)).count
-						- no = cq.answers.where("alternative_id = ? AND created_at >= ? AND created_at <= ?", cq.availability.question.alternatives.last.id, sub.start_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day), sub.end_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day)).count
-						.result_view
-							- if total > 0
-								%p
-									No
-									%br
-									= (no*100/total).to_s + "%"
-								.bar.negative{style: "height: #{no*200/total}px;"}
-								.bar.positive{style: "height: #{yes*200/total}px;"}
-									%p
-										Si
-										%br
-										= (yes*100/total).to_s + "%"
+					- total = cq.answers.where("created_at >= ? AND created_at <= ?", sub.start_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day), sub.end_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day)).count
+					- yes = cq.answers.where("alternative_id = ? AND created_at >= ? AND created_at <= ?", cq.availability.question.alternatives.first.id, sub.start_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day), sub.end_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day)).count
+					- no = cq.answers.where("alternative_id = ? AND created_at >= ? AND created_at <= ?", cq.availability.question.alternatives.last.id, sub.start_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day), sub.end_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day)).count
+					.col-md-3.col-xs-12.left_part
 						%h3
 							= cq.availability.question.title
-						%p
-							Votos totales:
-							= total
+						%h5
+							= "Votos totales: #{total}"
+							%br
+							= "Votos positivos: #{yes}"
+							%br
+							= "Votos negativos: #{no}"	
+
+					.col-md-9.col-xs-12.right_part{style: "padding-top: 10px; margin-bottom: 10px;"}
+						- unless total == 0
+							- yes_width = yes*100/total
+							.bar.positive_bar{ style: "width: #{yes_width}%;"}
+								%p
+									= "#{yes} votos (#{yes_width}%)" 
+							- no_width = no*100/total									
+							.bar.negative_bar{ style: "width: #{no_width}%;"}
+								%p
+									= "#{no} votos (#{no_width}%)"
+						- else
+							.bar.positive_bar{ style: "width: 0px;"}
+							.bar.negative_bar{ style: "width: 0px;"}
+					.clearfix.visible-md
+	= link_to "Imprimir documento", "javascript:window.print()", id: "print_button", class: "btn btn-block btn-primary"
 - else
-	%h1
+	%h1.no_survey_result
 		No existe una encuesta con los datos indicados

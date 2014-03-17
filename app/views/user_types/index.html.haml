@@ -1,0 +1,25 @@
+.row
+  .col-md-5.col-sm-6.col-xs-12
+    %h1.model-title
+      Listado de tipos de usuarios
+
+.row
+  .table-responsive.col-md-12.col-sm-12.col-xs-12
+    %table.table.table-hover.table-condensed
+      %thead
+        %tr
+          %th
+            Nombre del tipo
+          %th
+            Opciones
+      %tbody
+        - @user_types.each do |user_type|
+          %tr
+            %td
+              = link_to user_type.name, user_type
+            %td
+              = link_to 'Editar', edit_user_type_path(user_type),class: "btn btn-warning btn-xs"
+
+.row
+  .col-md-6.col-md-offset-3.col-sm-12.col-xs-12
+    = link_to 'Registrar nueva tipo de usuario', new_user_type_path, class: "btn btn-primary btn-block"

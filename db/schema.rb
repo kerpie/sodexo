@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140309061518) do
+ActiveRecord::Schema.define(version: 20140317045126) do
 
   create_table "alternatives", force: true do |t|
     t.string   "name"
@@ -23,6 +23,13 @@ ActiveRecord::Schema.define(version: 20140309061518) do
   create_table "answers", force: true do |t|
     t.integer  "choosen_question_id"
     t.integer  "alternative_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "authorizations", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "restaurant_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -77,6 +84,12 @@ ActiveRecord::Schema.define(version: 20140309061518) do
     t.datetime "updated_at"
   end
 
+  create_table "user_types", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -91,6 +104,7 @@ ActiveRecord::Schema.define(version: 20140309061518) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "authentication_token"
+    t.integer  "user_type_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

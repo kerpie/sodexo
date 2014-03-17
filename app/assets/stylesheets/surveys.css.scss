@@ -2,6 +2,14 @@
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
+
+.no_survey_result{
+	text-align: center;
+	color: white;
+	background: #e67e22;
+	padding: 5px 0px;
+}
+
 .station{
 	h1{
 		background: #B0B0B0;
@@ -9,37 +17,20 @@
 		text-align: center;
 		text-transform: uppercase;
 		padding: 5px;
-		width: 40%;
+		width: 100%;
 	}
-	overflow: auto;
-	.sub_category_result{
-		padding: 0px;
-		li{
-			float: left;
-			list-style: none;
-			margin-right: 15px;
-			width: 150px;
-			.result_view{
-				width: 100px;
-				margin: 0 auto;
-				.bar{
-					margin: 0 auto;
-					width: 50px;
-					p{
-						color: white;
-					}
-				}
-				.bar.positive{
-					background: #3498db;
-				}
-				.bar.negative{
-					background: #e74c3c;
-				}
-			}
-			h3, p{
-				width: 100%;
-				text-align: center;
-			}
+	.positive_bar{
+		background: #3498db;
+	}
+	.negative_bar{
+		background: #e74c3c;
+	}
+	.bar{
+		margin: 10px 0px;
+		p{
+			color: white;
+			font-size: 16px;
+			margin-left: 10px;
 		}
 	}
 }

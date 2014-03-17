@@ -2,7 +2,7 @@
 	= image_tag "logo.png", class: "image_logo"
 	%h2.form-signin-heading
 		Registro de nuevo usuario
-	
+
 	= devise_error_messages!
 
 	= f.email_field :email, :autofocus => true, class: "form-control", placeholder: "Ingresa un correo para registrarte"

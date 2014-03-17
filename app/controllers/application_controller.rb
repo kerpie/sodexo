@@ -4,8 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
 
   before_filter :authenticate_user_from_token!
-  before_filter :authenticate_user!, except: :session_for_mobile, :survey_of_today
-  
+  before_filter :authenticate_user!, except: [:session_for_mobile, :survey_of_today]
+
   private
   	def authenticate_user_from_token!
   		user_token = params[:user_token].presence

@@ -18,6 +18,7 @@ Sodexo::Application.routes.draw do
   resources :answers
   resources :alternatives
   resources :availabilities
+  resources :user_types
   post "user/session_for_mobile" => "user#session_for_mobile", as: :session_for_mobile
   devise_for :users, controllers: {registrations: "users/registrations", sessions: "users/sessions"}
 

@@ -4,6 +4,9 @@ class Restaurant < ActiveRecord::Base
 	has_many :questions, through: :availabilities
 	has_many :surveys
 
+	has_many :authorizations
+	has_many :users, through: :authorizations
+
 	def create_or_return_survey_for_today
 		survey = Survey.where("restaurant_id = ? AND created_at >= ?", id, Time.zone.today.beginning_of_day)
 		if survey.empty?
