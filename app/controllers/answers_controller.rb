@@ -39,6 +39,21 @@ class AnswersController < ApplicationController
     end
   end
 
+  def new_create
+    a_id = params[:alternative_id]
+    cq_id = params[:choosen_question_id]
+    created = DateTime.parse(params[:date])
+    created_time = Time.zone.local(created.year, created.month, created.day, created.hour, created.minute, created.second)
+    new_answer = Answer.new(alternative_id: a_id, choosen_question_id: cq_id, created_at: created_time)
+    respond_to do 
+      if new_answer.save
+        return render json: {status: true} 
+      else
+        return render json: {status: false}
+      end
+    end
+  end
+
   # PATCH/PUT /answers/1
   # PATCH/PUT /answers/1.json
   def update

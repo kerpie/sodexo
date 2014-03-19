@@ -15,6 +15,8 @@ Sodexo::Application.routes.draw do
   resources :sub_categories
   resources :surveys
   resources :choosen_questions
+
+  post "answers/new_create" => "answers#new_create", as: :new_answer_create
   resources :answers
   resources :alternatives
   resources :availabilities
