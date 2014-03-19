@@ -13,7 +13,7 @@ class ReportsController < ApplicationController
             format.js
             format.json
             format.xls {
-                headers["Content-Disposition"] = "attachment; filename=\"#{@result[4].name}.xls\" filename*=UTF-8''#{@result[4].name}.xls",
+                headers["Content-Disposition"] = 'attachment; filename="' + @result[4].name.gsub(" ", "_") + '.xls"',
                 headers["Content-Type"] = "application/vnd.ms-excel"
             }
         end
