@@ -1,12 +1,13 @@
 - result[0].each do |r|
-	- if r[0]
-		.station.row.result_to_care
-			.col-md-12.col-xs-12
-				.col-md-3.col-xs-12.left_part
-					%h3
-						= r[1].name
+	.station.row.result_to_care
+		.col-md-12.col-xs-12
+			.col-md-3.col-xs-12.left_part
+				%h3
+					= r[1].name
+			- if r[0]
 				.col-md-9.col-xs-12.right_part{style: "padding-top: 10px; margin-bottom: 10px;"}
-					- unless r[2][:total] == 0
+					- total = r[2][:total]
+					- unless total == 0
 						- yes_width = r[2][:yes]*100/total
 						- no_width = r[2][:no]*100/total
 						.bar.positive_bar{ style: "width: #{yes_width}%;"}
@@ -24,5 +25,5 @@
 					- else
 						.bar.positive_bar{ style: "width: 0px;"}
 						.bar.negative_bar{ style: "width: 0px;"}
-				.clearfix.col-md-12.col-xs-12
-	= link_to "Imprimir documento", "javascript:window.print()", id: "print_button", class: "btn btn-block btn-primary"
+			.clearfix.col-md-12.col-xs-12
+= link_to "Imprimir documento", "javascript:window.print()", id: "print_button", class: "btn btn-block btn-primary"
