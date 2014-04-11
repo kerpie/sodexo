@@ -7,7 +7,7 @@
 					%h3
 						= "Dia: " + day.to_s + "/" + result[4].month.to_s
 				.col-md-9.col-xs-12.right_part{style: "padding-top: 10px; margin-bottom: 10px;"}
-					- total = result[3][day][:yes] + result[3][day][:no]
+					- total = result[3][day.to_s][:yes] + result[3][day.to_s][:no]
 					- unless total == 0
 						- yes_width = yes*100/total
 						.bar.positive_bar{ style: "width: #{yes_width}%;"}
