@@ -183,9 +183,23 @@ class Survey < ActiveRecord::Base
 		SubCategory.first(3).each do |sc|
 			yes = 0
 			no = 0
-			tmp_start_time = sc.start_time.in_time_zone
-			tmp_end_time = sc.end_time.in_time_zone
 			surveys.each do |survey|
+				tmp_start_time = Time.zone.local(
+					start_time.year, 
+					start_time.month, 
+					start_time.day, 
+					sc.start_time.in_time_zone.hour,
+					sc.start_time.in_time_zone.minute,
+					sc.start_time.in_time_zone.second
+				)
+				tmp_end_time = Time.zone.local(
+					end_time.year, 
+					end_time.month, 
+					end_time.day, 
+					sc.end_time.in_time_zone.hour,
+					sc.end_time.in_time_zone.minute,
+					sc.end_time.in_time_zone.second
+				)
 				survey.choosen_questions.each do |cq|
 					yes += cq.answers.where("alternative_id = ? AND created_at >= ? AND created_at <= ?", cq.availability.question.alternatives.first, tmp_start_time, tmp_end_time).count
 					no += cq.answers.where("alternative_id = ? AND created_at >= ? AND created_at <= ?", cq.availability.question.alternatives.last, tmp_start_time, tmp_end_time).count
