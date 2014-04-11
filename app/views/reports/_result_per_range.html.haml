@@ -6,7 +6,7 @@
 				- month = result[3][i]
 				.col-md-3.col-xs-12.left_part
 					%h3
-						= "Dia: " + day.to_s + "/" month.to_s
+						= "Dia: " + day.to_s + "/" + month.to_s
 				.col-md-9.col-xs-12.right_part{style: "padding-top: 10px; margin-bottom: 10px;"}
 					- total = result[4][day.to_s][:yes] + result[4][day.to_s][:no]
 					- unless total == 0
