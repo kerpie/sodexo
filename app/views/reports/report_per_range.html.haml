@@ -1,2 +1,35 @@
-%h1
-	Reporte por rango
+#survey_form.row
+	.col-md-12
+		%h1
+			Reporte por rango de fechas
+	.col-md-12
+		= form_tag result_per_range_path, id: "search_result", remote: true do
+			.col-md-4.col-sm-6.col-xs-12
+				.form-group
+					.col-md-12
+						= select_tag "restaurant_id", options_from_collection_for_select(current_user.restaurants, :id, :name), class: "form-control"
+			.col-md-2.col-md-offset-4.col-sm-3.col-xs-12
+				.form-group
+					.col-md-12
+						= text_field_tag "start_date_for_report", "", class: "form-control", placeholder: "Fecha inicial"
+			.col-md-2.col-sm-3.col-xs-12
+				.form-group
+					.col-md-12
+						= text_field_tag "end_date_for_report", "", class: "form-control", placeholder: "Fecha final"
+
+- content_for :scripts do 
+	:javascript
+		$(document).on('focusin', '#start_date_for_report', function(){
+			$(this).datepicker()
+				.on('changeDate', function(ev){
+					$("#search_result").submit();
+					$("#loading_part").show();
+				});;
+		});
+		$(document).on('focusin', '#end_date_for_report', function(){
+			$(this).datepicker()
+				.on('changeDate', function(ev){
+					$("#search_result").submit();
+					$("#loading_part").show();
+				});;
+		});

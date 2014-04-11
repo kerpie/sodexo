@@ -1,0 +1,5 @@
+$(".result_to_care").each(function(){$(this).remove();});
+$(".no_survey_result").each(function(){$(this).remove();});
+$(".download_excel").each(function(){$(this).remove();});
+$("#survey_form").after("#{j render 'result_per_range', result: @result}");
+$("#loading_part").hide();

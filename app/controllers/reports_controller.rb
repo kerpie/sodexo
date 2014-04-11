@@ -28,6 +28,7 @@ class ReportsController < ApplicationController
     end
 
     def result_per_range
+        @result = Survey.result_per_range(params[:restaurant_id], params[:start_date_for_report], params[:end_date_for_report])
         respond_to do |format|
             format.js
             format.json
