@@ -113,6 +113,7 @@ class Survey < ActiveRecord::Base
 		surveys = restaurant.surveys.where("created_at >= ? AND created_at <= ?", start_time.beginning_of_day, end_time.end_of_day).order(:created_at)
 		hash_days = {}
 		hash_data = {}
+		hash_months = {}
 		total = surveys.count
 		status = false
 		
