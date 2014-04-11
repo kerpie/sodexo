@@ -1,3 +1,16 @@
-// Place all the styles related to the reports controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#survey_form{
+	h1{
+		text-align: center;
+		background: #000;
+		color: white;
+		padding: 10px 0px;
+		font-size: 16px;
+		text-transform: uppercase;
+		position: relative;
+		top: -15px;
+	}
+	#search_result{
+		position: relative;
+		top: -10px;
+	}
+}

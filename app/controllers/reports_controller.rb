@@ -12,10 +12,59 @@ class ReportsController < ApplicationController
             format.html
             format.js
             format.json
-            format.xls {
-                headers["Content-Disposition"] = 'attachment; filename="' + @result[4].name.gsub(" ", "_") + '.xls"',
-                headers["Content-Type"] = "application/vnd.ms-excel"
-            }
+            format.xls do 
+                data = render_to_string(template: "reports/result")
+                send_data   data, 
+                            filename: "#{@result[4].name}.xls",
+                            type: 'application/vnd.ms-excel'
+            end
+        end
+    end
+
+    def range
+        respond_to do |format|
+            format.html
+        end
+    end
+
+    def result_per_range
+        respond_to do |format|
+            format.js
+            format.json
+        end
+    end
+
+    def report_per_month
+        respond_to do |format|
+            format.html
+        end
+    end
+
+    def result_per_month
+        @result = Survey.result_per_month(params[:restaurant_id], params[:month])
+        respond_to do |format|
+            format.js
+            format.json
+        end
+    end
+
+    def result_per_month_with_year
+       @result = Survey.result_per_month_with_year(params[:restaurant_id], params[:month], params[:year])
+        respond_to do |format|
+            format.js
+            format.json
+        end 
+    end
+
+    def report_total
+        respond_to do |format|
+            format.html
+        end
+    end
+
+    def result_total
+        respond_to do |format|
+            format.json
         end
     end
 
@@ -30,10 +79,4 @@ class ReportsController < ApplicationController
         end
     end
 
-    def result_per_month
-        @result = Survey.result_per_month(params[:restaurant_id], params[:month])
-        respond_to do |format|
-            format.json
-        end
-    end
 end

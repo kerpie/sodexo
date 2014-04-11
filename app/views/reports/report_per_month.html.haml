@@ -1,0 +1,18 @@
+#survey_form.row
+	.col-md-12
+		%h1
+			Reporte mensual
+	.col-md-12
+		= form_tag result_per_month_with_year_path, id: "search_result", remote: true do
+			.col-md-4.col-sm-6.col-xs-12
+				.form-group
+					.col-md-12
+						= select_tag "restaurant_id", options_from_collection_for_select(current_user.restaurants, :id, :name), class: "form-control"
+			.col-md-2.col-md-offset-4.col-sm-3.col-xs-12
+				.form-group
+					.col-md-12
+						= select_tag "month", options_for_select({ enero: "1", febrero: "2", marzo: "3", abril: "4", mayo: "5", junio: "6", julio: "7", agosto: "8", septiembre: "9", octubre: "10", noviembre: "11", diciembre: "12"}), class: "form-control"
+			.col-md-2.col-sm-3.col-xs-12
+				.form-group
+					.col-md-12
+						= select_tag "year", options_for_select(%w(2014 2015 2016)), class: "form-control"

@@ -1,0 +1,3 @@
+$(".no_survey_result").each(function(){$(this).remove();});
+$("#survey_form").after("#{j render 'result_per_month_with_year', result: @result}");
+$("#loading_part").hide();
