@@ -18,7 +18,7 @@ class Restaurant < ActiveRecord::Base
 	end
 
 	def create_new_survey
-		new_survey = Survey.create(restaurant_id: id, name: "Encuesta creada para #{name} en #{Time.zone.now}")
+		new_survey = Survey.create(restaurant_id: id, name: "Encuesta creada para #{name} en #{Time.zone.now}", created_at: Time.zone.now)
 		SubCategory.all.each do |sc|
 			available_questions = questions.where(sub_category_id: sc.id).shuffle
 			unless available_questions.empty?

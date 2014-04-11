@@ -12,10 +12,12 @@ class ReportsController < ApplicationController
             format.html
             format.js
             format.json
-            format.xls {
-                headers["Content-Disposition"] = 'attachment; filename="' + @result[4].name.gsub(" ", "_") + '.xls"',
-                headers["Content-Type"] = "application/vnd.ms-excel"
-            }
+            format.xls do 
+                data = render_to_string(template: "reports/result")
+                send_data   data, 
+                            filename: "#{@result[4].name}.xls",
+                            type: 'application/vnd.ms-excel'
+            end
         end
     end
 
