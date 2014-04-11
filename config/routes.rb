@@ -4,7 +4,17 @@ Sodexo::Application.routes.draw do
 
   get "reports/index" => "reports#index", as: :report_index
   post "reports/result" => "reports#result", as: :report_result
-  post "reports/result_per_month" => "reports#result_per_month", as: :report_result_per_month
+
+  get "reports/range" => "reports#report_per_range", as: :report_per_range
+  post "reports/result_per_range" => "reports#result_per_range", as: :result_per_range
+
+  get "reports/report_per_month" => "reports#report_per_month", as: :report_per_month
+  post "reports/result_per_month" => "reports#result_per_month", as: :result_per_month
+  post "reports/result_per_month_with_year" => "reports#result_per_month_with_year", as: :result_per_month_with_year
+
+  get "reports/report_total" => "reports#report_total", as: :report_total
+  post "reports/result_total" => "reports#result_total", as: :result_total
+
   post "reports/check_survey_availability" => "reports#check_survey_availability", as: :report_check_survey_availability
   get "restaurants/choose_restaurant" => "restaurants#choose_restaurant", as: :choose_restaurant
   post "restaurants/survey_of_today" => "restaurants#survey_of_today", as: :survey_of_today

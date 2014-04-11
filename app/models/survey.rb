@@ -47,7 +47,7 @@ class Survey < ActiveRecord::Base
 		restaurant = Restaurant.find(restaurant_id)
 		time = Time.new(Time.zone.now.year, month, 1)
 
-		surveys = restaurant.surveys.where("created_at >= ? AND created_at <= ?", time.beginning_of_month, time.end_of_month)
+		surveys = restaurant.surveys.where("created_at >= ? AND created_at <= ?", time.beginning_of_month, time.end_of_month).order(:created_at)
 		hash_days = {}
 		hash_data = {}
 		total = surveys.count
@@ -73,4 +73,36 @@ class Survey < ActiveRecord::Base
 		# hash_data: survey result per day
 		result = [status, total, hash_days, hash_data]
 	end
+
+	def self.result_per_month_with_year(restaurant_id, month, year)
+		restaurant = Restaurant.find(restaurant_id)
+		time = Time.new(year, month, 1)
+
+		surveys = restaurant.surveys.where("created_at >= ? AND created_at <= ?", time.beginning_of_month, time.end_of_month).order(:created_at)
+		hash_days = {}
+		hash_data = {}
+		total = surveys.count
+		status = false
+		
+		if surveys.count > 0
+			status = true 
+		end
+
+		surveys.each.with_index(0) do |survey, index|
+			hash_days[index] = survey.created_at.day
+			yes = 0
+			no = 0
+			survey.choosen_questions.each do |cq|
+				yes += cq.answers.where(alternative_id: cq.availability.question.alternatives.first).count
+				no += cq.answers.count - cq.answers.where(alternative_id: cq.availability.question.alternatives.first).count
+			end
+			hash_data[survey.created_at.day.to_s] = {yes: yes, no: no}
+		end
+		# status: if there are surveys in the indicated month
+		# total: total of surveys
+		# hash_days: days index
+		# hash_data: survey result per day
+		result = [status, total, hash_days, hash_data, time]	
+	end
+
 end
