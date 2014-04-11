@@ -189,16 +189,16 @@ class Survey < ActiveRecord::Base
 					start_time.month, 
 					start_time.day, 
 					sc.start_time.in_time_zone.hour,
-					sc.start_time.in_time_zone.minute,
-					sc.start_time.in_time_zone.second
+					sc.start_time.in_time_zone.min,
+					sc.start_time.in_time_zone.sec
 				)
 				tmp_end_time = Time.zone.local(
 					end_time.year, 
 					end_time.month, 
 					end_time.day, 
 					sc.end_time.in_time_zone.hour,
-					sc.end_time.in_time_zone.minute,
-					sc.end_time.in_time_zone.second
+					sc.end_time.in_time_zone.min,
+					sc.end_time.in_time_zone.sec
 				)
 				survey.choosen_questions.each do |cq|
 					yes += cq.answers.where("alternative_id = ? AND created_at >= ? AND created_at <= ?", cq.availability.question.alternatives.first, tmp_start_time, tmp_end_time).count
