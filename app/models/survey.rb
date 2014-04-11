@@ -122,6 +122,7 @@ class Survey < ActiveRecord::Base
 
 		surveys.each.with_index(0) do |survey, index|
 			hash_days[index] = survey.created_at.day
+			hash_months[index] = survey.created_at.month
 			yes = 0
 			no = 0
 			survey.choosen_questions.each do |cq|
@@ -136,9 +137,10 @@ class Survey < ActiveRecord::Base
 		# status: if there are surveys in the indicated month
 		# total: total of surveys
 		# hash_days: days index
+		# hash_months: months index
 		# hash_data: survey result per day
 		# time: hash with dates used
-		result = [status, total, hash_days, hash_data, time]	
+		result = [status, total, hash_days, hash_months, hash_data, time]	
 	end
 
 end
