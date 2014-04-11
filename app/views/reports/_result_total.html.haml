@@ -1,3 +1,35 @@
+.station.row.result_to_care
+	.col-md-12.col-xs-12
+		.col-md-5.col-xs-12.left_part
+			%h3
+				Apreciacion general durante las fechas indicadas:
+				%br
+				= "Inicio: " + result[1][:start].strftime("%d/%m/%Y")
+				%br
+				= "Fin: " + result[1][:end].strftime("%d/%m/%Y")
+		.col-md-7.col-xs-12.right_part
+			- total = result[1][:grand_total]
+			- yes = result[1][:grand_yes]
+			- no = result[1][:grand_no]
+			- unless total == 0
+				- yes_width = yes*100/total
+				- no_width = no*100/total
+				.bar.positive_bar{ style: "width: #{yes_width}%;"}
+					- unless yes == 0
+						%p
+							= "#{yes} votos (#{yes_width}%)" 
+					- else
+						%p
+				.bar.negative_bar{ style: "width: #{no_width}%;"}
+					- unless no == 0
+						%p
+							= "#{no} votos (#{no_width}%)"
+					- else
+						%p
+			- else
+				.bar.positive_bar{ style: "width: 0px;"}
+				.bar.negative_bar{ style: "width: 0px;"}
+	.clearfix.col-md-12.col-xs-12
 - result[0].each do |r|
 	.station.row.result_to_care
 		.col-md-12.col-xs-12

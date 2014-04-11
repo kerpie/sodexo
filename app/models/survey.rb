@@ -169,7 +169,7 @@ class Survey < ActiveRecord::Base
 			result << [status, restaurant, {total: total, yes: yes, no: no}]
 		end
 		grand_total = grand_yes + grand_no
-		response = [result, {grand_total: grand_total, grand_yes: grand_yes, grand_no: grand_no}]
+		response = [result, {grand_total: grand_total, grand_yes: grand_yes, grand_no: grand_no, start: start_time, end: end_time}]
 	end
 
 end
