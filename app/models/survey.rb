@@ -144,4 +144,32 @@ class Survey < ActiveRecord::Base
 		result = [status, total, hash_days, hash_months, hash_data, time]	
 	end
 
+	def self.result_total(start_date, end_date)
+		start_time = Time.strptime(start_date, "%m/%d/%Y")
+		end_time = Time.strptime(end_date, "%m/%d/%Y")
+		result = []
+		response = []
+		grand_yes = 0
+		grand_no = 0
+		Restaurant.all.each do |restaurant|
+			status = false
+			surveys = restaurant.surveys.where("created_at >= ? AND created_at <= ?", start_time.beginning_of_day, end_time.end_of_day).order(:created_at)
+			status = true if surveys.count > 0
+			yes = 0
+			no = 0
+			surveys.each do |survey|
+				survey.choosen_questions.each do |cq|
+					yes += cq.answers.where(alternative_id: cq.availability.question.alternatives.first).count
+					no += cq.answers.count - cq.answers.where(alternative_id: cq.availability.question.alternatives.first).count
+				end
+			end
+			total = yes + no
+			grand_yes += yes 
+			grand_no += no
+			result << [status, restaurant, {total: total, yes: yes, no: no}]
+		end
+		grand_total = grand_yes + grand_no
+		response = [result, {grand_total: grand_total, grand_yes: grand_yes, grand_no: grand_no}]
+	end
+
 end

@@ -1,2 +1,31 @@
-%h1
-	Reporte total
+#survey_form.row
+	.col-md-12
+		%h1
+			Reporte total de los comedores
+	.col-md-12
+		= form_tag result_total_path, id: "search_result", remote: true do
+			.col-md-4.col-sm-3.col-xs-12
+				.form-group
+					.col-md-12
+						= text_field_tag "start_date", "", class: "form-control", placeholder: "Fecha inicial"
+			.col-md-4.col-md-offset-4.col-sm-3.col-xs-12
+				.form-group
+					.col-md-12
+						= text_field_tag "end_date", "", class: "form-control", placeholder: "Fecha final"
+
+- content_for :scripts do 
+	:javascript
+		$(document).on('focusin', '#start_date_for_report', function(){
+			$(this).datepicker()
+				.on('changeDate', function(ev){
+					$("#search_result").submit();
+					$("#loading_part").show();
+				});;
+		});
+		$(document).on('focusin', '#end_date_for_report', function(){
+			$(this).datepicker()
+				.on('changeDate', function(ev){
+					$("#search_result").submit();
+					$("#loading_part").show();
+				});;
+		});
