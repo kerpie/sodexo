@@ -1,0 +1,33 @@
+.station.row.result_to_care
+	.col-md-12.col-xs-12
+		%h1
+			= result[0].name
+- result[1].each do |key, value|
+	.station.row.result_to_care
+		.col-md-12.col-xs-12
+			.col-md-5.col-xs-12.left_part{style: "background: #000; color: #FFF"}
+				%h3
+					= key.name
+			.col-md-7.col-xs-12.right_part
+				- total = value[:total]
+				- yes = value[:yes]
+				- no = value[:no]
+				- unless total == 0
+					- yes_width = yes*100/total
+					- no_width = no*100/total
+					.bar.positive_bar{ style: "width: #{yes_width}%;"}
+						- unless yes == 0
+							%p
+								= "SI: #{yes} votos (#{yes_width}%)" 
+						- else
+							%p
+					.bar.negative_bar{ style: "width: #{no_width}%;"}
+						- unless no == 0
+							%p
+								= "NO: #{no} votos (#{no_width}%)"
+						- else
+							%p
+				- else
+					.bar.positive_bar{ style: "width: 0px;"}
+					.bar.negative_bar{ style: "width: 0px;"}
+		.clearfix.col-md-12.col-xs-12

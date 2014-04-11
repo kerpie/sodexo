@@ -172,4 +172,29 @@ class Survey < ActiveRecord::Base
 		response = [result, {grand_total: grand_total, grand_yes: grand_yes, grand_no: grand_no, start: start_time, end: end_time}]
 	end
 
+	def self.detailed_result(restaurant_id, start_date, end_date)
+		restaurant = Restaurant.find(restaurant_id)
+		start_time = Time.strptime(start_date, "%m/%d/%Y")
+		end_time = Time.strptime(end_date, "%m/%d/%Y")
+
+		surveys = restaurant.surveys.where("created_at >= ? AND created_at <= ?", start_time.beginning_of_day, end_time.end_of_day).order(:created_at)
+		total = 0
+		hash = {}
+		SubCategory.first(3).each do |sc|
+			yes = 0
+			no = 0
+			tmp_start_time = sc.start_time.in_time_zone
+			tmp_end_time = sc.end_time.in_time_zone
+			surveys.each do |survey|
+				survey.choosen_questions.each do |cq|
+					yes += cq.answers.where("alternative_id = ? AND created_at >= ? AND created_at <= ?", cq.availability.question.alternatives.first, tmp_start_time, tmp_end_time).count
+					no += cq.answers.where("alternative_id = ? AND created_at >= ? AND created_at <= ?", cq.availability.question.alternatives.last, tmp_start_time, tmp_end_time).count
+				end
+			end
+			total = yes+no
+			hash[sc] = {total: total, yes: yes, no: no}
+		end
+		[restaurant, hash]
+	end
+
 end

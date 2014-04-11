@@ -71,6 +71,19 @@ class ReportsController < ApplicationController
         end
     end
 
+    def report_detailed_by_service
+        respond_to do |format|
+            format.html
+        end
+    end
+
+    def result_detailed_by_service
+        @result = Survey.detailed_result(params[:restaurant_id], params[:start_date_for_report], params[:end_date_for_report])
+        respond_to do |format|
+            format.js
+        end
+    end
+
     def check_survey_availability
         restaurant_id = params[:restaurant_id_for_survey]
         time = Time.strptime(params[:date_for_survey], '%m/%d/%Y')
