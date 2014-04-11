@@ -66,6 +66,7 @@ class ReportsController < ApplicationController
     def result_total
         @result = Survey.result_total(params[:start_date], params[:end_date])
         respond_to do |format|
+            format.js
             format.json
         end
     end
