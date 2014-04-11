@@ -15,14 +15,14 @@
 
 - content_for :scripts do 
 	:javascript
-		$(document).on('focusin', '#start_date_for_report', function(){
+		$(document).on('focusin', '#start_date', function(){
 			$(this).datepicker()
 				.on('changeDate', function(ev){
 					$("#search_result").submit();
 					$("#loading_part").show();
 				});;
 		});
-		$(document).on('focusin', '#end_date_for_report', function(){
+		$(document).on('focusin', '#end_date', function(){
 			$(this).datepicker()
 				.on('changeDate', function(ev){
 					$("#search_result").submit();
