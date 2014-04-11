@@ -9,6 +9,8 @@
 				.col-md-9.col-xs-12.right_part{style: "padding-top: 10px; margin-bottom: 10px;"}
 					- total = result[3][day.to_s][:yes] + result[3][day.to_s][:no]
 					- unless total == 0
+						- yes = result[3][day.to_s][:yes]
+						- no = result[3][day.to_s][:no]
 						- yes_width = yes*100/total
 						.bar.positive_bar{ style: "width: #{yes_width}%;"}
 							%p
