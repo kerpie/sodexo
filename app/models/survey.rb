@@ -138,7 +138,7 @@ class Survey < ActiveRecord::Base
 			hash_data[survey.created_at.day.to_s] = {yes: yes, no: no}
 		end
 
-		time = { restaurant: restaurant.id, start_date: start_date, end_date: end_date}
+		time = { restaurant: restaurant, start_date: start_date, end_date: end_date}
 
 		# status: if there are surveys in the indicated month
 		# total: total of surveys

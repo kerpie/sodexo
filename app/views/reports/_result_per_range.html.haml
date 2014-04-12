@@ -1,9 +1,17 @@
 - if result[0]
 	= form_tag result_per_range_path(format: "pdf"), class: "download_pdf" do
-		= hidden_field_tag "restaurant_id", result[5][:restaurant]
+		= hidden_field_tag "restaurant_id", result[5][:restaurant].id
 		= hidden_field_tag "start_date_for_report", result[5][:start_date]
 		= hidden_field_tag "end_date_for_report", result[5][:end_date]
 		= submit_tag "Descargar resumen en pdf", class: "btn btn-primary btn-block"
+	.station.row.result_to_care
+		.col-md-12.col-xs-12
+			%h1
+				= result[5][:restaurant].name
+				%br
+				= "Fecha inicial: #{result[5][:start_date]}"
+				%br
+				= "Fecha final: #{result[5][:end_date]}"
 	- result[1].times do |i|
 		.station.row.result_to_care
 			.col-md-12.col-xs-12

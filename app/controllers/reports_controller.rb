@@ -92,6 +92,14 @@ class ReportsController < ApplicationController
         respond_to do |format|
             format.js
             format.json
+            format.pdf do
+                html = render_to_string(partial: "reports/result_total", formats: [:html], locals: {result: @result})
+                kit = PDFKit.new(html)
+                kit.stylesheets << "#{Rails.root}/app/assets/stylesheets/print.css"
+                send_data   kit.to_pdf,
+                            filename: "Reporte.pdf",
+                            content_type: "application/pdf"
+            end
         end
     end
 
@@ -105,6 +113,14 @@ class ReportsController < ApplicationController
         @result = Survey.detailed_result(params[:restaurant_id], params[:start_date_for_report], params[:end_date_for_report])
         respond_to do |format|
             format.js
+            format.pdf do
+                html = render_to_string(partial: "reports/result_detailed_by_service", formats: [:html], locals: {result: @result})
+                kit = PDFKit.new(html)
+                kit.stylesheets << "#{Rails.root}/app/assets/stylesheets/print.css"
+                send_data   kit.to_pdf,
+                            filename: "Reporte.pdf",
+                            content_type: "application/pdf"
+            end
         end
     end
 
