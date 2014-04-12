@@ -55,10 +55,10 @@ class ReportsController < ApplicationController
             format.js
             format.json
             format.pdf do
-                html = render_to_string(template: "reports/result_per_month_with_year")
+                html = render_to_string(partial: "reports/result_per_month_with_year")
                 pdf = WickedPdf.new.pdf_from_string(html)
                 send_data   pdf,
-                            filename: "Reporte mensual.pdf",
+                            filename: "Reporte.pdf",
                             type: "application/pdf"
             end
         end 
