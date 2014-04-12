@@ -40,8 +40,8 @@ end
 
 gem 'haml-rails'
 gem 'devise'
-gem 'wicked_pdf'
-
+gem 'pdfkit'
+gem 'wkhtmltopdf-binary'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

@@ -56,8 +56,8 @@ class ReportsController < ApplicationController
             format.json
             format.pdf do
                 html = render_to_string(partial: "reports/result_per_month_with_year", formats: [:html], locals: {result: @result})
-                pdf = WickedPdf.new.pdf_from_string(html)
-                send_data   pdf,
+                kit = PDFKit.new(html)
+                send_data   kit,
                             filename: "Reporte.pdf",
                             type: "application/pdf"
             end
