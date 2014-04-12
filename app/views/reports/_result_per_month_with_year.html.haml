@@ -1,4 +1,4 @@
-= form_tag result_per_month_with_year_path(format: "pdf"), class: "download_pdf" do
+= form_tag result_per_month_with_year_path(format: "pdf"), class: "download_pdf", remote: true do
 	= hidden_field_tag "restaurant_id", result[5][:restaurant].id
 	= hidden_field_tag "month", result[4].month
 	= hidden_field_tag "year", result[4].year
