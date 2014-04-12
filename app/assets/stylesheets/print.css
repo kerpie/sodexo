@@ -1,0 +1,67 @@
+	.navbar, #survey_form, .download_excel, #print_button, .download_pdf {
+	    display: none;
+	}
+	.station {
+	    width: 100%;
+	}
+	.station h1 {
+	    border: 2px solid #000000;
+	    font-size: 18px;
+	    font-weight: bold;
+	    text-align: center;
+	    width: 100%;
+	}
+	.station .left_part {
+	    clear: both;
+	    float: left;
+	    width: 30%;
+	}
+	.station .left_part h3 {
+	    font-size: 15px;
+	    font-weight: bold;
+	}
+	.station .left_part h5 {
+	    font-size: 14px;
+	}
+	.station .right_part {
+	    float: right;
+	    width: 70%;
+	}
+	.station .right_part .bar {
+	    border: 1px solid #000000;
+	}
+
+// @media print{
+// 	.navbar, #survey_form, .download_excel, #print_button, .download_pdf{
+// 		display: none;
+// 	}
+// 	.station{
+// 		width: 100%;
+// 		h1{
+// 			width: 100%;
+// 			text-align: center;
+// 			border: 2px solid black;
+// 			font-size: 18px;
+// 			font-weight: bold;
+// 		}
+// 		.left_part{
+// 			width: 30%;
+// 			float: left;
+// 			clear: both;
+// 			h3{
+// 				font-size: 15px;
+// 				font-weight: bold;
+// 			}
+// 			h5{
+// 				font-size: 14px;
+// 			}
+// 		}
+// 		.right_part{
+// 			width: 70%;
+// 			float: right;
+// 			.bar{
+// 				border: 1px solid black;
+// 			}
+// 		}
+// 	}
+// }

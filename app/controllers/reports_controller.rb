@@ -57,9 +57,10 @@ class ReportsController < ApplicationController
             format.pdf do
                 html = render_to_string(partial: "reports/result_per_month_with_year", formats: [:html], locals: {result: @result})
                 kit = PDFKit.new(html)
-                send_data   kit,
+                kit.stylesheets << "#{Rails.root}/app/assets/stylesheets/print.css"
+                send_data   kit.to_pdf,
                             filename: "Reporte.pdf",
-                            type: "application/pdf"
+                            content_type: "application/pdf"
             end
         end 
     end

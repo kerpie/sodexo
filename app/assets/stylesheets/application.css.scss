@@ -10,6 +10,7 @@
  *
  *= require_self
  *= require_tree .
+ *= stub print
  */
 
 .logo-image{
@@ -69,39 +70,4 @@ body{
 .form-signin .checkbox {
     font-weight: normal;
     margin-bottom: 10px;
-}
-
-@media print{
-	.navbar, #survey_form, .download_excel, #print_button{
-		display: none;
-	}
-	.station{
-		width: 100%;
-		h1{
-			width: 100%;
-			text-align: center;
-			border: 2px solid black;
-			font-size: 18px;
-			font-weight: bold;
-		}
-		.left_part{
-			width: 30%;
-			float: left;
-			clear: both;
-			h3{
-				font-size: 15px;
-				font-weight: bold;
-			}
-			h5{
-				font-size: 14px;
-			}
-		}
-		.right_part{
-			width: 70%;
-			float: right;
-			.bar{
-				border: 1px solid black;
-			}
-		}
-	}
 }
