@@ -1,4 +1,9 @@
 - if result[0]
+	= form_tag result_per_range_path(format: "pdf"), class: "download_pdf" do
+		= hidden_field_tag "restaurant_id", result[5][:restaurant]
+		= hidden_field_tag "start_date_for_report", result[5][:start_date]
+		= hidden_field_tag "end_date_for_report", result[5][:end_date]
+		= submit_tag "Descargar resumen en pdf", class: "btn btn-primary btn-block"
 	- result[1].times do |i|
 		.station.row.result_to_care
 			.col-md-12.col-xs-12
@@ -6,7 +11,7 @@
 				- month = result[3][i]
 				.col-md-3.col-xs-12.left_part
 					%h3
-						= "Dia: " + day.to_s + "/" + month.to_s
+						= "Día: " + day.to_s + "/" + month.to_s
 				.col-md-9.col-xs-12.right_part{style: "padding-top: 10px; margin-bottom: 10px;"}
 					- total = result[4][day.to_s][:yes] + result[4][day.to_s][:no]
 					- unless total == 0

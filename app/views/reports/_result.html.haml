@@ -1,8 +1,8 @@
 - if result[0]
-	= form_tag report_result_path(format: "xls"), class: "download_excel" do
+	= form_tag report_result_path(format: "pdf"), class: "download_pdf" do
 		= hidden_field_tag "restaurant_id_for_survey", @id
 		= hidden_field_tag "date_for_survey", @date
-		= submit_tag "Descargar datos en excel", class: "btn btn-primary btn-block"
+		= submit_tag "Descargar reporte en pdf", class: "btn btn-primary btn-block"
 	- result[2].each do |sub|
 		.station.row.result_to_care
 			.col-md-12.col-xs-12
@@ -10,7 +10,7 @@
 					- sub_total = 0
 					- result[1][sub].each do |cq|
 						- sub_total += cq.answers.where("created_at >= ? AND created_at <= ?", sub.start_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day), sub.end_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day)).count
-					= sub.name + "(#{sub_total} votos registrados)"
+					= sub.name + " (#{sub_total} votos registrados)"
 				- result[1][sub].each do |cq|
 					- total = cq.answers.where("created_at >= ? AND created_at <= ?", sub.start_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day), sub.end_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day)).count
 					- yes = cq.answers.where("alternative_id = ? AND created_at >= ? AND created_at <= ?", cq.availability.question.alternatives.first.id, sub.start_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day), sub.end_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day)).count
@@ -21,9 +21,9 @@
 						%h5
 							= "Votos totales: #{total}"
 							%br
-							= "Votos positivos: #{yes}"
+							= "Votos SI: #{yes}"
 							%br
-							= "Votos negativos: #{no}"	
+							= "Votos NO: #{no}"	
 
 					.col-md-9.col-xs-12.right_part{style: "padding-top: 10px; margin-bottom: 10px;"}
 						- unless total == 0

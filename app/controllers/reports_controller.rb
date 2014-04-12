@@ -18,6 +18,14 @@ class ReportsController < ApplicationController
                             filename: "#{@result[4].name}.xls",
                             type: 'application/vnd.ms-excel'
             end
+            format.pdf do 
+                html = render_to_string(partial: "reports/result", formats: [:html], locals: {result: @result})
+                kit = PDFKit.new(html)
+                kit.stylesheets << "#{Rails.root}/app/assets/stylesheets/print.css"
+                send_data   kit.to_pdf,
+                            filename: "Reporte.pdf",
+                            content_type: "application/pdf"
+            end
         end
     end
 
@@ -32,6 +40,14 @@ class ReportsController < ApplicationController
         respond_to do |format|
             format.js
             format.json
+            format.pdf do
+                html = render_to_string(partial: "reports/result_per_range", formats: [:html], locals: {result: @result})
+                kit = PDFKit.new(html)
+                kit.stylesheets << "#{Rails.root}/app/assets/stylesheets/print.css"
+                send_data   kit.to_pdf,
+                            filename: "Reporte.pdf",
+                            content_type: "application/pdf"
+            end
         end
     end
 

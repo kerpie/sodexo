@@ -138,7 +138,7 @@ class Survey < ActiveRecord::Base
 			hash_data[survey.created_at.day.to_s] = {yes: yes, no: no}
 		end
 
-		time = { start_time: start_time, end_date: end_date}
+		time = { restaurant: restaurant.id, start_date: start_date, end_date: end_date}
 
 		# status: if there are surveys in the indicated month
 		# total: total of surveys
@@ -174,7 +174,7 @@ class Survey < ActiveRecord::Base
 			result << [status, restaurant, {total: total, yes: yes, no: no}]
 		end
 		grand_total = grand_yes + grand_no
-		response = [result, {grand_total: grand_total, grand_yes: grand_yes, grand_no: grand_no, start: start_time, end: end_time}]
+		response = [result, {grand_total: grand_total, grand_yes: grand_yes, grand_no: grand_no, start: start_time, end: end_time, start_date: start_date, end_date: end_date}]
 	end
 
 	def self.detailed_result(restaurant_id, start_date, end_date)
@@ -213,7 +213,7 @@ class Survey < ActiveRecord::Base
 			total = yes+no
 			hash[sc] = {total: total, yes: yes, no: no}
 		end
-		[restaurant, hash]
+		[restaurant, hash, {restaurant: restaurant.id, start_date: start_date, end_date: end_date}]
 	end
 
 end
