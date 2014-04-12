@@ -35,7 +35,7 @@
 				.bar.negative_bar{ style: "width: 0px;"}
 	.clearfix.col-md-12.col-xs-12
 - result[0].each do |r|
-	.station.row.result_to_care
+	.station.row.result_to_care{style: "border-top: 1px solid #B0B0B0;"}
 		.col-md-12.col-xs-12
 			.col-md-3.col-xs-12.left_part
 				%h3
@@ -64,4 +64,5 @@
 						.bar.positive_bar{ style: "width: 0px;"}
 						.bar.negative_bar{ style: "width: 0px;"}
 			.clearfix.col-md-12.col-xs-12
+	}
 = link_to "Imprimir documento", "javascript:window.print()", id: "print_button", class: "btn btn-block btn-primary"
