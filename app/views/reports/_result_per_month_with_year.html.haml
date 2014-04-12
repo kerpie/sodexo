@@ -5,8 +5,8 @@
 				= "Mes: #{result[4].strftime('%B')} "
 				%br
 				"Satisfaccion total: "
-				= "SI: #{result[5][:grand_yes]*100/result[5][:grand_total]}"
-				= "NO: #{result[5][:grand_no]*100/result[5][:grand_total]}"
+				= "SI: #{result[5][:grand_yes]*100/result[5][:total]}"
+				= "NO: #{result[5][:grand_no]*100/result[5][:total]}"
 				%br
 				= "Local: #{result[5][:restaurant].name}"
 	- result[1].times do |i|
