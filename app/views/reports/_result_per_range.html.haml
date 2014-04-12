@@ -16,14 +16,14 @@
 						.bar.positive_bar{ style: "width: #{yes_width}%;"}
 							- unless yes == 0
 								%p
-									= "#{yes} votos (#{yes_width}%)" 
+									= "SI: #{yes} votos (#{yes_width}%)" 
 							- else
 								%p
 						- no_width = no*100/total									
 						.bar.negative_bar{ style: "width: #{no_width}%;"}
 							- unless no == 0
 								%p
-									= "#{no} votos (#{no_width}%)"
+									= "NO: #{no} votos (#{no_width}%)"
 							- else
 								%p
 					- else

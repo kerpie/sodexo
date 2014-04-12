@@ -1,4 +1,14 @@
 - if result[0]
+	.station.row.result_to_care
+		.col-md-12.col-xs-12
+			%h1
+				= "Mes: #{result[4].strftime('%B')} "
+				%br
+				"Satisfaccion total: "
+				= "SI: #{result[5][:grand_yes]*100/result[5][:grand_total]}"
+				= "NO: #{result[5][:grand_no]*100/result[5][:grand_total]}"
+				%br
+				= "Local: #{result[5][:restaurant].name}"
 	- result[1].times do |i|
 		.station.row.result_to_care
 			.col-md-12.col-xs-12

@@ -87,7 +87,8 @@ class Survey < ActiveRecord::Base
 		if surveys.count > 0
 			status = true 
 		end
-
+		grand_yes = 0
+		grand_no = 0
 		surveys.each.with_index(0) do |survey, index|
 			hash_days[index] = survey.created_at.day
 			yes = 0
@@ -96,13 +97,17 @@ class Survey < ActiveRecord::Base
 				yes += cq.answers.where(alternative_id: cq.availability.question.alternatives.first).count
 				no += cq.answers.count - cq.answers.where(alternative_id: cq.availability.question.alternatives.first).count
 			end
+			grand_yes += yes
+			grand_no += no
 			hash_data[survey.created_at.day.to_s] = {yes: yes, no: no}
 		end
+		hash_total = {total: grand_yes + grand_no, grand_yes: grand_yes, grand_no: grand_no, restaurant: restaurant}
+
 		# status: if there are surveys in the indicated month
 		# total: total of surveys
 		# hash_days: days index
 		# hash_data: survey result per day
-		result = [status, total, hash_days, hash_data, time]	
+		result = [status, total, hash_days, hash_data, time, hash_total]	
 	end
 
 	def self.result_per_range(restaurant_id, start_date, end_date)
