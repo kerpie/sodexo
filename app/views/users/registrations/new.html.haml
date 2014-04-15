@@ -8,4 +8,21 @@
 	= f.email_field :email, :autofocus => true, class: "form-control", placeholder: "Ingresa un correo para registrarte"
 	= f.password_field :password, class: "form-control", placeholder: "Contraseña"
 	= f.password_field :password_confirmation, class: "form-control", placeholder: "Confirmación de contraseña"
+
+	= f.collection_select :user_type_id, UserType.all, :id, :name, { prompt: "Elija un tipo de usuario"}, {class: "form-control"}
+	= select_tag "restaurant_id_for_user", options_from_collection_for_select(Restaurant.all, :id, :name), prompt: "Asigne un local", class: "form-control", style: "display: none;"
 	= f.submit "Registrarse", class: "btn btn-lg btn-primary btn-block"
+
+- content_for :scripts do 
+	:javascript
+		$(document).on('change', '#user_user_type_id', function(){
+			var val = $(this).val();
+			if(val == 1){
+				$("#restaurant_id_for_user").show();
+				$("#restaurant_id_for_user").val("");
+			}
+			else{
+				$("#restaurant_id_for_user").hide();
+				$("#restaurant_id_for_user").val("-1");
+			}
+		});
