@@ -8,7 +8,7 @@ class Survey < ActiveRecord::Base
 		hash = {}
 		subs = SubCategory.first(3)
 		more_subs = SubCategory.last(2)
-		time = Time.strptime(date, '%m/%d/%Y')
+		time = Time.strptime(date, '%d/%m/%Y')
 		survey = where("restaurant_id = ? AND created_at >= ? AND created_at <= ?", restaurant_id, time.beginning_of_day, time.end_of_day).first
 		status = false
 		subs_to_return = []
@@ -112,8 +112,8 @@ class Survey < ActiveRecord::Base
 
 	def self.result_per_range(restaurant_id, start_date, end_date)
 		restaurant = Restaurant.find(restaurant_id)
-		start_time = Time.strptime(start_date, "%m/%d/%Y")
-		end_time = Time.strptime(end_date, "%m/%d/%Y")
+		start_time = Time.strptime(start_date, "%d/%m/%Y")
+		end_time = Time.strptime(end_date, "%d/%m/%Y")
 
 		surveys = restaurant.surveys.where("created_at >= ? AND created_at <= ?", start_time.beginning_of_day, end_time.end_of_day).order(:created_at)
 		hash_days = {}
@@ -150,8 +150,8 @@ class Survey < ActiveRecord::Base
 	end
 
 	def self.result_total(start_date, end_date)
-		start_time = Time.strptime(start_date, "%m/%d/%Y")
-		end_time = Time.strptime(end_date, "%m/%d/%Y")
+		start_time = Time.strptime(start_date, "%d/%m/%Y")
+		end_time = Time.strptime(end_date, "%d/%m/%Y")
 		result = []
 		response = []
 		grand_yes = 0
@@ -179,8 +179,8 @@ class Survey < ActiveRecord::Base
 
 	def self.detailed_result(restaurant_id, start_date, end_date)
 		restaurant = Restaurant.find(restaurant_id)
-		start_time = Time.strptime(start_date, "%m/%d/%Y")
-		end_time = Time.strptime(end_date, "%m/%d/%Y")
+		start_time = Time.strptime(start_date, "%d/%m/%Y")
+		end_time = Time.strptime(end_date, "%d/%m/%Y")
 
 		surveys = restaurant.surveys.where("created_at >= ? AND created_at <= ?", start_time.beginning_of_day, end_time.end_of_day).order(:created_at)
 		total = 0

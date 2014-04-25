@@ -8,6 +8,7 @@
 		= csrf_meta_tags
 	%body
 		- if user_signed_in?
+			= yield :previous_image
 			= render 'layouts/navigation_bar'
 			.container-fluid
 				= yield 

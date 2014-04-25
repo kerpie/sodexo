@@ -7,14 +7,15 @@
 				=content_tag :span, "", class: "icon-bar"
 				=content_tag :span, "", class: "icon-bar"
 			= link_to root_path, class: "navbar-brand" do
-				= image_tag "logo.png", class: "logo-image"
+				= image_tag "door.png", class: "logo-image"
 		#navigation-bar.collapse.navbar-collapse
 			%ul.nav.navbar-nav
 				- if current_user.user_type == UserType.last
 					%li.dropdown
-						= link_to "#", class: "dropdown-toggle", data: {toggle: "dropdown"} do
+						= link_to "#", class: "dropdown-toggle first-option", data: {toggle: "dropdown"} do
 							Locales
 							= content_tag :b, "", class: :caret  
+						.shadow
 						%ul.dropdown-menu
 							%li
 								= link_to "Listar locales", restaurants_path
@@ -23,9 +24,10 @@
 							%li
 								= link_to "Preguntas por restaurante", availabilities_path
 					%li.dropdown
-						= link_to "#", class: "dropdown-toggle", data: {toggle: "dropdown"} do
+						= link_to "#", class: "dropdown-toggle first-option", data: {toggle: "dropdown"} do
 							Preguntas
 							= content_tag :b, "", class: :caret  
+						.shadow	
 						%ul.dropdown-menu
 							%li
 								= link_to "Listar preguntas", questions_path
@@ -34,27 +36,30 @@
 							%li
 								= link_to "Alternativas", alternatives_path
 					%li.dropdown
-						= link_to "#", class: "dropdown-toggle", data: {toggle: "dropdown"} do
+						= link_to "#", class: "dropdown-toggle first-option", data: {toggle: "dropdown"} do
 							Categorías
 							= content_tag :b, "", class: :caret  
+						.shadow	
 						%ul.dropdown-menu
 							%li
 								= link_to "Listar categorías", categories_path
 							%li
 								=link_to "Sub categorías", sub_categories_path
 					%li.dropdown
-						= link_to "#", class: "dropdown-toggle", data: {toggle: "dropdown"} do
+						= link_to "#", class: "dropdown-toggle first-option", data: {toggle: "dropdown"} do
 							Encuestas
 							= content_tag :b, "", class: :caret  
+						.shadow	
 						%ul.dropdown-menu
 							%li
 								= link_to "Listar encuestas", surveys_path
 							%li
 								= link_to "Generar encuesta", choose_restaurant_path
-					%li
-						=link_to "#", class: "dropdown-toggle", data: {toggle: "dropdown"} do 
+					%li.dropdown
+						=link_to "#", class: "dropdown-toggle first-option", data: {toggle: "dropdown"} do 
 							Reportes
 							= content_tag :b, "", class: :caret
+						.shadow	
 						%ul.dropdown-menu
 							%li
 								=link_to "Reporte diario", report_index_path
@@ -67,9 +72,10 @@
 							%li
 								=link_to "Reporte detallado por turno", report_detailed_by_service_path
 					%li.dropdown
-						= link_to "#", class: "dropdown-toggle", data: {toggle: "dropdown"} do
+						= link_to "#", class: "dropdown-toggle first-option", data: {toggle: "dropdown"} do
 							Usuarios
 							= content_tag :b, "", class: :caret  
+						.shadow	
 						%ul.dropdown-menu
 							%li
 								= link_to "Crear usuario", new_user_registration_path
@@ -77,18 +83,20 @@
 								= link_to "Tipos de usuario", user_types_path
 				- else
 					%li.dropdown
-						= link_to "#", class: "dropdown-toggle", data: {toggle: "dropdown"} do
+						= link_to "#", class: "dropdown-toggle first-option", data: {toggle: "dropdown"} do
 							Encuestas
 							= content_tag :b, "", class: :caret  
+							.shadow
 						%ul.dropdown-menu
 							%li
 								= link_to "Listar encuestas", surveys_path
 							%li
 								= link_to "Generar encuesta", choose_restaurant_path
 					%li
-						=link_to "#", class: "dropdown-toggle", data: {toggle: "dropdown"} do 
+						=link_to "#", class: "dropdown-toggle first-option", data: {toggle: "dropdown"} do 
 							Reportes
 							= content_tag :b, "", class: :caret
+							.shadow
 						%ul.dropdown-menu
 							%li
 								=link_to "Reporte diario", report_index_path

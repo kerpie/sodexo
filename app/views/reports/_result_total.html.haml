@@ -1,68 +1,126 @@
-= form_tag result_total_path(format: "pdf"), class: "download_pdf" do
-	= hidden_field_tag "start_date", result[1][:start_date]
-	= hidden_field_tag "end_date", result[1][:end_date]
-	= submit_tag "Descargar resumen en pdf", class: "btn btn-primary btn-block"
-.station.row.result_to_care
-	.col-md-12.col-xs-12
-		.col-md-5.col-xs-12.left_part
-			%h1{style: "font-size: 20px;"}
-				Apreciacion general durante las fechas indicadas:
-				%br
-				= "Inicio: " + result[1][:start].strftime("%d/%m/%Y")
-				%br
-				= "Fin: " + result[1][:end].strftime("%d/%m/%Y")
-		.col-md-7.col-xs-12.right_part{style: "padding-top: 30px;"}
-			- total = result[1][:grand_total]
-			- yes = result[1][:grand_yes]
-			- no = result[1][:grand_no]
-			- unless total == 0
-				- yes_width = yes*100/total
-				- no_width = no*100/total
-				.bar.positive_bar{ style: "width: #{yes_width}%;"}
-					- unless yes == 0
-						%p
-							= "SI: #{yes} votos (#{yes_width}%)" 
-					- else
-						%p
-				.bar.negative_bar{ style: "width: #{no_width}%;"}
-					- unless no == 0
-						%p
-							= "NO: #{no} votos (#{no_width}%)"
-					- else
-						%p
-			- else
-				.bar.positive_bar{ style: "width: 0px;"}
-				.bar.negative_bar{ style: "width: 0px;"}
-	.clearfix.col-md-12.col-xs-12
 - result[0].each do |r|
-	.station.row.result_to_care{style: "border-top: 1px solid #B0B0B0;"}
-		.col-md-12.col-xs-12
-			.col-md-3.col-xs-12.left_part
-				%h3
+	- if r[0]
+		- total = r[2][:total]
+		- yes = r[2][:yes]
+		- no = r[2][:no]
+		.station.row.result_to_care.juar
+			.col-md-offset-1.col-md-3.col-sm-3.total
+				%h5
 					= r[1].name
-			- if r[0]
-				.col-md-9.col-xs-12.right_part{style: "padding-top: 10px; margin-bottom: 10px;"}
-					- total = r[2][:total]
-					- yes = r[2][:yes]
-					- no = r[2][:no]
-					- unless total == 0
-						- yes_width = yes*100/total
-						- no_width = no*100/total
-						.bar.positive_bar{ style: "width: #{yes_width}%;"}
-							- unless yes == 0
-								%p
-									= "SI: #{yes} votos (#{yes_width}%)" 
-							- else
-								%p
-						.bar.negative_bar{ style: "width: #{no_width}%;"}
-							- unless no == 0
-								%p
-									= "NO: #{no} votos (#{no_width}%)"
-							- else
-								%p
-					- else
-						.bar.positive_bar{ style: "width: 0px;"}
-						.bar.negative_bar{ style: "width: 0px;"}
-			.clearfix.col-md-12.col-xs-12
-	}
-= link_to "Imprimir documento", "javascript:window.print()", id: "print_button", class: "btn btn-block btn-primary"
+			.col-md-2.col-sm-2.col-xs-12.no
+				%h5
+					= "Votos NO: #{no}"
+			.col-md-2.col-sm-2.col-xs-12.yes
+				%h5
+					= "Votos SI: #{yes}"
+			.col-md-2.col-sm-2.col-xs-12.total
+				%h5
+					= "Votos Totales: #{total}"
+		.bar-values.station.row.result_to_care
+			.col-md-offset-1.col-md-10
+				- unless total == 0
+					- yes_height = (yes*300/total)
+					- no_height = (no*300/total)
+					.col-md-offset-4.col-md-4
+						.bar.col-md-4
+							.col-md-offset-1.value.col-md-10
+								%p.blue{style: "height: #{no_height}px;"}
+									= no_height
+									%br
+									\%
+							%h5.blue
+								No
+						.bar.col-md-4
+							.col-md-offset-1.value.col-md-10
+								%p.red{style: "height: #{yes_height}px;"}
+									= yes_height
+									%br
+									\%
+							%h5.red
+								Si
+				- else
+					.col-md-offset-4.col-md-4
+						.bar.col-md-4
+							.col-md-offset-1.value.col-md-10
+								%p.blue
+									0
+									%br
+									\%
+							%h5.blue
+								No
+						.bar.col-md-4
+							.col-md-offset-1.value.col-md-10
+								%p.red
+									0
+									%br
+									\%
+							%h5.red
+								Si
+			.clearfix.col-md-12.col-xs-12s
+/ = form_tag result_total_path(format: "pdf"), class: "download_pdf" do
+/ 	= hidden_field_tag "start_date", result[1][:start_date]
+/ 	= hidden_field_tag "end_date", result[1][:end_date]
+/ 	= submit_tag "Descargar resumen en pdf", class: "btn btn-primary btn-block"
+/ .station.row.result_to_care
+/ 	.col-md-12.col-xs-12
+/ 		.col-md-5.col-xs-12.left_part
+/ 			%h1{style: "font-size: 20px;"}
+/ 				Apreciacion general durante las fechas indicadas:
+/ 				%br
+/ 				= "Inicio: " + result[1][:start].strftime("%d/%m/%Y")
+/ 				%br
+/ 				= "Fin: " + result[1][:end].strftime("%d/%m/%Y")
+/ 		.col-md-7.col-xs-12.right_part{style: "padding-top: 30px;"}
+/ 			- total = result[1][:grand_total]
+/ 			- yes = result[1][:grand_yes]
+/ 			- no = result[1][:grand_no]
+/ 			- unless total == 0
+/ 				- yes_width = yes*100/total
+/ 				- no_width = no*100/total
+/ 				.bar.positive_bar{ style: "width: #{yes_width}%;"}
+/ 					- unless yes == 0
+/ 						%p
+/ 							= "SI: #{yes} votos (#{yes_width}%)" 
+/ 					- else
+/ 						%p
+/ 				.bar.negative_bar{ style: "width: #{no_width}%;"}
+/ 					- unless no == 0
+/ 						%p
+/ 							= "NO: #{no} votos (#{no_width}%)"
+/ 					- else
+/ 						%p
+/ 			- else
+/ 				.bar.positive_bar{ style: "width: 0px;"}
+/ 				.bar.negative_bar{ style: "width: 0px;"}
+/ 	.clearfix.col-md-12.col-xs-12
+/ - result[0].each do |r|
+/ 	.station.row.result_to_care{style: "border-top: 1px solid #B0B0B0;"}
+/ 		.col-md-12.col-xs-12
+/ 			.col-md-3.col-xs-12.left_part
+/ 				%h3
+/ 					= r[1].name
+/ 			- if r[0]
+/ 				.col-md-9.col-xs-12.right_part{style: "padding-top: 10px; margin-bottom: 10px;"}
+/ 					- total = r[2][:total]
+/ 					- yes = r[2][:yes]
+/ 					- no = r[2][:no]
+/ 					- unless total == 0
+/ 						- yes_width = yes*100/total
+/ 						- no_width = no*100/total
+/ 						.bar.positive_bar{ style: "width: #{yes_width}%;"}
+/ 							- unless yes == 0
+/ 								%p
+/ 									= "SI: #{yes} votos (#{yes_width}%)" 
+/ 							- else
+/ 								%p
+/ 						.bar.negative_bar{ style: "width: #{no_width}%;"}
+/ 							- unless no == 0
+/ 								%p
+/ 									= "NO: #{no} votos (#{no_width}%)"
+/ 							- else
+/ 								%p
+/ 					- else
+/ 						.bar.positive_bar{ style: "width: 0px;"}
+/ 						.bar.negative_bar{ style: "width: 0px;"}
+/ 			.clearfix.col-md-12.col-xs-12
+/ = link_to "Imprimir documento", "javascript:window.print()", id: "print_button", class: "btn btn-block btn-primary"

@@ -1,8 +1,8 @@
 - if result[0]
-	= form_tag report_result_path(format: "pdf"), class: "download_pdf" do
-		= hidden_field_tag "restaurant_id_for_survey", @id
-		= hidden_field_tag "date_for_survey", @date
-		= submit_tag "Descargar reporte en pdf", class: "btn btn-primary btn-block"
+	/ = form_tag report_result_path(format: "pdf"), class: "download_pdf" do
+	/ 	= hidden_field_tag "restaurant_id_for_survey", @id
+	/ 	= hidden_field_tag "date_for_survey", @date
+	/ 	= submit_tag "Descargar reporte en pdf", class: "btn btn-primary btn-block"
 	- result[2].each do |sub|
 		.station.row.result_to_care
 			.col-md-12.col-xs-12
@@ -15,29 +15,26 @@
 					- total = cq.answers.where("created_at >= ? AND created_at <= ?", sub.start_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day), sub.end_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day)).count
 					- yes = cq.answers.where("alternative_id = ? AND created_at >= ? AND created_at <= ?", cq.availability.question.alternatives.first.id, sub.start_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day), sub.end_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day)).count
 					- no = cq.answers.where("alternative_id = ? AND created_at >= ? AND created_at <= ?", cq.availability.question.alternatives.last.id, sub.start_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day), sub.end_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day)).count
-					.col-md-3.col-xs-12.left_part
-						%h3
+					.question-title.col-md-12.col-sm-12.col-xs-12
+						%h2
 							= cq.availability.question.title
+					.total.col-md-2
 						%h5
 							= "Votos totales: #{total}"
-							%br
+					.yes.col-md-2
+						%h5
 							= "Votos SI: #{yes}"
-							%br
+					.no.col-md-2
+						%h5
 							= "Votos NO: #{no}"	
-
-					.col-md-9.col-xs-12.right_part{style: "padding-top: 10px; margin-bottom: 10px;"}
-						- unless total == 0
-							- yes_width = yes*100/total
-							.bar.positive_bar{ style: "width: #{yes_width}%;"}
-								%p
-									= "#{yes} votos (#{yes_width}%)" 
-							- no_width = no*100/total									
-							.bar.negative_bar{ style: "width: #{no_width}%;"}
-								%p
-									= "#{no} votos (#{no_width}%)"
-						- else
-							.bar.positive_bar{ style: "width: 0px;"}
-							.bar.negative_bar{ style: "width: 0px;"}
+					.value-to-show.col-md-12
+						%h3
+							= image_tag "statistic_big.png"
+							- unless total == 0
+								- yes_width = yes*100/total
+							- else
+								- yes_width = 0
+							= "#{yes_width}% de los comensales" 
 					.clearfix.col-md-12.col-xs-12
 	= link_to "Imprimir documento", "javascript:window.print()", id: "print_button", class: "btn btn-block btn-primary"
 - else

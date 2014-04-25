@@ -1,7 +1,13 @@
-#survey_form.row
+.row.common-title
 	.col-md-12
 		%h1
-			Reporte total de los comedores
+			%span
+				Reporte total de los comedores
+			= image_tag "statistic.png"
+#new_logo.row
+	.col-md-2.col-md-offset-10
+		=image_tag "new_logo.png"
+#survey_form.row
 	.col-md-12
 		= form_tag result_total_path, id: "search_result", remote: true do
 			.col-md-4.col-sm-3.col-xs-12
@@ -16,16 +22,32 @@
 - content_for :scripts do 
 	:javascript
 		$(document).on('focusin', '#start_date', function(){
-			$(this).datepicker()
+			$(this).datepicker({
+				format: "dd/mm/yyyy"
+			})
 				.on('changeDate', function(ev){
 					$("#search_result").submit();
 					$("#loading_part").show();
 				});;
 		});
 		$(document).on('focusin', '#end_date', function(){
-			$(this).datepicker()
+			$(this).datepicker({
+				format: "dd/mm/yyyy"
+			})
 				.on('changeDate', function(ev){
 					$("#search_result").submit();
 					$("#loading_part").show();
 				});;
 		});
+		$(document).ready(function(){
+			$(".navbar").removeClass("navbar-fixed-top");
+			$("body .container-fluid").css("margin-top", "-20px");
+			$(".navbar").css("position", "relative");
+			$(".navbar").css("z-index", "200");
+			$("body").css("padding-top","0px");
+		});
+
+- content_for :previous_image do 
+	.row
+		#report_image_bg.col-md-12.col-sm-12.col-xs.12
+			= image_tag "new_bg.jpg"

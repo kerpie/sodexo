@@ -1,14 +1,38 @@
-#survey_form{
+.common-title{
+	background: #2A295C;
+	position: relative;
+	border-bottom: 12px solid #F30000;
 	h1{
-		text-align: center;
-		background: #000;
+		width: auto;
+		margin: 0 auto;
 		color: white;
-		padding: 10px 0px;
-		font-size: 16px;
-		text-transform: uppercase;
-		position: relative;
-		top: -15px;
+		text-align: center;
+		padding: 20px 0px 10px;
+		span{
+			font-size: 24px;
+			color: white;
+		}
 	}
+	&:after{
+		content: "";
+		border-bottom: 10px solid #B9B9B9;
+		color: #FFF;
+		width: 100%;
+		display: block;
+		position: relative;
+		top: 15px;
+		z-index: -50;
+		transform: skewY(-0.2deg);
+	}
+}
+
+#new_logo{
+	position: relative;
+	top: -23px;
+}
+
+#survey_form{
+	margin: 30px 0px 0px;
 	#search_result{
 		position: relative;
 		top: -10px;
