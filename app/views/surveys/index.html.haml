@@ -10,12 +10,8 @@
         %tr
           %th
             Fecha de creación de la encuesta
-          %th
-            Nombre del restaurante asociado
       %tbody
         - @surveys.each do |survey|
           %tr
             %td
               = link_to survey.name, survey
-            %td
-              = survey.restaurant.name 
