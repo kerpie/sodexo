@@ -22,7 +22,9 @@
 	:javascript
 		$(document).on('focusin', '#date_for_survey', function(){
 			$(this).datepicker({
-				format: "dd/mm/yyyy"
+				format: "dd/mm/yyyy",
+				autoclose: true,
+				pickerPosition: "top-left"
 			})
 				.on('changeDate', function(ev){
 					$("#search_result").submit();
