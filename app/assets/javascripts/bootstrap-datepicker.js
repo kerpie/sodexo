@@ -149,14 +149,30 @@
 			this.fill();
 		},
 		
-		place: function(){
+		/*place: function(){
 			var offset = this.component ? this.component.offset() : this.element.offset();
 			this.picker.css({
 				top: offset.top + this.height,
 				left: offset.left
 			});
+		},*/
+		place: function(){
+		    var offset = this.component ? this.component.offset() : this.element.offset();
+		    var topPos
+		    switch ($(this.element).data('placement')) {
+		        case "top":
+		            topPos = (offset.top + this.height) - 290;
+		            break;
+		        default:
+		            topPos = (offset.top + this.height);
+		            break;
+		    }
+		    this.picker.css({
+		        top: topPos,
+		        left: offset.left
+		    });
 		},
-		
+
 		update: function(newDate){
 			this.date = DPGlobal.parseDate(
 				typeof newDate === 'string' ? newDate : (this.isInput ? this.element.prop('value') : this.element.data('date')),

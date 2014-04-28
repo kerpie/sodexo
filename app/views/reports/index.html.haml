@@ -16,7 +16,7 @@
 			.col-md-4.col-md-offset-4.col-sm-6.col-xs-12
 				.form-group
 					.col-md-12
-						= text_field_tag "date_for_survey", "", class: "form-control", placeholder: "Elija la fecha a consultar"
+						= text_field_tag "date_for_survey", "", class: "form-control", placeholder: "Elija la fecha a consultar", data: {placement: "top"}
 
 - content_for :scripts do 
 	:javascript
