@@ -1,53 +1,99 @@
 - if result[0]
-	= form_tag result_per_month_with_year_path(format: "pdf"), class: "download_pdf" do
-		= hidden_field_tag "restaurant_id", result[5][:restaurant].id
-		= hidden_field_tag "month", result[4].month
-		= hidden_field_tag "year", result[4].year
-		= submit_tag "Descargar resumen en pdf", class: "btn btn-primary btn-block"
+	- days = []
+	- yes = []
+	- no = []
+	- result[1].times do |i|
+		- days << result[2][i]
+		- yes << result[3][result[2][i].to_s][:yes]
+		- no << result[3][result[2][i].to_s][:no]
 	.station.row.result_to_care
 		.col-md-12.col-xs-12
-			%h1
-				= "Mes: #{result[4].strftime('%B')} "
-				%br
-				Satisfaccion total: 
-				= "SI: #{result[5][:grand_yes]*100/result[5][:total]}%"
-				= "NO: #{result[5][:grand_no]*100/result[5][:total]}%"
-				%br
-				= "Local: #{result[5][:restaurant].name}"
-	- result[1].times do |i|
-		.station.row.result_to_care
-			.col-md-12.col-xs-12
-				- day = result[2][i]
-				.col-md-3.col-xs-12.left_part
+			.total.col-md-4
+				%h5
+					= "Local: #{result[5][:restaurant].name}"
+			.yes.col-md-2
+				%h5
+					= "Mes: #{result[4].strftime('%B')} "
+			.no.col-md-2
+				%h5
+					= "Año: 2014"
+			#data-with-charts.value-to-show.col-md-12
+				.col-md-6.col-md-offset-2
+					.col-md-12
+						%canvas#my_graph{ width: "400", height: "400",data: {days: "#{days}", yes: "#{yes}", no: "#{no}"}}
+				.col-md-2
 					%h3
-						= "Dia: " + day.to_s + "/" + result[4].month.to_s
-				.col-md-9.col-xs-12.right_part{style: "padding-top: 10px; margin-bottom: 10px;"}
-					- total = result[3][day.to_s][:yes] + result[3][day.to_s][:no]
-					- unless total == 0
-						- yes = result[3][day.to_s][:yes]
-						- no = result[3][day.to_s][:no]
-						- yes_width = yes*100/total
-						.bar.positive_bar{ style: "width: #{yes_width}%;"}
-							- unless yes == 0
-								%p
-									= "#{yes} votos (#{yes_width}%)" 
-							- else
-								%p
-						- no_width = no*100/total									
-						.bar.negative_bar{ style: "width: #{no_width}%;"}
-							- unless no == 0
-								%p
-									= "#{no} votos (#{no_width}%)"
-							- else
-								%p
-					- else
-						.bar.positive_bar{ style: "width: 0px;"}
-						.bar.negative_bar{ style: "width: 0px;"}
-				.clearfix.col-md-12.col-xs-12
-	= link_to "Imprimir documento", "javascript:window.print()", id: "print_button", class: "btn btn-block btn-primary"
+						Satisfacción total
+					#yes-pie.pie
+						.pie-data
+							= image_tag "person_red.png"
+							%span.pie-label
+								SI: 30%
+						#yes-pie-draw{data: {percent: "75"}}
+							%canvas#yes_pie{ width: "100", height: "100" }
+					#no-pie.pie
+						.pie-data
+							= image_tag "person_blue.png"
+							%span.pie-label
+								NO: 75%
+						#no-pie-draw{data: {percent: "30"}}
+							%canvas#no_pie{ width: "100", height: "100" }
+	:javascript
+		var donut_params = {
+			segmentShowStroke: false,
+			percentageInnerCutout: 50,
+			animation: true,
+			animationSteps: 100,
+			animationEasing : "easeOutBounce",
+			animateRotate : true,
+			animateScale : false,
+		};
+		var no_donut = [
+			{
+				value: 25,
+				color:"#CEA4A8"
+			},
+			{
+				value : 75,
+				color : "#FF0000"
+			}
+		];
+		var yes_donut = [
+			{
+				value: 30,
+				color:"#A19FAC"
+			},
+			{
+				value : 70,
+				color : "#2A295C"
+			}
+		];
+		var lineChartData = {
+			labels : $("#my_graph").data("days"),
+			datasets : [
+			{
+				fillColor : "rgba(0,0,0,0)",
+				strokeColor : "rgba(255,0,0,1)",
+				pointColor : "rgba(255,0,0,1)",
+				pointStrokeColor : "#ff0000",
+				scaleLineColor : "rgba(255,0,0,1)",
+				data : $("#my_graph").data("yes")
+			},
+			{
+				fillColor : "rgba(0,0,0,0)",
+				strokeColor : "rgba(42,41,92,1)",
+				pointColor : "rgba(42,41,92,1)",
+				pointStrokeColor : "#2A295C",
+				data : $("#my_graph").data("no")
+			}
+			]
+		};
+		var line_params = {
+			bezierCurve: false
+		};
+		var myLine = new Chart($("#my_graph").get(0).getContext("2d")).Line(lineChartData, line_params);
+		var myDoughnut = new Chart($("#yes_pie").get(0).getContext("2d")).Doughnut(no_donut, donut_params);
+		var myOtherDoughnut = new Chart($("#no_pie").get(0).getContext("2d")).Doughnut(yes_donut, donut_params);
 - else
 	%h1.no_survey_result
 		No existe encuestas en la fecha indicada
-
-
-
