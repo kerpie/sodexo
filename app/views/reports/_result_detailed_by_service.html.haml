@@ -17,7 +17,7 @@
 		%h5
 			Cena
 .bar-values.station.row.result_to_care
-	.col-md-offset-1.col-md-10
+	.col-md-offset-1.col-md-10.new_bars_container
 		- i = 0;
 		- result[1].each do |key, value|
 			- total = value[:total]
@@ -29,7 +29,7 @@
 			- unless total == 0
 				- yes_height = (yes*300/total)
 				- no_height = (no*300/total)
-				.col-md-offset-1.col-md-3
+				.col-md-offset-1.col-md-3.new_bar_container
 					.bar.col-md-6
 						.col-md-offset-1.value.col-md-10
 							%p{style: "height: #{no_height}px;", class: class_value}

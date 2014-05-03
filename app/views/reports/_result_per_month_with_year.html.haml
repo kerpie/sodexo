@@ -11,7 +11,7 @@
 		- no << result[3][result[2][i].to_s][:no]
 		- no_total += result[3][result[2][i].to_s][:no]
 	.station.row.result_to_care
-		.col-md-12.col-xs-12
+		.col-md-12.col-xs-12.data-charts-container
 			.total.col-md-4
 				%h5
 					= "Local: #{result[5][:restaurant].name}"
@@ -22,10 +22,10 @@
 				%h5
 					= "Año: 2014"
 			#data-with-charts.value-to-show.col-md-12
-				.col-md-6.col-md-offset-2
+				.col-md-6.col-md-offset-2.line-graph-container
 					.col-md-12
 						%canvas#my_graph{ width: "400", height: "400",data: {days: "#{days}", yes: "#{yes}", no: "#{no}"}}
-				.col-md-2
+				.col-md-2.pie-graph-container
 					%h3
 						Satisfacción total
 					#yes-pie.pie
@@ -33,7 +33,7 @@
 						.pie-data
 							= image_tag "person_red.png"
 							%span.pie-label
-								SI: "#{my_yes_value}%"
+								SI: #{my_yes_value}%
 						#yes-pie-draw{data: {percent: "#{my_yes_value}"}}
 							%canvas#yes_pie{ width: "100", height: "100" }
 					#no-pie.pie
@@ -41,7 +41,7 @@
 						.pie-data
 							= image_tag "person_blue.png"
 							%span.pie-label
-								NO: "#{my_no_value}%"
+								NO: #{my_no_value}%
 						#no-pie-draw{data: {percent: "#{my_no_value}"}}
 							%canvas#no_pie{ width: "100", height: "100" }
 	:javascript
