@@ -10,7 +10,7 @@
 	#new_logo.row
 		= wicked_pdf_image_tag "long_logo.png"
 #survey_form.row
-	.col-md-12
+	.col-md-2.col-md-offset-9
 		= form_tag result_total_path(format: "pdf"), class: "download_pdf" do
 			= hidden_field_tag "start_date", result[1][:start_date]
 			= hidden_field_tag "end_date", result[1][:end_date]
@@ -136,4 +136,4 @@
 / 						.bar.positive_bar{ style: "width: 0px;"}
 / 						.bar.negative_bar{ style: "width: 0px;"}
 / 			.clearfix.col-md-12.col-xs-12
-/ = link_to "Imprimir documento", "javascript:window.print()", id: "print_button", class: "btn btn-block btn-primary"
+= link_to "Imprimir documento", "javascript:window.print()", id: "print_button", class: "btn btn-block btn-primary"

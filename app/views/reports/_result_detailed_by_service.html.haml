@@ -15,7 +15,7 @@
 			= hidden_field_tag "restaurant_id", result[2][:restaurant]
 			= hidden_field_tag "start_date_for_report", result[2][:start_date]
 			= hidden_field_tag "end_date_for_report", result[2][:end_date]
-			= submit_tag "Descargar resumen en pdf", class: "btn btn-primary btn-block"
+			= submit_tag "Descargar reporte en pdf", class: "btn btn-default submit_pdf_button"
 .station.row.result_to_care
 	.col-md-offset-1.col-md-2.col-sm-2.total
 		%h5
@@ -78,7 +78,7 @@
 						%h5{class: class_value}
 							Si
 			- i += 1
-/ = link_to "Imprimir documento", "javascript:window.print()", id: "print_button", class: "btn btn-block btn-primary"
+= link_to "Imprimir documento", "javascript:window.print()", id: "print_button", class: "btn btn-block btn-primary"
 
 =content_for :scripts do
 	:javascript

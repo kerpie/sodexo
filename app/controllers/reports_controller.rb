@@ -140,7 +140,7 @@ html = render_to_string(partial: "reports/result_per_range", formats: [:html], l
         respond_to do |format|
             format.js
             format.pdf do
-                render  pdf: @result[4].name,
+                render  pdf: "Reporte detallado para #{@result[0].name}",
                         disposition: "attachment",
                         template: "reports/_result_detailed_by_service.html.haml", 
                         locals: { result: @result, load_css: true}
