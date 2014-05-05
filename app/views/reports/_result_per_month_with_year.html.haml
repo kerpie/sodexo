@@ -11,7 +11,7 @@
 		= wicked_pdf_image_tag "long_logo.png"
 .row
 	.col-md-2.col-md-offset-9
-		= form_tag result_detailed_by_service_path(format: "pdf"), class: "download_pdf" do
+		= form_tag result_per_month_with_year_path(format: "pdf"), class: "download_pdf" do
 			= hidden_field_tag "restaurant_id", result[6][:restaurant]
 			= hidden_field_tag "month", result[6][:month]
 			= hidden_field_tag "year", result[6][:year]
