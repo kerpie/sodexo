@@ -50,9 +50,9 @@
 						- my_yes_value = (yes_total*100)/(yes_total + no_total)
 						.pie-data
 							- if load_css
-								= image_tag "person_red.png"
-							- else
 								= wicked_pdf_image_tag "person_red.png"
+							- else
+								= image_tag "person_red.png"
 							%span.pie-label
 								SI: #{my_yes_value}%
 						#yes-pie-draw{data: {percent: "#{my_yes_value}"}}
@@ -61,9 +61,9 @@
 						- my_no_value = (no_total*100)/(yes_total + no_total)
 						.pie-data
 							- if load_css
-								= image_tag "person_blue.png"
-							- else
 								= wicked_pdf_image_tag "person_blue.png"
+							- else
+								= image_tag "person_blue.png"
 							%span.pie-label
 								NO: #{my_no_value}%
 						#no-pie-draw{data: {percent: "#{my_no_value}"}}

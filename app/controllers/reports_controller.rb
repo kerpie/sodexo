@@ -84,7 +84,7 @@ html = render_to_string(partial: "reports/result_per_range", formats: [:html], l
             format.js
             format.json
             format.pdf do
-                render  pdf: @result[4].name,
+                render  pdf: @result[5].name,
                         disposition: "attachment",
                         template: "reports/_result_per_month_with_year.html.haml", 
                         locals: { result: @result, load_css: true}
