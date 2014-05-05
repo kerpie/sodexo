@@ -2,5 +2,5 @@ $("#print_button").remove();
 $(".result_to_care").each(function(){$(this).remove();});
 $(".no_survey_result").each(function(){$(this).remove();});
 $(".download_pdf").each(function(){$(this).remove();});
-$("#survey_form").after("#{j render 'result_per_range', result: @result}");
+$("#survey_form").after("#{j render 'result_per_range', result: @result, load_css: false}");
 $("#loading_part").hide();

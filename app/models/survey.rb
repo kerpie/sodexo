@@ -107,7 +107,7 @@ class Survey < ActiveRecord::Base
 		# total: total of surveys
 		# hash_days: days index
 		# hash_data: survey result per day
-		result = [status, total, hash_days, hash_data, time, hash_total]	
+		result = [status, total, hash_days, hash_data, time, hash_total, {restaurant: restaurant_id, month: month, year: year}]	
 	end
 
 	def self.result_per_range(restaurant_id, start_date, end_date)

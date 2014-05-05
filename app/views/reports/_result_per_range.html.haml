@@ -1,3 +1,14 @@
+- if load_css
+	= wicked_pdf_stylesheet_link_tag "print.css"
+	%meta{http_equiv: "Content-Type", content: "text/html; charset=UTF-8" }
+	.row.common-title
+		.col-md-12
+			%h1
+				%span
+					Reporte por rango de fechas
+				= wicked_pdf_image_tag "statistic.png"
+	#new_logo.row
+		= wicked_pdf_image_tag "long_logo.png"
 - if result[0]
 	= form_tag result_per_range_path(format: "pdf"), class: "download_pdf" do
 		= hidden_field_tag "restaurant_id", result[5][:restaurant].id

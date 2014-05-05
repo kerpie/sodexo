@@ -40,7 +40,9 @@ end
 
 gem 'haml-rails'
 gem 'devise'
-gem 'pdfkit'
+
+#gem 'pdfkit'
+gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
 # Use ActiveModel has_secure_password

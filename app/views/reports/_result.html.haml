@@ -1,3 +1,14 @@
+- if load_css
+	= wicked_pdf_stylesheet_link_tag "print.css"
+	%meta{http_equiv: "Content-Type", content: "text/html; charset=UTF-8" }
+	.row.common-title
+		.col-md-12
+			%h1
+				%span
+					Reporte Diario
+				= wicked_pdf_image_tag "statistic.png"
+	#new_logo.row
+		= wicked_pdf_image_tag "long_logo.png"
 - if result[0]
 	.row
 		.col-md-2.col-md-offset-9
@@ -31,8 +42,10 @@
 							= "Votos NO: #{no}"	
 					.value-to-show.col-md-12
 						%h3
-							= image_tag "statistic_big.png"
-							
+							- if load_css
+								= wicked_pdf_image_tag "statistic_big.png"
+							- else
+								= image_tag "statistic_big.png"
 							- unless total == 0
 								- yes_width = yes*100/total
 							- else
