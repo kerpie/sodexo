@@ -1,6 +1,6 @@
 - if load_css
 	= wicked_pdf_stylesheet_link_tag "print.css"
-	= wicked_pdf_javascript_link_tag "application"
+	= wicked_pdf_javascript_include_tag "application"
 	%meta{http_equiv: "Content-Type", content: "text/html; charset=UTF-8" }
 	.row.common-title
 		.col-md-12
