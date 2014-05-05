@@ -14,7 +14,7 @@
 		= form_tag result_total_path(format: "pdf"), class: "download_pdf" do
 			= hidden_field_tag "start_date", result[1][:start_date]
 			= hidden_field_tag "end_date", result[1][:end_date]
-			= submit_tag "Descargar resumen en pdf", class: "btn btn-primary btn-block"
+			= submit_tag "Descargar reporte en pdf", class: "btn btn-default submit_pdf_button"
 - result[0].each do |r|
 	- if r[0]
 		- total = r[2][:total]
