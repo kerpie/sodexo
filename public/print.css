@@ -219,22 +219,18 @@ body{
     background: none repeat scroll 0% 0% #F00;
 }
 .data-charts-container{
-    background: yellow;
     width: 100%;
 }
 #data-with-charts{
     width: 100%;
     overflow: hidden;
-    background: green;
 }
 .line-graph-container{
     width: 70%;
-    background: pink;
     float: left;
 }
 .pie-graph-container{
     width: 30%;
-    background: purple;
     float: right;
 }
 .pie-graph-container h3{
@@ -251,7 +247,6 @@ body{
 }
 .pie-graph-container #yes-pie #yes-pie-draw canvas{
     width: 50%;
-    background: blue;
     display: block;
     margin: 0 auto;
 }
@@ -269,7 +264,6 @@ body{
 }
 .pie-graph-container #no-pie #no-pie-draw canvas{
     width: 50%;
-    background: blue;
     display: block;
     margin: 0 auto;
 }
