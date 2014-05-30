@@ -54,6 +54,13 @@ body{
 	font-weight: bold;
 }
 
+#survey_form{
+	background: red;
+	padding: 50px;
+}
+
+/*
+
 .row.result_to_care h1{
     border: 1px solid transparent; 
     margin-bottom: 10px; 
@@ -188,6 +195,8 @@ body{
     background: none;
     position: absolute;
     left: 0px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
     border-radius: 50px;
     z-index: 10;
     top: -30px;
@@ -199,6 +208,8 @@ body{
     background: none;
     position: absolute;
     left: 0px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
     border-radius: 50px;
     z-index: 10;
     bottom: -30px;
@@ -227,6 +238,7 @@ body{
 }
 .line-graph-container{
     width: 70%;
+    background: pink;
     float: left;
 }
 .pie-graph-container{
@@ -266,7 +278,235 @@ body{
     width: 50%;
     display: block;
     margin: 0 auto;
-}
+}*/
 .navbar, #print_button, .download_pdf{
     display: none;
+}
+
+.arrow_head {
+  padding: 10px 0px;
+}
+
+/* line 258, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+.arrow_head span {
+  padding-left: 30px;
+}
+/* line 261, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+.arrow_head:after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  position: absolute;
+  right: -20px;
+  z-index: 10;
+  top: 0px;
+}
+
+/* line 274, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+.red {
+  background: #ff0000;
+  color: #FFF;
+}
+/* line 277, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+.red:after {
+  border-left: 21px solid #FF0000;
+}
+
+/* line 282, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+.blue {
+  background: #2A295C;
+  color: #FFF;
+}
+/* line 285, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+.blue:after {
+  border-left: 21px solid #2A295C;
+}
+
+/* line 290, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+.gray {
+  background: #CEC7BD;
+  color: #44433E;
+}
+/* line 293, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+.gray:after {
+  border-left: 21px solid #CEC7BD;
+}
+
+/* line 298, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+.bar_red {
+  background: #FF0000;
+  color: #FFF;
+}
+/* line 301, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+.bar_red:after, .bar_red:before {
+  background: #FF0000;
+}
+
+/* line 306, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+.bar_blue {
+  background: #2A295C;
+  color: #FFF;
+}
+/* line 309, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+.bar_blue:after, .bar_blue:before {
+  background: #2A295C;
+}
+
+/* line 314, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+.bar_gray {
+  background: #CEC7BD;
+  color: #44433E;
+}
+/* line 317, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+.bar_gray:after, .bar_gray:before {
+  background: #CEC7BD;
+}
+
+/* line 323, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+#daily_summary {
+  position: relative;
+  z-index: -10;
+  padding: 40px 0px;
+  background: #D0D1D5;
+}
+/* line 328, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+#daily_summary .sub_category_vertical_bar {
+  width: 25%;
+  margin: 0 2.5%;
+  display: inline-block;
+}
+/* line 332, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+#daily_summary .sub_category_vertical_bar:first-child {
+  margin-left: 10%;
+  margin-right: 0%;
+}
+/* line 336, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+#daily_summary .sub_category_vertical_bar:last-child {
+  margin-left: 0%;
+  margin-right: 10%;
+}
+/* line 340, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+#daily_summary .sub_category_vertical_bar .bar {
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+  padding: 30px 0px;
+}
+/* line 345, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+#daily_summary .sub_category_vertical_bar .bar h3 {
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+}
+/* line 350, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+#daily_summary .sub_category_vertical_bar .bar .vertical_bar {
+  color: white;
+  width: 50%;
+  display: inline-block;
+  height: 300px;
+  position: relative;
+  background: #44433E;
+}
+/* line 357, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+#daily_summary .sub_category_vertical_bar .bar .vertical_bar .real_bar {
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  bottom: 0px;
+  left: 0px;
+}
+/* line 363, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+#daily_summary .sub_category_vertical_bar .bar .vertical_bar .real_bar .value {
+  width: 100%;
+  display: inline-block;
+  font-size: 20px;
+  font-weight: bold;
+}
+/* line 369, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+#daily_summary .sub_category_vertical_bar .bar .vertical_bar .real_bar span {
+  width: 100%;
+  display: inline-block;
+  font-size: 18px;
+}
+/* line 374, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+#daily_summary .sub_category_vertical_bar .bar .vertical_bar .real_bar:after {
+  content: "";
+  height: 50px;
+  position: absolute;
+  bottom: -25px;
+  width: 100%;
+  left: 0px;
+  -webkit-border-radius: 0 0 50% 50%;
+  -moz-border-radius: 0 0 50% 50%;
+  border-radius: 0 0 50% 50%;
+  z-index: -1;
+}
+/* line 384, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+#daily_summary .sub_category_vertical_bar .bar .vertical_bar .real_bar:before {
+  content: "";
+  height: 50px;
+  position: absolute;
+  top: -25px;
+  width: 100%;
+  left: 0px;
+  -webkit-border-radius: 50% 50% 0 0;
+  -moz-border-radius: 50% 50% 0 0;
+  border-radius: 50% 50% 0 0;
+  z-index: -1;
+}
+/* line 395, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+#daily_summary .sub_category_vertical_bar .bar .vertical_bar:after {
+  content: "";
+  -webkit-border-radius: 0 0 50% 50%;
+  -moz-border-radius: 0 0 50% 50%;
+  border-radius: 0 0 50% 50%;
+  position: absolute;
+  bottom: -24px;
+  background: #44433E;
+  width: 100%;
+  left: 0px;
+  height: 50px;
+  z-index: -2;
+}
+/* line 406, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+#daily_summary .sub_category_vertical_bar .bar .vertical_bar:before {
+  content: "";
+  -webkit-border-radius: 50% 50% 0 0;
+  -moz-border-radius: 50% 50% 0 0;
+  border-radius: 50% 50% 0 0;
+  position: absolute;
+  top: -25px;
+  background: #44433E;
+  width: 100%;
+  left: 0px;
+  height: 50px;
+  z-index: -2;
+}
+
+/* line 422, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+.daily_sub_category_value {
+  display: block;
+}
+
+/* line 426, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+.question {
+  margin-bottom: 10px;
+}
+/* line 428, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+.question .question_content {
+  padding: 10px;
+  background: #E5E6E8;
+}
+/* line 431, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
+.question .question_content p {
+  text-align: center;
+  color: #2A295C;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.daily_back_button{
+	display: none
 }
