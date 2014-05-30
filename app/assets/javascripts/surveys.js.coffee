@@ -9,7 +9,7 @@ $ ->
 		to_show = $(this).data("point-to")
 		hide_daily_parts()
 		$("#daily_labels").hide()
-		$("#"+to_show).show();
+		$("#"+to_show).show()
 
 $ ->
 	$(document).on "click", ".daily_back_button", (e)->
@@ -33,7 +33,7 @@ $ ->
 		$("#monthly_summary").hide()
 		to_show = $(this).data("point-to")
 		hide_daily_parts()
-		$("#"+to_show).show();
+		$("#"+to_show).show()
 
 $ ->
 	$(document).on "click", ".monthly_back_button", (e)->
@@ -54,4 +54,4 @@ $ ->
 		$(this).parents(".monthly_sub_category_value").hide()
 		to_show = $(this).data("point-to")
 		$("#daily_labels").hide()
-		$("#"+to_show).show();
+		$("#"+to_show).show()
