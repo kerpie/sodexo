@@ -9,131 +9,100 @@
 				= wicked_pdf_image_tag "statistic.png"
 	#new_logo.row
 		= wicked_pdf_image_tag "long_logo.png"
-#survey_form.row
-	.col-md-2.col-md-offset-9
-		= form_tag result_total_path(format: "pdf"), class: "download_pdf" do
-			= hidden_field_tag "start_date", result[1][:start_date]
-			= hidden_field_tag "end_date", result[1][:end_date]
-			= submit_tag "Descargar reporte en pdf", class: "btn btn-default submit_pdf_button"
-- result[0].each do |r|
-	- if r[0]
-		- total = r[2][:total]
-		- yes = r[2][:yes]
-		- no = r[2][:no]
-		.station.row.result_to_care.juar
-			.col-md-offset-1.col-md-3.col-sm-3.total
-				%h5
-					= r[1].name
-			.col-md-2.col-sm-2.col-xs-12.no
-				%h5
-					= "Votos NO: #{no}"
-			.col-md-2.col-sm-2.col-xs-12.yes
-				%h5
-					= "Votos SI: #{yes}"
-			.col-md-2.col-sm-2.col-xs-12.total
-				%h5
-					= "Votos Totales: #{total}"
-		.bar-values.station.row.result_to_care
-			.col-md-offset-1.col-md-10
-				- unless total == 0
-					- yes_height = (yes*300/total)
-					- no_height = (no*300/total)
-					.col-md-offset-4.col-md-4
-						.bar.col-md-4
-							.col-md-offset-1.value.col-md-10
-								%p.blue{style: "height: #{no_height}px;"}
-									= no_height*100/300
-									%br
-									\%
-							%h5.blue
-								No
-						.bar.col-md-4
-							.col-md-offset-1.value.col-md-10
-								%p.red{style: "height: #{yes_height}px;"}
-									= yes_height*100/300
-									%br
-									\%
-							%h5.red
-								Si
-				- else
-					.col-md-offset-4.col-md-4
-						.bar.col-md-4
-							.col-md-offset-1.value.col-md-10
-								%p.blue
-									0
-									%br
-									\%
-							%h5.blue
-								No
-						.bar.col-md-4
-							.col-md-offset-1.value.col-md-10
-								%p.red
-									0
-									%br
-									\%
-							%h5.red
-								Si
-			.clearfix.col-md-12.col-xs-12s
-/ .station.row.result_to_care
-/ 	.col-md-12.col-xs-12
-/ 		.col-md-5.col-xs-12.left_part
-/ 			%h1{style: "font-size: 20px;"}
-/ 				Apreciacion general durante las fechas indicadas:
-/ 				%br
-/ 				= "Inicio: " + result[1][:start].strftime("%d/%m/%Y")
-/ 				%br
-/ 				= "Fin: " + result[1][:end].strftime("%d/%m/%Y")
-/ 		.col-md-7.col-xs-12.right_part{style: "padding-top: 30px;"}
-/ 			- total = result[1][:grand_total]
-/ 			- yes = result[1][:grand_yes]
-/ 			- no = result[1][:grand_no]
-/ 			- unless total == 0
-/ 				- yes_width = yes*100/total
-/ 				- no_width = no*100/total
-/ 				.bar.positive_bar{ style: "width: #{yes_width}%;"}
-/ 					- unless yes == 0
-/ 						%p
-/ 							= "SI: #{yes} votos (#{yes_width}%)" 
-/ 					- else
-/ 						%p
-/ 				.bar.negative_bar{ style: "width: #{no_width}%;"}
-/ 					- unless no == 0
-/ 						%p
-/ 							= "NO: #{no} votos (#{no_width}%)"
-/ 					- else
-/ 						%p
-/ 			- else
-/ 				.bar.positive_bar{ style: "width: 0px;"}
-/ 				.bar.negative_bar{ style: "width: 0px;"}
-/ 	.clearfix.col-md-12.col-xs-12
-/ - result[0].each do |r|
-/ 	.station.row.result_to_care{style: "border-top: 1px solid #B0B0B0;"}
-/ 		.col-md-12.col-xs-12
-/ 			.col-md-3.col-xs-12.left_part
-/ 				%h3
-/ 					= r[1].name
-/ 			- if r[0]
-/ 				.col-md-9.col-xs-12.right_part{style: "padding-top: 10px; margin-bottom: 10px;"}
-/ 					- total = r[2][:total]
-/ 					- yes = r[2][:yes]
-/ 					- no = r[2][:no]
-/ 					- unless total == 0
-/ 						- yes_width = yes*100/total
-/ 						- no_width = no*100/total
-/ 						.bar.positive_bar{ style: "width: #{yes_width}%;"}
-/ 							- unless yes == 0
-/ 								%p
-/ 									= "SI: #{yes} votos (#{yes_width}%)" 
-/ 							- else
-/ 								%p
-/ 						.bar.negative_bar{ style: "width: #{no_width}%;"}
-/ 							- unless no == 0
-/ 								%p
-/ 									= "NO: #{no} votos (#{no_width}%)"
-/ 							- else
-/ 								%p
-/ 					- else
-/ 						.bar.positive_bar{ style: "width: 0px;"}
-/ 						.bar.negative_bar{ style: "width: 0px;"}
-/ 			.clearfix.col-md-12.col-xs-12
-= link_to "Imprimir documento", "javascript:window.print()", id: "print_button", class: "btn btn-block btn-primary"
+
+
+#data-returned.row
+	/ Here goes the download
+	#daily_labels.col-md-offset-1.col-md-10{style: "padding: 0px;"}
+		.col-xs-2.col-sm-2.col-md-2{class: "gray monthly_arrow_head arrow_head", data: {point_to: "monthly_summary"}}
+			%span 
+				Total
+		- colors = %w{red blue gray}
+		- i = 0
+		- total = 0
+		- total_yes = 0
+		- total_no = 0
+		- result.each do |key, value|
+			.col-xs-2.col-sm-2.col-md-2{class: "#{colors[i]} monthly_arrow_head arrow_head", data: {point_to: "monthly_#{colors[i]}"}}
+				%span
+					= key.name
+			- i += 1
+			- total_yes += value[:total_yes]
+			- total_no += value[:total_no]
+			- total += (value[:total_yes] + value[:total_no])
+	.clearfix
+	#monthly_summary.col-md-offset-1.col-md-10
+		%h3
+			Total de Votos: #{total}
+		.horizontal_bar_container
+			%h3{style: "color: #FF0000;"}
+				SI
+			.horizontal_bar
+				- value = total_yes*100/total
+				%p#total_yes{style: "width: #{value}%"}
+					= value
+			%h3{style: "color: #2A295C"}
+				NO
+			.horizontal_bar
+				- value = total_no*100/total
+				%p#total_no{style: "width: #{value}%"}
+					= value
+	- i = 0
+	- result.each do |key, value|
+		.col-md-offset-1.col-md-10.monthly_sub_category_value{id: "monthly_#{colors[i]}"}
+			%h3
+				Total de votos: #{value[:total_yes] + value[:total_no]}
+				- total = value[:total_yes] + value[:total_no]
+			%h3.clickable{data: {point_to: "#{key.name}"}}
+				#{key.name} (ver detalle)
+			.horizontal_bar_container
+				%h3{style: "color: #FF0000"}
+					SI
+				.horizontal_bar
+					- new_value = total == 0 ? 0 : value[:total_yes]*100/total
+					%p#total_yes{style: "width: #{new_value}%"}
+						= new_value
+				%h3{style: "color: #2A295C"}
+					NO
+				.horizontal_bar
+					- new_value = total == 0 ? 0 : value[:total_no]*100/total
+					%p#total_no{style: "width: #{new_value}%"}
+						= new_value
+			.col-md-offset-10.col-md-2
+				= link_to "Atrás", "#", class: "btn btn-default btn-block monthly_back_button"
+		- i += 1
+	- new_colors = %w(gray blue red)
+	- result.each do |key, value|		
+		.col-md-offset-1.col-md-10.daily_sub_category_value{id: "#{key.name}"}	
+			%h2
+				= "#{key.name.strip} (#{value[:total_yes] + value[:total_no]} votos registrados)"
+			- value[:questions].each do |question|
+				.question
+					%h3
+						= question[:question]
+					- new_colors.each do |color|
+						.col-xs-3.col-sm-3.col-md-3{class: "#{color} arrow_head", data: {point_to: "daily_#{new_colors}"}}
+							%span
+								- case color
+									- when "gray"
+										Votos Totales: #{question[:yes] + question[:no]}
+									- when "blue"
+										Si: #{question[:yes]} Votos
+									- when "red"
+										No: #{question[:no]} Votos
+					.clearfix
+					.question_content.col-md-12
+						%p
+							- if load_css
+								= wicked_pdf_image_tag "statistic.png"
+							- else
+								= image_tag "statistic.png"
+							- total = question[:yes] + question[:no]
+							- if total == 0
+								0% de aprobación 
+							- else
+								#{(question[:yes]*100)/total}% de aprobación 
+					.clearfix
+			.col-md-offset-10.col-md-2
+				= link_to "Atrás", "#", class: "btn btn-default btn-block total_back_button"
+		- i += 1

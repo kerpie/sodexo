@@ -2,7 +2,7 @@
 	.col-md-12
 		%h1
 			%span
-				Reporte por rango de fechas
+				Reporte Detallado por Rango de Fechas
 			= image_tag "statistic.png"
 #new_logo.row
 	=image_tag "long_logo.png"
@@ -24,7 +24,18 @@
 
 - content_for :scripts do 
 	:javascript
-		$(document).on('focusin', '#start_date_for_report', function(){
+		$(document).on("focusin", "#start_date_for_report", function(){
+			$(this).datepicker({
+				format: "dd/mm/yyyy",
+				autoclose: true,
+				pickerPosition: "top"
+			})
+				.on('changeDate', function(ev){
+					$("#search_result").submit();
+					$("#loading_part").show();
+				});
+		});
+		$(document).on("focusin", "#end_date_for_report", function(){
 			$(this).datepicker({
 				format: "dd/mm/yyyy",
 				autoclose: true,
@@ -33,20 +44,11 @@
 				.on('changeDate', function(ev){
 					$("#search_result").submit();
 					$("#loading_part").show();
-				});;
-		});
-		$(document).on('focusin', '#end_date_for_report', function(){
-			$(this).datepicker({
-				format: "dd/mm/yyyy"
-			})
-				.on('changeDate', function(ev){
-					$("#search_result").submit();
-					$("#loading_part").show();
-				});;
+				});
 		});
 		$(document).ready(function(){
 			$(".navbar").removeClass("navbar-fixed-top");
-			$("body .container-fluid").css("margin-top", "-20px");
+			$("body > .container-fluid").css("margin-top", "-20px");
 			$(".navbar").css("position", "relative");
 			$(".navbar").css("z-index", "200");
 			$("body").css("padding-top","0px");

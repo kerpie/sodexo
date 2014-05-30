@@ -1,3 +1,6 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+$ ->
+	$(document).on "click", ".summary h2",->
+		value = $(this).data("key-value")
+		$(".hidden_data").each ->
+			$(this).hide()
+		$("[data-cat="+value+"]").show()

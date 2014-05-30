@@ -240,15 +240,268 @@
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	background: #FFF;
+	background: rgba(255,255,255,0.5);
 	z-index: 200;
-	top: 730px;
+	top: 90%;
 	bottom: 0px;
+	left: 0px;
+	right: 0px;
 	img{
 		position: absolute;
 		left: 50%;
 		top: 50%;
-		margin: -169px -225px;
+		margin: -118px -118px;
 	}
 	display: none;
+}
+
+.arrow_head{
+	padding: 10px 0px;
+	span{
+		padding-left: 30px;
+	}
+	&:after{
+		content: "";
+	    width: 0; 
+	    height: 0; 
+	    border-top: 20px solid transparent;
+	    border-bottom: 20px solid transparent;
+	    position: absolute;
+	    right: -21px;
+	    z-index: 10;
+	    top: 0px;
+	}
+}
+
+.red{
+	background: #ff0000;
+	color: #FFF;
+	&:after{
+		border-left: 21px solid #FF0000;
+	}
+}
+
+.blue{
+	background: #2A295C;
+	color: #FFF;
+	&:after{
+		border-left: 21px solid #2A295C;
+	}
+}
+
+.gray{
+	background: #CEC7BD;
+	color: #44433E;
+	&:after{
+		border-left: 21px solid #CEC7BD;
+	}
+}
+
+.bar_red{
+	background: #FF0000;
+	color: #FFF;
+	&:after, &:before{
+		background: #FF0000;
+	}
+}
+
+.bar_blue{
+	background: #2A295C;
+	color: #FFF;
+	&:after, &:before{
+		background: #2A295C;
+	}
+}
+
+.bar_gray{
+	background: #CEC7BD;
+	color: #44433E;
+	&:after, &:before{
+		background: #CEC7BD;
+	}
+}
+
+
+#daily_summary{
+	position: relative;
+    z-index: -10;
+    padding: 40px 0px;
+    background: #D0D1D5;
+    .sub_category_vertical_bar{
+    	width: 25%;
+    	margin: 0 2.5%;
+    	display: inline-block;
+    	&:first-child{
+    		margin-left: 10%;
+    		margin-right: 0%;
+    	}
+    	&:last-child{
+    		margin-left: 0%;
+    		margin-right: 10%;
+    	}
+    	.bar{
+    		display: inline-block;
+    		width: 50%;
+    		text-align: center;
+    		padding: 30px 0px;
+    		h3{
+    			width: 100%;
+    			text-align: center;
+    			margin-top: 30px;
+    		}
+    		.vertical_bar{
+				color: white;
+				width: 50%;
+				display: inline-block;
+				height: 300px;
+				position: relative;
+				background: #44433E;
+				.real_bar{
+					position: absolute;
+					width: 100%;
+					z-index: 5;
+					bottom: 0px;
+					left: 0px;
+					.value{
+						width: 100%;
+						display: inline-block;
+						font-size: 20px;
+						font-weight: bold;
+					}
+					span{
+						width: 100%;
+						display: inline-block;
+						font-size: 18px;
+					}
+					&:after{
+						content: "";
+						height: 50px;
+						position: absolute;
+						bottom: -25px;
+						width: 100%;
+						left: 0px;
+						border-radius: 0 0 50% 50%;
+						z-index: -1;
+					}
+					&:before{
+						content: "";
+						height: 50px;
+						position: absolute;
+						top: -25px;
+						width: 100%;
+						left: 0px;
+						border-radius: 50% 50% 0 0;
+						z-index: -1;
+					}
+				}
+				&:after{
+					content: "";
+					border-radius: 0 0 50% 50%;
+					position: absolute;
+					bottom: -24px;
+					background: #44433E;
+					width: 100%;
+					left: 0px;
+					height: 50px;
+					z-index: -2;
+				}
+				&:before{
+					content: "";
+					border-radius: 50% 50% 0 0;
+					position: absolute;
+					top: -25px;
+					background: #44433E;
+					width: 100%;
+					left: 0px;
+					height: 50px;
+					z-index: -2;
+				}
+			}
+    	}
+    }
+}
+
+.daily_sub_category_value, .monthly_sub_category_value{
+	display: none;
+}
+
+.question{
+	margin-bottom: 10px;
+	.question_content{
+		padding: 10px;
+		background: #E5E6E8;
+		p{
+			text-align: center;
+			color: #2A295C;
+			font-weight: bold;
+			font-size: 20px;
+		}
+	}
+}
+
+#monthly_summary{
+	background: #D0D1D5;
+	padding: 30px 0px;
+	margin-top: 20px;
+}
+
+.line_graph {
+	width: 70%;
+	height: 300px;
+	display: inline-block;
+	vertical-align: top;
+	canvas{
+		display: block;
+		margin: 10px auto;
+	}
+}
+
+.pies_graphs{
+	width: 30%;
+	height: 300px;
+	display: inline-block;
+	vertical-align: top;
+	canvas{
+		display: block;
+		margin: 10px auto;
+	}
+	h3{
+		width: 100%;
+		text-align: center;
+	}
+	.title_blue{
+		color: #2A295C;
+	}
+	.title_red{
+		color: #FF0000;
+	}
+}
+
+#monthly_summary{
+	position: relative;
+	top: -20px;
+}
+
+.monthly_sub_category_value, #monthly_summary{
+	background: #DBDCE0;
+	
+    padding: 40px 0px;
+    background: #D0D1D5;
+	.horizontal_bar_container{
+		width: 50%;
+		margin: 10px auto;
+		.horizontal_bar{
+			background: #44433E;
+			#total_yes{
+				background: red;
+				color: white;
+				padding: 5px;
+			}
+			#total_no{
+				background: #2A295C;
+				color: white;
+				padding: 5px;
+			}
+		}
+	}
 }

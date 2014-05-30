@@ -9,55 +9,129 @@
 				= wicked_pdf_image_tag "statistic.png"
 	#new_logo.row
 		= wicked_pdf_image_tag "long_logo.png"
-- if result[0]
-	= form_tag result_per_range_path(format: "pdf"), class: "download_pdf" do
-		= hidden_field_tag "restaurant_id", result[5][:restaurant].id
-		= hidden_field_tag "start_date_for_report", result[5][:start_date]
-		= hidden_field_tag "end_date_for_report", result[5][:end_date]
-		= submit_tag "Descargar resumen en pdf", class: "btn btn-primary btn-block"
-	.station.row.result_to_care
-		.col-md-12.col-xs-12
-			%h1
-				= result[5][:restaurant].name
-				%br
-				= "Fecha inicial: #{result[5][:start_date]}"
-				%br
-				= "Fecha final: #{result[5][:end_date]}"
-	- result[1].times do |i|
-		.station.row.result_to_care
-			.col-md-12.col-xs-12
-				- day = result[2][i]
-				- month = result[3][i]
-				.col-md-3.col-xs-12.left_part
-					%h3
-						= "Día: " + day.to_s + "/" + month.to_s
-				.col-md-9.col-xs-12.right_part{style: "padding-top: 10px; margin-bottom: 10px;"}
-					- total = result[4][day.to_s][:yes] + result[4][day.to_s][:no]
-					- unless total == 0
-						- yes = result[4][day.to_s][:yes]
-						- no = result[4][day.to_s][:no]
-						- yes_width = yes*100/total
-						.bar.positive_bar{ style: "width: #{yes_width}%;"}
-							- unless yes == 0
-								%p
-									= "SI: #{yes} votos (#{yes_width}%)" 
+	#restaurant_data
+		%h2
+			Site: #{result[2][:restaurant].name}
+		%h2
+			Fecha inicial: #{result[2][:start_date]}
+		%h2
+			Fecha final: #{result[2][:end_date]}
+#data-returned.row	
+	- if result[0]
+		.col-md-offset-8.col-md-3
+			= form_tag result_per_range_path(format: "pdf"), class: "download_pdf" do
+				= hidden_field_tag "restaurant_id", result[2][:restaurant].id
+				= hidden_field_tag "start_date_for_report", result[2][:start_date]
+				= hidden_field_tag "end_date_for_report", result[2][:end_date]
+				= submit_tag "Descargar reporte en pdf", class: "btn btn-default submit_pdf_button"
+		#daily_labels.col-md-offset-1.col-md-10{style: "padding: 0px;"}
+			- colors = %w{red blue gray}
+			- i = 0
+			- result[1].each do |key, value|
+				.col-xs-2.col-sm-2.col-md-2{class: "#{colors[i]} daily_arrow_head arrow_head", data: {point_to: "daily_#{colors[i]}"}}
+					%span
+						= key.name
+				- i += 1
+		.clearfix
+		#daily_summary.col-md-offset-1.col-md-10
+			- i = 0
+			-result[1].each do |key, value|
+				.sub_category_vertical_bar{data: {total_value: "#{value[:total_yes] + value[:total_no]}"}}>
+					- total = value[:total_yes] + value[:total_no]
+					.bar>
+						.vertical_bar
+							- style = "height: " + ((total == 0) ? "" : (value[:total_no]*300/total).to_s + "px")
+							- if value[:total_no] == 0
+								.real_bar{class: "bar_#{colors[i]}", data: {value: "#{value[:total_no]}"}}
+									%span.value
+										- if total == 0
+											0
+										- else
+											#{value[:total_no]*100/total}
+									%span
+										\%
 							- else
-								%p
-						- no_width = no*100/total									
-						.bar.negative_bar{ style: "width: #{no_width}%;"}
-							- unless no == 0
-								%p
-									= "NO: #{no} votos (#{no_width}%)"
+								.real_bar{class: "bar_#{colors[i]}", style: "#{style}", data: {value: "#{value[:total_no]}"}}
+									%span.value
+										- if total == 0
+											0
+										- else
+											#{value[:total_no]*100/total}
+									%span
+										\%
+						%h3
+							NO
+					.bar
+						.vertical_bar
+							- style = "height: " + ((total == 0) ? "" : (value[:total_yes]*300/total).to_s + "px")
+							- if value[:total_yes] == 0
+								.real_bar{class: "bar_#{colors[i]}", data: {value: "#{value[:total_yes]}"}}
+									%span.value
+										- if total == 0
+											0
+										- else
+											#{value[:total_yes]*100/total}
+									%span
+										\%
 							- else
-								%p
-					- else
-						.bar.positive_bar{ style: "width: 0px;"}
-						.bar.negative_bar{ style: "width: 0px;"}
-				.clearfix.col-md-12.col-xs-12
-	= link_to "Imprimir documento", "javascript:window.print()", id: "print_button", class: "btn btn-block btn-primary"
-- else
-	%h1.no_survey_result
-		No existe encuestas en la fecha indicada
-
-
-
+								.real_bar{class: "bar_#{colors[i]}", style: "#{style}", data: {value: "#{value[:total_yes]}"}}
+									%span.value
+										- if total == 0
+											0
+										- else
+											#{value[:total_yes]*100/total}
+									%span
+										\%
+						%h3
+							SI
+				- i += 1
+		- i = 0
+		- new_colors = %w(gray blue red)
+		-result[1].each do |key, value|
+			.col-md-offset-1.col-md-10.daily_sub_category_value{id: "daily_#{colors[i]}"}	
+				%h2
+					= "#{key.name.strip} (#{value[:total_yes] + value[:total_no]} votos registrados)"
+				- value[:questions].each do |question|
+					.question
+						%h3
+							= question[:question]
+						- new_colors.each do |color|
+							.col-xs-3.col-sm-3.col-md-3{class: "#{color} arrow_head", data: {point_to: "daily_#{new_colors}"}}
+								%span
+									- case color
+										- when "gray"
+											Votos Totales: #{question[:yes] + question[:no]}
+										- when "blue"
+											Si: #{question[:yes]} Votos
+										- when "red"
+											No: #{question[:no]} Votos
+						.clearfix
+						.question_content.col-md-12
+							%p
+								- if load_css
+									= wicked_pdf_image_tag "statistic.png"
+								- else
+									= image_tag "statistic.png"
+								- total = question[:yes] + question[:no]
+								- if total == 0
+									0% de aprobación 
+								- else
+									#{(question[:yes]*100)/total}% de aprobación 
+						.clearfix
+				.col-md-offset-10.col-md-2
+					= link_to "Atrás", "#", class: "btn btn-default btn-block daily_back_button"
+			- i += 1
+	- else
+		%h1.no_survey_result
+			No existe encuestas en la fecha indicada
+:javascript
+	$(".real_bar").each(function(){
+		value = $(this).data("value");
+		total = $(this).parents(".sub_category_vertical_bar").data("total-value");
+		if(total != 0 && value > 0){
+			height = (value * 300)/total;
+			new_value = Math.round((value * 100)/total);
+			$(this).find(".value").html(new_value);
+			$(this).css("height", height);
+		}
+	});

@@ -1,9 +1,11 @@
 class ReportsController < ApplicationController
 
+    #Daily report
     def index
         @restaurants = Restaurant.all
     end
 
+    #Daily report result
     def result
         @result = Survey.survey_result_with_date(params[:restaurant_id_for_survey], params[:date_for_survey])
         @id = params[:restaurant_id_for_survey]
@@ -19,18 +21,10 @@ class ReportsController < ApplicationController
                             type: 'application/vnd.ms-excel'
             end
             format.pdf do 
-                render  pdf: @result[4].name,
+                render  pdf: "Reporte",
                         disposition: "attachment",
                         template: "reports/_result.html.haml", 
                         locals: { result: @result, load_css: true}
-=begin
-                html = render_to_string(partial: "reports/result", formats: [:html], locals: {result: @result})
-                kit = PDFKit.new(html)
-                kit.stylesheets << "#{Rails.root}/app/assets/stylesheets/print.css"
-                send_data   kit.to_pdf,
-                            filename: "Reporte.pdf",
-                            content_type: "application/pdf"
-=end
             end
         end
     end
@@ -47,19 +41,10 @@ class ReportsController < ApplicationController
             format.js
             format.json
             format.pdf do
-                render  pdf: @result[4].name,
+                render  pdf: "Reporte",
                         disposition: "attachment",
                         template: "reports/_result_per_range.html.haml", 
                         locals: { result: @result, load_css: true}
-=begin
-html = render_to_string(partial: "reports/result_per_range", formats: [:html], locals: {result: @result})
-                kit = PDFKit.new(html)
-                kit.stylesheets << "#{Rails.root}/app/assets/stylesheets/print.css"
-                send_data   kit.to_pdf,
-                            filename: "Reporte.pdf",
-                            content_type: "application/pdf"
-=end
-
             end
         end
     end
@@ -79,23 +64,15 @@ html = render_to_string(partial: "reports/result_per_range", formats: [:html], l
     end
 
     def result_per_month_with_year
-       @result = Survey.result_per_month_with_year(params[:restaurant_id], params[:month], params[:year])
+        @result = Survey.result_per_month_with_year(params[:restaurant_id], params[:month], params[:year])
         respond_to do |format|
             format.js
             format.json
             format.pdf do
-                render  pdf: @result[5][:restaurant].name,
+                render  pdf: "Reporte",
                         disposition: "attachment",
                         template: "reports/_result_per_month_with_year.html.haml", 
                         locals: { result: @result, load_css: true}
-=begin                
-                html = render_to_string(partial: "reports/result_per_month_with_year", formats: [:html], locals: {result: @result})
-                kit = PDFKit.new(html)
-                kit.stylesheets << "#{Rails.root}/app/assets/stylesheets/print.css"
-                send_data   kit.to_pdf,
-                            filename: "Reporte.pdf",
-                            content_type: "application/pdf"
-=end
             end
         end 
     end

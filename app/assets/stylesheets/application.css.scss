@@ -41,18 +41,30 @@ body{
 .form-signin,.form-signup{
 	max-width: 600px;
 	padding: 15px;
-	margin: 0px auto;
+	margin: -70px auto;
 }
 
-.form-signin input[type="email"]{
-	border-bottom-right-radius: 0px;
-	border-bottom-left-radius: 0px;
+.form-signin input[type="email"], .form-signin input[type="password"]{
+    border-radius: 20px;
+    margin-bottom: 5px;
 }
 
-.form-signin input[type="password"] {
-    margin-bottom: 10px;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
+.form-signin-field-part {
+    input[type="checkbox"]{
+        float: left;
+        background: red;
+        padding: 10px;
+    }
+    .checkbox {
+        font-weight: normal;
+        margin-bottom: 10px;
+    }
+}
+
+.form-signin input[type="submit"]{
+    margin-top: 10px;
+    border: 1px solid #c9c9c9;
+    border-radius: 10px;
 }
 
 .form-signup input[type="submit"]{
@@ -70,17 +82,7 @@ body{
 	text-align: center;
 }
 
-.form-signin input[type="checkbox"] {
-	float: left;
-}
-
-.form-signin .checkbox {
-    font-weight: normal;
-    margin-bottom: 10px;
-}
-
 #report_image_bg{
-	padding-bottom: 20px;
 	max-height: 400px;
 	img{
 		width: 100%;

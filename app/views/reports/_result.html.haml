@@ -5,54 +5,119 @@
 		.col-md-12
 			%h1
 				%span
-					Reporte Diario
+					Reporte Diario por Servicio
 				= wicked_pdf_image_tag "statistic.png"
 	#new_logo.row
 		= wicked_pdf_image_tag "long_logo.png"
-- if result[0]
-	.row
-		.col-md-2.col-md-offset-9
+	#restaurant_data
+		%h2
+			Site: #{result[2][:restaurant].name}
+		%h2
+			Fecha: #{result[2][:date]}
+#data-returned.row
+	- if result[0] == true
+		.col-md-offset-8.col-md-3
 			= form_tag report_result_path(format: "pdf"), class: "download_pdf" do
-				= hidden_field_tag "restaurant_id_for_survey", @id
-				= hidden_field_tag "date_for_survey", @date
+				= hidden_field_tag "restaurant_id_for_survey", result[2][:restaurant].id
+				= hidden_field_tag "date_for_survey", result[2][:date]
 				= submit_tag "Descargar reporte en pdf", class: "btn btn-default submit_pdf_button"
-	- result[2].each do |sub|
-		.station.row.result_to_care
-			.col-md-12.col-xs-12
-				%h1
-					- sub_total = 0
-					- result[1][sub].each do |cq|
-						- sub_total += cq.answers.where("created_at >= ? AND created_at <= ?", sub.start_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day), sub.end_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day)).count
-					= sub.name + " (#{sub_total} votos registrados)"
-				- result[1][sub].each do |cq|
-					- total = cq.answers.where("created_at >= ? AND created_at <= ?", sub.start_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day), sub.end_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day)).count
-					- yes = cq.answers.where("alternative_id = ? AND created_at >= ? AND created_at <= ?", cq.availability.question.alternatives.first.id, sub.start_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day), sub.end_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day)).count
-					- no = cq.answers.where("alternative_id = ? AND created_at >= ? AND created_at <= ?", cq.availability.question.alternatives.last.id, sub.start_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day), sub.end_time.in_time_zone.change(year: result[3].year, month: result[3].month, day: result[3].day)).count
-					.question-title.col-md-12.col-sm-12.col-xs-12
-						%h2
-							= cq.availability.question.title
-					.total.col-md-2
-						%h5
-							= "Votos totales: #{total}"
-					.yes.col-md-2
-						%h5
-							= "Votos SI: #{yes}"
-					.no.col-md-2
-						%h5
-							= "Votos NO: #{no}"	
-					.value-to-show.col-md-12
+		#daily_labels.col-md-offset-1.col-md-10{style: "padding: 0px;"}
+			- colors = %w{red blue gray}
+			- i = 0
+			- result[1].each do |key, value|
+				.col-xs-2.col-sm-2.col-md-2{class: "#{colors[i]} daily_arrow_head arrow_head", data: {point_to: "daily_#{colors[i]}"}}
+					%span
+						= key.name
+				- i += 1
+		.clearfix
+		#daily_summary.col-md-offset-1.col-md-10
+			- i = 0
+			-result[1].each do |key, value|
+				.sub_category_vertical_bar{data: {total_value: "#{value[:total_yes] + value[:total_no]}"}}>
+					- total = value[:total_yes] + value[:total_no]
+					.bar>
+						.vertical_bar
+							- style = "height: " + ((total == 0) ? "" : (value[:total_no]*300/total).to_s + "px")
+							- if value[:total_no] == 0
+								.real_bar{class: "bar_#{colors[i]}", data: {value: "#{value[:total_no]}"}}
+									%span.value
+										- if total == 0
+											0
+										- else
+											#{value[:total_no]*100/total}
+									%span
+										\%
+							- else
+								.real_bar{class: "bar_#{colors[i]}", style: "#{style}", data: {value: "#{value[:total_no]}"}}
+									%span.value
+										- if total == 0
+											0
+										- else
+											#{value[:total_no]*100/total}
+									%span
+										\%
 						%h3
-							- if load_css
-								= wicked_pdf_image_tag "statistic_big.png"
+							NO
+					.bar
+						.vertical_bar
+							- style = "height: " + ((total == 0) ? "" : (value[:total_yes]*300/total).to_s + "px")
+							- if value[:total_yes] == 0
+								.real_bar{class: "bar_#{colors[i]}", data: {value: "#{value[:total_yes]}"}}
+									%span.value
+										- if total == 0
+											0
+										- else
+											#{value[:total_yes]*100/total}
+									%span
+										\%
 							- else
-								= image_tag "statistic_big.png"
-							- unless total == 0
-								- yes_width = yes*100/total
-							- else
-								- yes_width = 0
-							= "#{yes_width}% de los comensales" 
-					.clearfix.col-md-12.col-xs-12
-	= link_to "Imprimir documento", "javascript:window.print()", id: "print_button", class: "btn btn-block btn-primary"
-- else
-	%h1.no_survey_result
-		No existe una encuesta con los datos indicados
+								.real_bar{class: "bar_#{colors[i]}", style: "#{style}", data: {value: "#{value[:total_yes]}"}}
+									%span.value
+										- if total == 0
+											0
+										- else
+											#{value[:total_yes]*100/total}
+									%span
+										\%
+						%h3
+							SI
+				- i += 1
+		- i = 0
+		- new_colors = %w(gray blue red)
+		-result[1].each do |key, value|
+			.col-md-offset-1.col-md-10.daily_sub_category_value{id: "daily_#{colors[i]}"}	
+				%h2
+					= "#{key.name.strip} (#{value[:total_yes] + value[:total_no]} votos registrados)"
+				- value[:questions].each do |question|
+					.question
+						%h3
+							= question[:question]
+						- new_colors.each do |color|
+							.col-xs-3.col-sm-3.col-md-3{class: "#{color} arrow_head", data: {point_to: "daily_#{new_colors}"}}
+								%span
+									- case color
+										- when "gray"
+											Votos Totales: #{question[:yes] + question[:no]}
+										- when "blue"
+											Si: #{question[:yes]} Votos
+										- when "red"
+											No: #{question[:no]} Votos
+						.clearfix
+						.question_content.col-md-12
+							%p
+								- if load_css
+									= wicked_pdf_image_tag "statistic.png"
+								- else
+									= image_tag "statistic.png"
+								- total = question[:yes] + question[:no]
+								- if total == 0
+									0% de aprobación 
+								- else
+									#{(question[:yes]*100)/total}% de aprobación 
+						.clearfix
+				.col-md-offset-10.col-md-2
+					= link_to "Atrás", "#", class: "btn btn-default btn-block daily_back_button"
+			- i += 1
+	- else
+		%h1.no_survey_result
+			No existe una encuesta con los datos indicados

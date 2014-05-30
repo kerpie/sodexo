@@ -4,8 +4,12 @@
 #   Ensure the SQLite 3 gem is defined in your Gemfile
 #   gem 'sqlite3'
 development:
-  adapter: sqlite3
-  database: db/development.sqlite3
+  adapter: mysql2
+  database: development
+  encoding: utf8
+  username: root
+  password: kerpie
+  host: localhost
   pool: 5
   timeout: 5000
 
@@ -14,7 +18,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   adapter: sqlite3
-  database: db/test.sqlite3
+  database: test
   pool: 5
   timeout: 5000
 

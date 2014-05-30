@@ -1,6 +1,3 @@
-$(".result_to_care").each(function(){$(this).remove();});
-$(".no_survey_result").each(function(){$(this).remove();});
-$(".download_pdf").each(function(){$(this).remove();});
-$("#print_button").hide();
+$("#data-returned").remove();
 $("#survey_form").after("#{j render 'result_per_month_with_year', result: @result, load_css: false}");
 $("#loading_part").hide();

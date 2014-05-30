@@ -62,15 +62,13 @@
 						.shadow	
 						%ul.dropdown-menu
 							%li
-								=link_to "Reporte diario", report_index_path
+								=link_to "Reporte Diario por Servicio", report_index_path
 							%li
-								=link_to "Reporte por rango de fechas", report_per_range_path
+								=link_to "Reporte Detallado por Rango de Fechas", report_per_range_path
 							%li
-								=link_to "Reporte mensual", report_per_month_path
+								=link_to "Reporte Mensual", report_per_month_path
 							%li
-								=link_to "Reporte total", report_total_path
-							%li
-								=link_to "Reporte detallado por turno", report_detailed_by_service_path
+								=link_to "Reporte Total por segmento", report_total_path
 					%li.dropdown
 						= link_to "#", class: "dropdown-toggle first-option", data: {toggle: "dropdown"} do
 							Usuarios
@@ -99,15 +97,13 @@
 							.shadow
 						%ul.dropdown-menu
 							%li
-								=link_to "Reporte diario", report_index_path
+								=link_to "Reporte Diario por Servicio", report_index_path
 							%li
-								=link_to "Reporte por rango de fechas", report_per_range_path
+								=link_to "Reporte Detallado por Rango de Fechas", report_per_range_path
 							%li
-								=link_to "Reporte mensual", report_per_month_path
+								=link_to "Reporte Mensual", report_per_month_path
 							%li
-								=link_to "Reporte total", report_total_path
-							%li
-								=link_to "Reporte detallado por turno", report_detailed_by_service_path
+								=link_to "Reporte Total por segmento", report_total_path
 				%li.dropdown
 					= link_to "#", class: "dropdown-toggle", data: {toggle: "dropdown"} do
 						= current_user.email

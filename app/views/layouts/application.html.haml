@@ -13,9 +13,10 @@
 			.container-fluid
 				= yield 
 			#loading_part
-				=image_tag "loader_2.gif"
+				=image_tag "loader.gif"
 		-else
-			.container
+			= yield :previous_image
+			.container-fluid
 				= yield
 			:javascript
 				$(document).ready(function(){

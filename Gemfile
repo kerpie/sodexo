@@ -30,8 +30,11 @@ group :doc do
 end
 
 group :development do 
-	# Use sqlite3 as the database for Active Record
-	gem 'sqlite3'
+	gem 'mysql2'
+end
+
+group :test do
+	gem 'mysql2'
 end
 
 group :production do 
