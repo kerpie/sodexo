@@ -9,10 +9,15 @@
 				= wicked_pdf_image_tag "statistic.png"
 	#new_logo.row
 		= wicked_pdf_image_tag "long_logo.png"
-
-
+	#restaurant_data
+		%h2
+			Fechas: #{result[1][:start_date]} - #{result[1][:end_date]}
 #data-returned.row
-	/ Here goes the download
+	.col-md-offset-8.col-md-3
+		= form_tag result_total_path(format: "pdf"), class: "download_pdf" do
+			= hidden_field_tag "start_date", result[1][:start_date]
+			= hidden_field_tag "end_date", result[1][:end_date]
+			= submit_tag "Descargar reporte en pdf", class: "btn btn-default submit_pdf_button"
 	#daily_labels.col-md-offset-1.col-md-10{style: "padding: 0px;"}
 		.col-xs-2.col-sm-2.col-md-2{class: "gray monthly_arrow_head arrow_head", data: {point_to: "monthly_summary"}}
 			%span 
@@ -22,7 +27,7 @@
 		- total = 0
 		- total_yes = 0
 		- total_no = 0
-		- result.each do |key, value|
+		- result[0].each do |key, value|
 			.col-xs-2.col-sm-2.col-md-2{class: "#{colors[i]} monthly_arrow_head arrow_head", data: {point_to: "monthly_#{colors[i]}"}}
 				%span
 					= key.name
@@ -38,42 +43,42 @@
 			%h3{style: "color: #FF0000;"}
 				SI
 			.horizontal_bar
-				- value = total_yes*100/total
+				- value = (total_yes*100/total.to_f).round
 				%p#total_yes{style: "width: #{value}%"}
-					= value
+					#{value}%
 			%h3{style: "color: #2A295C"}
 				NO
 			.horizontal_bar
-				- value = total_no*100/total
+				- value = (total_no*100/total.to_f).round
 				%p#total_no{style: "width: #{value}%"}
-					= value
+					#{value}%
 	- i = 0
-	- result.each do |key, value|
+	- result[0].each do |key, value|
 		.col-md-offset-1.col-md-10.monthly_sub_category_value{id: "monthly_#{colors[i]}"}
 			%h3
 				Total de votos: #{value[:total_yes] + value[:total_no]}
 				- total = value[:total_yes] + value[:total_no]
-			%h3.clickable{data: {point_to: "#{key.name}"}}
+			%h3.clickable{data: {point_to: "#{key.name.strip}"}}
 				#{key.name} (ver detalle)
 			.horizontal_bar_container
 				%h3{style: "color: #FF0000"}
 					SI
 				.horizontal_bar
-					- new_value = total == 0 ? 0 : value[:total_yes]*100/total
+					- new_value = total == 0 ? 0 : (value[:total_yes]*100/total.to_f).round
 					%p#total_yes{style: "width: #{new_value}%"}
-						= new_value
+						#{new_value}%
 				%h3{style: "color: #2A295C"}
 					NO
 				.horizontal_bar
-					- new_value = total == 0 ? 0 : value[:total_no]*100/total
+					- new_value = total == 0 ? 0 : (value[:total_no]*100/total.to_f).round
 					%p#total_no{style: "width: #{new_value}%"}
-						= new_value
+						#{new_value}%
 			.col-md-offset-10.col-md-2
 				= link_to "Atrás", "#", class: "btn btn-default btn-block monthly_back_button"
 		- i += 1
 	- new_colors = %w(gray blue red)
-	- result.each do |key, value|		
-		.col-md-offset-1.col-md-10.daily_sub_category_value{id: "#{key.name}"}	
+	- result[0].each do |key, value|		
+		.col-md-offset-1.col-md-10.daily_sub_category_value{id: "#{key.name.strip}"}	
 			%h2
 				= "#{key.name.strip} (#{value[:total_yes] + value[:total_no]} votos registrados)"
 			- value[:questions].each do |question|
@@ -101,7 +106,7 @@
 							- if total == 0
 								0% de aprobación 
 							- else
-								#{(question[:yes]*100)/total}% de aprobación 
+								#{((question[:yes]*100)/total.to_f).round}% de aprobación 
 					.clearfix
 			.col-md-offset-10.col-md-2
 				= link_to "Atrás", "#", class: "btn btn-default btn-block total_back_button"

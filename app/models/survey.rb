@@ -273,8 +273,8 @@ class Survey < ActiveRecord::Base
 
 			months_in_numbers.each do |month|
 				unless hash[restaurant.name].nil? && hash[restaurant.name][month].nil?
-					total_yes += hash[restaurant.name][month][:total_yes].nil? ? hash[restaurant.name][month][:total_yes] : 0
-					total_no += hash[restaurant.name][month][:total_no].nil? ? hash[restaurant.name][month][:total_no] : 0
+					total_yes += (hash[restaurant.name][month][:total_yes].nil? ? 0 : hash[restaurant.name][month][:total_yes])
+					total_no += (hash[restaurant.name][month][:total_no].nil? ? 0 : hash[restaurant.name][month][:total_no])
 				end
 			end
 
@@ -371,7 +371,7 @@ class Survey < ActiveRecord::Base
 
 			response[sub] = {questions: sub_category_result, total_yes: total_yes_per_sub_category, total_no: total_no_per_sub_category}
 		end
-		response
+		[response,{start_date: start_date, end_date: end_date}]
 	end
 
 	def self.detailed_result(restaurant_id, start_date, end_date)

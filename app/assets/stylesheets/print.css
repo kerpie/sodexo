@@ -487,7 +487,8 @@ body{
 
 /* line 422, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
 .daily_sub_category_value {
-  display: block;
+	page-break-before: always;
+  	display: block;
 }
 
 /* line 426, /home/kerpie/Projects/Web/sodexo/app/assets/stylesheets/surveys.css.scss */
@@ -507,6 +508,116 @@ body{
   font-size: 20px;
 }
 
-.daily_back_button{
+.total_back_button, .daily_back_button, .monthly_back_button{
 	display: none
+}
+
+.question {
+    margin-bottom: 10px;
+}
+.question .question_content {
+    background: none repeat scroll 0 0 #E5E6E8;
+    padding: 10px;
+}
+.question .question_content p {
+    color: #2A295C;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#monthly_summary {
+    background: none repeat scroll 0 0 #D0D1D5;
+    margin-top: 20px;
+    padding: 30px 0;
+    position: relative;
+    top: -20px;
+}
+
+#monthly_summary > h3, .monthly_sub_category_value > h3{
+	width: 80%;
+	margin: 0 auto;
+}
+
+.monthly_sub_category_value{
+	page-break-before: always;
+}
+
+.line_graph {
+    display: inline-block;
+    height: 300px;
+    vertical-align: top;
+    width: 70%;
+}
+.line_graph canvas {
+    display: block;
+    margin: 10px auto;
+}
+.pies_graphs {
+    display: inline-block;
+    height: 300px;
+    vertical-align: top;
+    width: 30%;
+}
+.pies_graphs canvas {
+    display: block;
+    margin: 10px auto;
+}
+.pies_graphs h3 {
+    text-align: center;
+    width: 100%;
+}
+.pies_graphs .title_blue {
+    color: #2A295C;
+}
+.pies_graphs .title_red {
+    color: #FF0000;
+}
+
+.monthly_sub_category_value, #monthly_summary, .detailed_monthly_view {
+    background: none repeat scroll 0 0 #D0D1D5;
+    margin-top: 20px;
+    padding: 40px 0;
+}
+
+.detailed_monthly_view{
+	page-break-before: always;
+}
+
+.detailed_monthly_view h2{
+	width: 80%;
+	margin: 0 auto;
+}
+
+.monthly_sub_category_value .horizontal_bar_container, #monthly_summary .horizontal_bar_container, .detailed_monthly_view .horizontal_bar_container {
+    margin: 10px auto;
+    width: 50%;
+}
+.monthly_sub_category_value .horizontal_bar_container .horizontal_bar, #monthly_summary .horizontal_bar_container .horizontal_bar, .detailed_monthly_view .horizontal_bar_container .horizontal_bar {
+    background: none repeat scroll 0 0 #44433E;
+}
+.monthly_sub_category_value .horizontal_bar_container .horizontal_bar #total_yes, #monthly_summary .horizontal_bar_container .horizontal_bar #total_yes, .detailed_monthly_view .horizontal_bar_container .horizontal_bar #total_yes {
+    background: none repeat scroll 0 0 #FF0000;
+    color: #FFFFFF;
+    padding: 5px;
+}
+.monthly_sub_category_value .horizontal_bar_container .horizontal_bar #total_no, #monthly_summary .horizontal_bar_container .horizontal_bar #total_no, .detailed_monthly_view .horizontal_bar_container .horizontal_bar #total_no {
+    background: none repeat scroll 0 0 #2A295C;
+    color: #FFFFFF;
+    padding: 5px;
+}
+
+.detailed-values{
+	display: none;
+}
+
+.detailed_monthly_view .pies_graphs {
+    margin-bottom: 60px;
+}
+.download_pdf {
+    margin: 20px 0;
+}
+
+.monthly_data{
+	margin-bottom: 30px;
 }

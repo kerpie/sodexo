@@ -13,11 +13,11 @@
 				.form-group
 					.col-md-12
 						= select_tag "restaurant_id", options_from_collection_for_select(current_user.restaurants, :id, :name), class: "form-control"
-			.col-md-2.col-md-offset-4.col-sm-3.col-xs-12
+			.col-md-3.col-md-offset-2.col-sm-3.col-xs-12
 				.form-group
 					.col-md-12
 						= text_field_tag "start_date_for_report", "", class: "form-control", placeholder: "Fecha inicial"
-			.col-md-2.col-sm-3.col-xs-12
+			.col-md-3.col-sm-3.col-xs-12
 				.form-group
 					.col-md-12
 						= text_field_tag "end_date_for_report", "", class: "form-control", placeholder: "Fecha final"

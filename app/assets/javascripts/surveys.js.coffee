@@ -55,3 +55,18 @@ $ ->
 		to_show = $(this).data("point-to")
 		$("#daily_labels").hide()
 		$("#"+to_show).show()
+
+$ ->
+	$(document).on "click", ".monthly_detailed", (e) ->
+		$("#monthly_summary").hide()
+		destination = $(this).data("point-to")
+		$("."+destination).each -> 
+			$(this).show()
+
+$ ->
+	$(document).on "click", ".monthly_back_button", (e) ->
+		e.preventDefault()
+		origin = $(this).data("origin")
+		$(".detailed_monthly_view").each ->
+			$(this).hide()
+		$("#monthly_summary").show()

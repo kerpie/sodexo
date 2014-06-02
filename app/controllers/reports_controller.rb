@@ -89,7 +89,7 @@ class ReportsController < ApplicationController
             format.js
             format.json
             format.pdf do
-                render  pdf: "Reporte total del #{@result[1][:start]} al #{@result[1][:end]}",
+                render  pdf: "Reporte total",
                         disposition: "attachment",
                         template: "reports/_result_total.html.haml", 
                         locals: { result: @result, load_css: true}

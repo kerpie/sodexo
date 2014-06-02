@@ -37,14 +37,14 @@
 					- total = value[:total_yes] + value[:total_no]
 					.bar>
 						.vertical_bar
-							- style = "height: " + ((total == 0) ? "" : (value[:total_no]*300/total).to_s + "px")
+							- style = "height: " + ((total == 0) ? "" : ((value[:total_no]*300/total.to_f).round).to_s + "px")
 							- if value[:total_no] == 0
 								.real_bar{class: "bar_#{colors[i]}", data: {value: "#{value[:total_no]}"}}
 									%span.value
 										- if total == 0
 											0
 										- else
-											#{value[:total_no]*100/total}
+											#{(value[:total_no]*100/total.to_f).round}
 									%span
 										\%
 							- else
@@ -53,21 +53,21 @@
 										- if total == 0
 											0
 										- else
-											#{value[:total_no]*100/total}
+											#{(value[:total_no]*100/total.to_f).round}
 									%span
 										\%
 						%h3
 							NO
 					.bar
 						.vertical_bar
-							- style = "height: " + ((total == 0) ? "" : (value[:total_yes]*300/total).to_s + "px")
+							- style = "height: " + ((total == 0) ? "" : ((value[:total_yes]*300/total.to_f).round).to_s + "px")
 							- if value[:total_yes] == 0
 								.real_bar{class: "bar_#{colors[i]}", data: {value: "#{value[:total_yes]}"}}
 									%span.value
 										- if total == 0
 											0
 										- else
-											#{value[:total_yes]*100/total}
+											#{(value[:total_yes]*100/total.to_f).round}
 									%span
 										\%
 							- else
@@ -76,7 +76,7 @@
 										- if total == 0
 											0
 										- else
-											#{value[:total_yes]*100/total}
+											#{(value[:total_yes]*100/total.to_f).round}
 									%span
 										\%
 						%h3
@@ -113,7 +113,7 @@
 								- if total == 0
 									0% de aprobación 
 								- else
-									#{(question[:yes]*100)/total}% de aprobación 
+									#{((question[:yes]*100)/total.to_f).round}% de aprobación 
 						.clearfix
 				.col-md-offset-10.col-md-2
 					= link_to "Atrás", "#", class: "btn btn-default btn-block daily_back_button"

@@ -10,7 +10,21 @@
 				= wicked_pdf_image_tag "statistic.png"
 	#new_logo.row
 		= wicked_pdf_image_tag "long_logo.png"
-
+	
+	#restaurant_data.monthly_data
+		%h2
+			Site(s): 
+			%br
+			- result[:restaurants].each do |restaurant|
+				\- #{restaurant}
+				%br
+		%h2
+			Mes(es):
+			%br
+			- result[:months].each do |month|
+				\- #{my_month(month)}
+		%h2
+			Año: #{result[:year]}
 #data-returned.row
 	- month_yes_values = []
 	- month_no_values = []
@@ -30,25 +44,153 @@
 		- no_value += result[:summary][month_number][:no]
 		- months_names << my_month(month_number)
 	
-	/
-		.col-md-2.col-md-offset-9
-			= form_tag result_per_month_with_year_path(format: "pdf"), class: "download_pdf" do
-				= hidden_field_tag "restaurant_id", result[:restaurant_ids]
-				= hidden_field_tag "month", result[:months]
-				= hidden_field_tag "year", result[:year]
-				= submit_tag "Descargar reporte en pdf", class: "btn btn-default submit_pdf_button"
+	.col-md-offset-8.col-md-3
+		= form_tag result_per_month_with_year_path(format: "pdf"), class: "download_pdf" do
+			- result[:restaurant_ids].each do |r_id|
+				= hidden_field_tag "restaurant_id[]", r_id 
+			- result[:months].each do |month_number|
+				= hidden_field_tag "month[]", month_number
+			= hidden_field_tag "year", result[:year]
+			= submit_tag "Descargar reporte en pdf", class: "btn btn-default submit_pdf_button"
 
 	#monthly_summary.col-md-offset-1.col-md-10{data: {yes_values: "#{month_yes_values}", no_values: "#{month_no_values}", months: "#{months_names}"}}
 		.line_graph>
 			%canvas#my_graph{width: 300, height: 250}
-		.pies_graphs{data: {yes_percentage: "#{yes_value*100/(yes_value+no_value)}", no_percentage: "#{no_value*100/(yes_value+no_value)}" }}
-			%canvas#yes_pie{width: 100, height: 100}
-			%h3.title_red
-				SI
-			%canvas#no_pie{width: 100, height: 100}
-			%h3.title_blue
-				NO
+		- total = yes_value+no_value
+		-if total == 0 
+			.pies_graphs{data: {yes_percentage: "0", no_percentage: "0" }}
+				%canvas#yes_pie{width: 100, height: 100}
+				%h3.title_red
+					SI: 0%
+				%canvas#no_pie{width: 100, height: 100}
+				%h3.title_blue
+					NO: 0%
+		- else
+			.pies_graphs{data: {yes_percentage: "#{(yes_value*100/(total).to_f).round}", no_percentage: "#{(no_value*100/total.to_f).round}" }}
+				%canvas#yes_pie{width: 100, height: 100}
+				%h3.title_red
+					SI: #{(yes_value*100/total.to_f).round}%
+				%canvas#no_pie{width: 100, height: 100}
+				%h3.title_blue
+					NO: #{(no_value*100/total.to_f).round}%
+		.detailed-values
+			- result[:restaurants].each do |restaurant|
+				%h4{class: "monthly_detailed", data: {point_to: "#{restaurant.gsub(" ", "_")}"}}
+					#{restaurant} (ver detalle)
 
+	- result[:restaurants].each do |restaurant|
+		- result[:months].each do |month|
+			.col-md-offset-1.col-md-10{class: "detailed_monthly_view #{restaurant.gsub(" ", "_")}"}
+				%h2
+					Site: #{restaurant}
+				%h2
+					Mes: #{my_month(month)}
+				- unless result[restaurant][month][:days].empty?
+					- total = result[restaurant][month][:total_yes] + result[restaurant][month][:total_no]
+					- if total == 0
+						%h2
+							No existen datos para este mes
+					- else
+						- array_yes = []
+						- array_no = []
+						- yes_for_pie = 0
+						- no_for_pie = 0
+						- result[restaurant][month][:days].each do |day|
+							- new_total = result[restaurant][month][:values_per_day][day][:yes] + result[restaurant][month][:values_per_day][day][:no]
+							- if new_total == 0
+								- array_yes << 0
+								- array_no << 0
+							- else
+								- yes_for_pie += result[restaurant][month][:values_per_day][day][:yes]
+								- no_for_pie += result[restaurant][month][:values_per_day][day][:no]
+								- array_yes << (result[restaurant][month][:values_per_day][day][:yes]*100/new_total.to_f).round
+								- array_no << (result[restaurant][month][:values_per_day][day][:no]*100/new_total.to_f).round
+						.line_graph>
+							%canvas{id: "#{restaurant.gsub(' ', '_')}_canvas_#{month}", data: {days: result[restaurant][month][:days], yes: "#{array_yes}", no: "#{array_no}"}, width: 300, height: 250}
+						- total_for_pie = yes_for_pie + no_for_pie
+						-if total_for_pie == 0 
+							.pies_graphs{data: {yes_percentage: "0", no_percentage: "0" }}
+								%canvas#yes_pie{width: 100, height: 100}
+								%h3.title_red
+									SI: 0%
+								%canvas#no_pie{width: 100, height: 100}
+								%h3.title_blue
+									NO: 0%
+						- else
+							.pies_graphs{id: "#{restaurant.gsub(' ', '_')}_canvas_#{month}_pies", data: {yes_percentage: "#{(yes_for_pie*100/(total_for_pie).to_f).round}", no_percentage: "#{(no_for_pie*100/total_for_pie.to_f).round}" }}
+								%canvas{id: "#{restaurant.gsub(' ', '_')}_canvas_#{month}_yes_pie",width: 100, height: 100}
+								%h3.title_red
+									SI: #{(yes_for_pie*100/total_for_pie.to_f).round}%
+								%canvas{id: "#{restaurant.gsub(' ', '_')}_canvas_#{month}_no_pie", width: 100, height: 100}
+								%h3.title_blue
+									NO: #{(no_for_pie*100/total_for_pie.to_f).round}%
+
+						:javascript
+							var lineChartData = {
+								labels : $("##{restaurant.gsub(' ', '_')}_canvas_#{month}").data("days"),
+								datasets : [
+								{
+									fillColor : "rgba(0,0,0,0)",
+									strokeColor : "rgba(255,0,0,1)",
+									pointColor : "rgba(255,0,0,1)",
+									pointStrokeColor : "#ff0000",
+									scaleLineColor : "rgba(255,0,0,1)",
+									data : $("##{restaurant.gsub(' ', '_')}_canvas_#{month}").data("yes")
+								},
+								{
+									fillColor : "rgba(0,0,0,0)",
+									strokeColor : "rgba(42,41,92,1)",
+									pointColor : "rgba(42,41,92,1)",
+									pointStrokeColor : "#2A295C",
+									data : $("##{restaurant.gsub(' ', '_')}_canvas_#{month}").data("no")
+								}]
+							};
+							var line_params = {
+								bezierCurve: false,
+								animation: false, 
+								scaleOverride: true,
+								scaleSteps : 4,
+								scaleStepWidth : 25,
+								scaleStartValue : 0
+							};
+							var myLine = new Chart($("##{restaurant.gsub(' ', '_')}_canvas_#{month}").get(0).getContext("2d")).Line(lineChartData, line_params);
+
+							var donut_params = {
+								segmentShowStroke: false,
+								percentageInnerCutout: 50,
+								animation: false
+							};
+
+							var yes_donut = [
+								{
+									value : 100 - $("##{restaurant.gsub(' ', '_')}_canvas_#{month}_pies").data("yes-percentage"),
+									color : "#A19FAC"
+								},
+								{
+									value : $("##{restaurant.gsub(' ', '_')}_canvas_#{month}_pies").data("yes-percentage"),
+									color : "#FF0000"
+								}
+							];
+							var no_donut = [
+								{
+									value : 100 - $("##{restaurant.gsub(' ', '_')}_canvas_#{month}_pies").data("no-percentage"),
+									color : "#A19FAC"
+								},
+								{
+									value : $("##{restaurant.gsub(' ', '_')}_canvas_#{month}_pies").data("no-percentage"),
+									color:"#2A295C"
+								}
+							];
+
+							var myDoughnut = new Chart($("##{restaurant.gsub(' ', '_')}_canvas_#{month}_yes_pie").get(0).getContext("2d")).Doughnut(yes_donut, donut_params);
+							var myOtherDoughnut = new Chart($("##{restaurant.gsub(' ', '_')}_canvas_#{month}_no_pie").get(0).getContext("2d")).Doughnut(no_donut, donut_params);
+
+				- else
+					%h2
+						No existen datos para este mes
+				.col-md-offset-10.col-md-2
+					= link_to "Atrás", "#", class: "btn btn-default btn-block monthly_back_button"
+					
 	:javascript
 		var lineChartData = {
 			labels : $("#monthly_summary").data("months"),
