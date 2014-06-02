@@ -79,7 +79,7 @@
 								= link_to "Crear usuario", new_user_registration_path
 							%li
 								= link_to "Tipos de usuario", user_types_path
-				- else if current_user.user_type == UserType.last(2).first
+				- elsif current_user.user_type == UserType.last(2).first
 					%li.dropdown
 						= link_to "#", class: "dropdown-toggle first-option", data: {toggle: "dropdown"} do
 							Locales
