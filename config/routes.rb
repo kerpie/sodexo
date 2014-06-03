@@ -28,6 +28,7 @@ Sodexo::Application.routes.draw do
   resources :choosen_questions
 
   post "answers/new_create" => "answers#new_create", as: :new_answer_create
+  post "answers/save_delayed_answer" => "answers#save_delayed_answer", as: :save_delayed_answer
   resources :answers
   resources :alternatives
   resources :availabilities
