@@ -54,6 +54,17 @@ class AnswersController < ApplicationController
     end
   end
 
+  def save_delayed_answer
+    result = Answer.save_answer_with_previous_check(params[:restaurant_id], params[:date], params[:choosen_question_id], params[:alternative_id] )
+    respond_to do 
+      if result
+        return render json: {status: true} 
+      else
+        return render json: {status: false}
+      end
+    end
+  end
+
   # PATCH/PUT /answers/1
   # PATCH/PUT /answers/1.json
   def update

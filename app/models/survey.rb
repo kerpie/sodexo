@@ -196,7 +196,6 @@ class Survey < ActiveRecord::Base
 			restaurants_names << r.name
 		end
 
-
 		hash[:months] = months_in_numbers
 		hash[:restaurants] = restaurants_names
 
@@ -239,15 +238,7 @@ class Survey < ActiveRecord::Base
 						unless array.empty?
 							array.each do |choosen_question|
 								tmp = {}
-								valid_answers = choosen_question.answers.where(
-									"created_at >= ? and created_at <= ?", 
-									sub.start_time.in_time_zone.change(
-										year: year, month: time.month, day: choosen_question.created_at.day
-									),
-									sub.end_time.in_time_zone.change(
-										year: year, month: time.month, day: choosen_question.created_at.day
-									)
-								)
+								valid_answers = choosen_question.answers.where("created_at >= ? and created_at <= ?", sub.start_time.in_time_zone.change(year: year, month: time.month, day: choosen_question.created_at.day),sub.end_time.in_time_zone.change(year: year, month: time.month, day: choosen_question.created_at.day))
 								positive_answers = valid_answers.where(alternative_id: choosen_question.availability.question.alternatives.first.id)
 
 								total_yes_per_survey += positive_answers.count 
