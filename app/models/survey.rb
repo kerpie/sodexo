@@ -187,7 +187,7 @@ class Survey < ActiveRecord::Base
 
 		months_in_numbers = []
 		months.each do |month|
-			times << Time.new(year, month, 1).in_time_zone
+			times << Time.zone.local(year, month, 1)
 			months_in_numbers << month.to_i
 		end
 
