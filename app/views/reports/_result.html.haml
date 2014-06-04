@@ -25,7 +25,7 @@
 			- colors = %w{red blue gray}
 			- i = 0
 			- result[1].each do |key, value|
-				.col-xs-2.col-sm-2.col-md-2{class: "#{colors[i]} daily_arrow_head arrow_head", data: {point_to: "daily_#{colors[i]}"}}
+				.col-xs-2.col-sm-2.col-md-2{class: "#{colors[i]} daily_arrow_head arrow_head cursor_goes_here", data: {point_to: "daily_#{colors[i]}"}}
 					%span
 						= key.name
 				- i += 1

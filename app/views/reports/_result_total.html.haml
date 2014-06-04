@@ -28,7 +28,7 @@
 		- total_yes = 0
 		- total_no = 0
 		- result[0].each do |key, value|
-			.col-xs-2.col-sm-2.col-md-2{class: "#{colors[i]} monthly_arrow_head arrow_head", data: {point_to: "monthly_#{colors[i]}"}}
+			.col-xs-2.col-sm-2.col-md-2{class: "#{colors[i]} monthly_arrow_head arrow_head cursor_goes_here", data: {point_to: "monthly_#{colors[i]}"}}
 				%span
 					= key.name
 			- i += 1
@@ -58,7 +58,7 @@
 			%h3
 				Total de votos: #{value[:total_yes] + value[:total_no]}
 				- total = value[:total_yes] + value[:total_no]
-			%h3.clickable{data: {point_to: "#{key.name.strip}"}}
+			%h3.clickable{class: "cursor_goes_here", data: {point_to: "#{key.name.strip}"}}
 				#{key.name} (ver detalle)
 			.horizontal_bar_container
 				%h3{style: "color: #FF0000"}
