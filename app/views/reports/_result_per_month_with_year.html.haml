@@ -55,7 +55,7 @@
 
 	#monthly_summary.col-md-offset-1.col-md-10{data: {yes_values: "#{month_yes_values}", no_values: "#{month_no_values}", months: "#{months_names}"}}
 		.line_graph>
-			%canvas#my_graph{width: 300, height: 250}
+			%canvas#my_graph{width: 500, height: 300}
 		- total = yes_value+no_value
 		-if total == 0 
 			.pies_graphs{data: {yes_percentage: "0", no_percentage: "0" }}
@@ -75,7 +75,7 @@
 					NO: #{(no_value*100/total.to_f).round}%
 		.detailed-values
 			- result[:restaurants].each do |restaurant|
-				%h4{class: "monthly_detailed", data: {point_to: "#{restaurant.gsub(" ", "_")}"}}
+				%h4{class: "monthly_detailed cursor_goes_here", data: {point_to: "#{restaurant.gsub(" ", "_")}"}}
 					#{restaurant} (ver detalle)
 
 	- result[:restaurants].each do |restaurant|
@@ -106,7 +106,7 @@
 								- array_yes << (result[restaurant][month][:values_per_day][day][:yes]*100/new_total.to_f).round
 								- array_no << (result[restaurant][month][:values_per_day][day][:no]*100/new_total.to_f).round
 						.line_graph>
-							%canvas{id: "#{restaurant.gsub(' ', '_')}_canvas_#{month}", data: {days: result[restaurant][month][:days], yes: "#{array_yes}", no: "#{array_no}"}, width: 300, height: 250}
+							%canvas{id: "#{restaurant.gsub(' ', '_')}_canvas_#{month}", width: 500, height: 300, data: {days: result[restaurant][month][:days], yes: "#{array_yes}", no: "#{array_no}"}}
 						- total_for_pie = yes_for_pie + no_for_pie
 						-if total_for_pie == 0 
 							.pies_graphs{data: {yes_percentage: "0", no_percentage: "0" }}
