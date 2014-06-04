@@ -12,11 +12,11 @@
 			.col-md-4.col-sm-6.col-xs-12
 				.form-group
 					.col-md-12
-						= select_tag "restaurant_id", options_from_collection_for_select(current_user.restaurants, :id, :name), class: "form-control", multiple: true
+						= select_tag "restaurant_id", options_from_collection_for_select(current_user.restaurants, :id, :name), class: "form-control", multiple: true, title: "Para seleccionar mas de un site mantenga presionada la tecla Ctrl"
 			.col-md-2.col-sm-3.col-xs-12
 				.form-group
 					.col-md-12
-						= select_tag "month", options_for_select({ enero: "1", febrero: "2", marzo: "3", abril: "4", mayo: "5", junio: "6", julio: "7", agosto: "8", septiembre: "9", octubre: "10", noviembre: "11", diciembre: "12"}), class: "form-control", multiple: true
+						= select_tag "month", options_for_select({ enero: "1", febrero: "2", marzo: "3", abril: "4", mayo: "5", junio: "6", julio: "7", agosto: "8", septiembre: "9", octubre: "10", noviembre: "11", diciembre: "12"}), class: "form-control", multiple: true, , title: "Para seleccionar mas de un mes mantenga presionada la tecla Ctrl"
 			.col-md-2.col-sm-3.col-xs-12
 				.form-group
 					.col-md-12
