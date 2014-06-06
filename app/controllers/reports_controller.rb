@@ -1,13 +1,15 @@
 class ReportsController < ApplicationController
 
-    #Daily report
     def index
         @restaurants = Restaurant.all
     end
 
-    #Daily report result
     def result
-        @result = Survey.survey_result_with_date(params[:restaurant_id_for_survey], params[:date_for_survey])
+        if params[:asks_for_pdf] == "true"
+            @result = eval(params[:raw_pdf])
+        else
+            @result = Survey.survey_result_with_date(params[:restaurant_id_for_survey], params[:date_for_survey])
+        end
         @id = params[:restaurant_id_for_survey]
         @date = params[:date_for_survey]
         respond_to do |format|
@@ -36,7 +38,11 @@ class ReportsController < ApplicationController
     end
 
     def result_per_range
-        @result = Survey.result_per_range(params[:restaurant_id], params[:start_date_for_report], params[:end_date_for_report])
+        if params[:asks_for_pdf] == "true"
+            @result = eval(params[:raw_pdf])
+        else
+            @result = Survey.result_per_range(params[:restaurant_id], params[:start_date_for_report], params[:end_date_for_report])
+        end
         respond_to do |format|
             format.js
             format.json
@@ -64,7 +70,11 @@ class ReportsController < ApplicationController
     end
 
     def result_per_month_with_year
-        @result = Survey.result_per_month_with_year(params[:restaurant_id], params[:month], params[:year])
+        if params[:asks_for_pdf] == "true"
+            @result = eval(params[:raw_pdf])
+        else
+            @result = Survey.result_per_month_with_year(params[:restaurant_id], params[:month], params[:year])
+        end
         respond_to do |format|
             format.js
             format.json
@@ -84,7 +94,11 @@ class ReportsController < ApplicationController
     end
 
     def result_total
-        @result = Survey.result_total(params[:start_date], params[:end_date])
+        if params[:asks_for_pdf] == "true"
+            @result = eval(params[:raw_pdf])
+        else
+            @result = Survey.result_total(params[:start_date], params[:end_date])
+        end
         respond_to do |format|
             format.js
             format.json
@@ -93,15 +107,6 @@ class ReportsController < ApplicationController
                         disposition: "attachment",
                         template: "reports/_result_total.html.haml", 
                         locals: { result: @result, load_css: true}
-=begin
-                html = render_to_string(partial: "reports/result_total", formats: [:html], locals: {result: @result})
-                kit = PDFKit.new(html)
-                kit.stylesheets << "#{Rails.root}/app/assets/stylesheets/print.css"
-                send_data   kit.to_pdf,
-                            filename: "Reporte.pdf",
-                            content_type: "application/pdf"
-=end
-
             end
         end
     end
@@ -121,14 +126,6 @@ class ReportsController < ApplicationController
                         disposition: "attachment",
                         template: "reports/_result_detailed_by_service.html.haml", 
                         locals: { result: @result, load_css: true}
-=begin 
-                html = render_to_string(partial: "reports/result_detailed_by_service", formats: [:html], locals: {result: @result})
-                kit = PDFKit.new(html)
-                kit.stylesheets << "#{Rails.root}/app/assets/stylesheets/print.css"
-                send_data   kit.to_pdf,
-                            filename: "Reporte.pdf",
-                            content_type: "application/pdf"
-=end
             end
         end
     end

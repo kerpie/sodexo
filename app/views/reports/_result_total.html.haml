@@ -17,6 +17,8 @@
 		= form_tag result_total_path(format: "pdf"), class: "download_pdf" do
 			= hidden_field_tag "start_date", result[1][:start_date]
 			= hidden_field_tag "end_date", result[1][:end_date]
+			= hidden_field_tag :asks_for_pdf, true
+			= hidden_field_tag :raw_pdf, result.to_s
 			= submit_tag "Descargar reporte en pdf", class: "btn btn-default submit_pdf_button"
 	#daily_labels.col-md-offset-1.col-md-10{style: "padding: 0px;"}
 		.col-xs-2.col-sm-2.col-md-2{class: "gray monthly_arrow_head arrow_head", data: {point_to: "monthly_summary"}}
@@ -30,7 +32,7 @@
 		- result[0].each do |key, value|
 			.col-xs-2.col-sm-2.col-md-2{class: "#{colors[i]} monthly_arrow_head arrow_head cursor_goes_here", data: {point_to: "monthly_#{colors[i]}"}}
 				%span
-					= key.name
+					= key
 			- i += 1
 			- total_yes += value[:total_yes]
 			- total_no += value[:total_no]
@@ -58,8 +60,8 @@
 			%h3
 				Total de votos: #{value[:total_yes] + value[:total_no]}
 				- total = value[:total_yes] + value[:total_no]
-			%h3.clickable{class: "cursor_goes_here", data: {point_to: "#{key.name.strip}"}}
-				#{key.name} (ver detalle)
+			%h3.clickable{class: "cursor_goes_here", data: {point_to: "#{key}"}}
+				#{key} (ver detalle)
 			.horizontal_bar_container
 				%h3{style: "color: #FF0000"}
 					SI
@@ -78,9 +80,9 @@
 		- i += 1
 	- new_colors = %w(gray blue red)
 	- result[0].each do |key, value|		
-		.col-md-offset-1.col-md-10.daily_sub_category_value{id: "#{key.name.strip}"}	
+		.col-md-offset-1.col-md-10.daily_sub_category_value{id: "#{key}"}	
 			%h2
-				= "#{key.name.strip} (#{value[:total_yes] + value[:total_no]} votos registrados)"
+				= "#{key} (#{value[:total_yes] + value[:total_no]} votos registrados)"
 			- value[:questions].each do |question|
 				.question
 					%h3

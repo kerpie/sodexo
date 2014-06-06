@@ -17,6 +17,7 @@
 				.form-group
 					.col-md-12
 						= text_field_tag "date_for_survey", "", class: "form-control", placeholder: "Elija la fecha a consultar", data: {placement: "top"}
+			= hidden_field_tag "asks_for_pdf", false
 
 - content_for :scripts do 
 	:javascript

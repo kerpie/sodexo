@@ -21,6 +21,7 @@
 				.form-group
 					.col-md-12
 						= select_tag "year", options_for_select(%w(2014 2015 2016)), class: "form-control"
+			= hidden_field_tag "asks_for_pdf", false
 			.col-md-3.col-sm-4.col-xs-12
 				.form-group
 					.col-md-12

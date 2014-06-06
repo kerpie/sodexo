@@ -51,6 +51,8 @@
 			- result[:months].each do |month_number|
 				= hidden_field_tag "month[]", month_number
 			= hidden_field_tag "year", result[:year]
+			= hidden_field_tag "asks_for_pdf", true
+			= hidden_field_tag "raw_pdf", result.to_s
 			= submit_tag "Descargar reporte en pdf", class: "btn btn-default submit_pdf_button"
 
 	#monthly_summary.col-md-offset-1.col-md-10{data: {yes_values: "#{month_yes_values}", no_values: "#{month_no_values}", months: "#{months_names}"}}

@@ -8,12 +8,14 @@ class Survey < ActiveRecord::Base
 		hash = {}
 		subs = SubCategory.first(3)
 		more_subs = SubCategory.last(2)
+		restaurant = Restaurant.find(restaurant_id)
 		time = Time.strptime(date, '%d/%m/%Y')
 		survey = where("restaurant_id = ? AND created_at >= ? AND created_at <= ?", restaurant_id, time.beginning_of_day, time.end_of_day).first
 		status = false
 
 		extra_data = {}
-		extra_data[:restaurant] = Restaurant.find(restaurant_id)
+		extra_data[:restaurant_name] = restaurant.name
+		extra_data[:restaurant_id] = restaurant.id
 		extra_data[:date] = date
 
 		unless survey.nil?
@@ -52,7 +54,7 @@ class Survey < ActiveRecord::Base
 					tmp_hash[:total_no] = total_no
 					tmp_hash[:questions] = new_array
 				end
-				hash[sub] = tmp_hash
+				hash[sub.name.strip] = tmp_hash
 			end
 		end
 
@@ -71,7 +73,8 @@ class Survey < ActiveRecord::Base
 		more_subs = SubCategory.last(2)
 
 		extra_data = {}
-		extra_data[:restaurant] = restaurant
+		extra_data[:restaurant_name] = restaurant.name
+		extra_data[:restaurant_id] = restaurant.id
 		extra_data[:start_date] = start_date
 		extra_data[:end_date] = end_date
 
@@ -130,7 +133,7 @@ class Survey < ActiveRecord::Base
 				final_hash[:total_no] = total_no
 				final_hash[:questions] = array_with_results
 
-				hash[sub] = final_hash
+				hash[sub.name.strip] = final_hash
 			end
 		end
 
@@ -360,7 +363,7 @@ class Survey < ActiveRecord::Base
 				sub_category_result << {question: question.title, yes: total_yes_per_question, no: total_no_per_question}
 			end
 
-			response[sub] = {questions: sub_category_result, total_yes: total_yes_per_sub_category, total_no: total_no_per_sub_category}
+			response[sub.name.strip] = {questions: sub_category_result, total_yes: total_yes_per_sub_category, total_no: total_no_per_sub_category}
 		end
 		[response,{start_date: start_date, end_date: end_date}]
 	end
