@@ -17,6 +17,7 @@
 				.form-group
 					.col-md-12
 						= text_field_tag "end_date", "", class: "form-control", placeholder: "Fecha final", data: {placement: "top"}
+			= hidden_field_tag :asks_for_pdf, false
 
 - content_for :scripts do 
 	:javascript
