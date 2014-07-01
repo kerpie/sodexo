@@ -49,4 +49,18 @@ class Restaurant < ActiveRecord::Base
 
 	end
 
+	def add_to_proper_users
+		UserType.find(3).users.each do |u|
+			u.restaurants << Restaurant.find(id)
+		end
+		UserType.find(4).users.each do |u|
+			u.restaurants << Restaurant.find(id)
+		end
+	end
+
+	def destroy_from_proper_users
+		Authorization.where(restaurant_id: id).each do |r|
+			r.destroy
+		end
+	end
 end
