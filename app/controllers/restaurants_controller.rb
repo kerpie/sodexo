@@ -28,6 +28,7 @@ class RestaurantsController < ApplicationController
 
     respond_to do |format|
       if @restaurant.save
+        @restaurant.add_to_proper_users
         format.html { redirect_to @restaurant, notice: 'Restaurant was successfully created.' }
         format.json { render action: 'show', status: :created, location: @restaurant }
       else
@@ -56,6 +57,7 @@ class RestaurantsController < ApplicationController
   def destroy
     @restaurant.destroy
     respond_to do |format|
+      @restaurant.destroy_from_proper_users
       format.html { redirect_to restaurants_url }
       format.json { head :no_content }
     end
