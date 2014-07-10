@@ -9,7 +9,7 @@
 	= f.password_field :password, class: "form-control", placeholder: "Contraseña"
 	= f.password_field :password_confirmation, class: "form-control", placeholder: "Confirmación de contraseña"
 
-	= f.collection_select :user_type_id, UserType.all, :id, :name, { prompt: "Elija un tipo de usuario"}, {class: "form-control"}
+	= f.collection_select :user_type_id, UserType.first(3), :id, :name, { prompt: "Elija un tipo de usuario"}, {class: "form-control"}
 	= select_tag "restaurant_id_for_user", options_from_collection_for_select(Restaurant.all, :id, :name), prompt: "Asigne un local", class: "form-control", style: "display: none;"
 	= f.submit "Registrarse", class: "btn btn-lg btn-primary btn-block"
 
