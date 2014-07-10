@@ -50,11 +50,11 @@ class Restaurant < ActiveRecord::Base
 	end
 
 	def add_to_proper_users
-		UserType.find(3).users.each do |u|
-			u.restaurants << Restaurant.find(id)
-		end
-		UserType.find(4).users.each do |u|
-			u.restaurants << Restaurant.find(id)
+		types = [2,3,4]
+		types.each do |type_id|
+			UserType.find(type_id).users.each do |u|
+				u.restaurants << Restaurant.find(id)
+			end
 		end
 	end
 
