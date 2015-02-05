@@ -1,7 +1,7 @@
 class Question < ActiveRecord::Base
 
 	belongs_to :sub_category
-	has_many :availabilities
+	has_many :availabilities, dependent: :destroy
 	has_many :restaurants, through: :availabilities
 	has_many :alternatives
 

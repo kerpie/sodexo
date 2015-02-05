@@ -26,14 +26,18 @@ class Survey < ActiveRecord::Base
 				total_no = 0
 				array = []
 				survey.choosen_questions.each do |cq|
-					if cq.availability.question.sub_category == sub
-						array << cq
+					unless cq.availability.nil?
+						if cq.availability.question.sub_category == sub
+							array << cq
+						end
 					end
 				end
 				more_subs.each do |another_sub|
 					survey.choosen_questions.each do |cq|
-						if cq.availability.question.sub_category == another_sub
-							array << cq
+						unless cq.availability.nil?
+							if cq.availability.question.sub_category == another_sub
+								array << cq
+							end
 						end
 					end
 				end
@@ -101,7 +105,9 @@ class Survey < ActiveRecord::Base
 					tmp_hash = {}
 					surveys.each do |survey|
 						survey.choosen_questions.each do |cq|
-							array_with_matched_question << cq if cq.availability.question == ql
+							unless cq.availability.nil?
+								array_with_matched_question << cq if cq.availability.question == ql
+							end
 						end
 					end
 
@@ -227,14 +233,18 @@ class Survey < ActiveRecord::Base
 					subs.each do |sub|
 						array = []
 						survey.choosen_questions.each do |cq|
-							if cq.availability.question.sub_category == sub
-								array << cq
+							unless cq.availability.nil?
+								if cq.availability.question.sub_category == sub
+									array << cq
+								end
 							end
 						end
 						more_subs.each do |another_sub|
 							survey.choosen_questions.each do |cq|
-								if cq.availability.question.sub_category == another_sub
-									array << cq
+								unless cq.availability.nil?
+									if cq.availability.question.sub_category == another_sub
+										array << cq
+									end
 								end
 							end
 						end
@@ -336,9 +346,11 @@ class Survey < ActiveRecord::Base
 
 				surveys.each do |survey|
 					survey.choosen_questions.each do |cq|
-						if cq.availability.question == question
-							matching_choosen_questions << cq 
-							break
+						unless cq.availability.nil?
+							if cq.availability.question == question
+								matching_choosen_questions << cq 
+								break
+							end
 						end
 					end
 				end

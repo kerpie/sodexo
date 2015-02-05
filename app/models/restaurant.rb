@@ -1,6 +1,6 @@
 class Restaurant < ActiveRecord::Base
 
-	has_many :availabilities
+	has_many :availabilities, dependent: :destroy
 	has_many :questions, through: :availabilities
 	has_many :surveys
 
