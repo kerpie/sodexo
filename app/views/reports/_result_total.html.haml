@@ -45,13 +45,22 @@
 			%h3{style: "color: #FF0000;"}
 				SI
 			.horizontal_bar
-				- value = (total_yes*100/total.to_f).round
+				- logger.debug "total_yes: #{total_yes}"
+				- logger.debug "total_no: #{total_no}"
+				- logger.debug "total: #{total}"
+				- if (total_yes + total_no) == 0
+					- value = 0
+				- else
+					- value = (total_yes*100/total.to_f).round
 				%p#total_yes{style: "width: #{value}%"}
 					#{value}%
 			%h3{style: "color: #2A295C"}
 				NO
 			.horizontal_bar
-				- value = (total_no*100/total.to_f).round
+				- if (total_yes + total_no) == 0
+					- value = 0
+				- else
+					- value = (total_no*100/total.to_f).round
 				%p#total_no{style: "width: #{value}%"}
 					#{value}%
 	- i = 0

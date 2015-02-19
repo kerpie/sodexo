@@ -311,10 +311,8 @@ class Survey < ActiveRecord::Base
 		subs = SubCategory.first(3)
 		more_subs = SubCategory.last(2)
 
-		subs = SubCategory.first(3)
-		more_subs = SubCategory.last(2)
-
 		surveys = Survey.where("created_at >= ? and created_at <= ?", start_time.in_time_zone.beginning_of_day, end_time.in_time_zone.end_of_day)
+		logger.debug "surveys quantity: #{surveys.count}"
 
 		response = []
 		

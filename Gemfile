@@ -31,6 +31,7 @@ end
 
 group :development do 
 	gem 'mysql2'
+	gem 'rails-erd'
 end
 
 group :test do
