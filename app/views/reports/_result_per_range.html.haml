@@ -49,7 +49,7 @@
 										- if total == 0
 											0
 										- else
-											#{value[:total_no]*100/total}
+											#{(value[:total_no]*100/total.to_f).round}
 									%span
 										\%
 							- else
@@ -58,7 +58,7 @@
 										- if total == 0
 											0
 										- else
-											#{value[:total_no]*100/total}
+											#{(value[:total_no]*100/total.to_f).round}
 									%span
 										\%
 						%h3
@@ -72,7 +72,7 @@
 										- if total == 0
 											0
 										- else
-											#{value[:total_yes]*100/total}
+											#{(value[:total_yes]*100/total.to_f).round}
 									%span
 										\%
 							- else
@@ -81,7 +81,7 @@
 										- if total == 0
 											0
 										- else
-											#{value[:total_yes]*100/total}
+											#{(value[:total_yes]*100/total.to_f).round}
 									%span
 										\%
 						%h3
